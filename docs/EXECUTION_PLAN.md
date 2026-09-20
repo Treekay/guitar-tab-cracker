@@ -4,7 +4,7 @@
 
 Preserve the accepted 10-screenshot / 26-measure / 2-page result. No V1 polish.
 
-## V2 CORE COMPLETE — local raw-video acceptance passed
+## V2 COMPLETE — local raw-video acceptance passed
 
 The user supplied a raw local video. Codex chose all timestamps and crops,
 reconciled overlap, revisited gaps/obstructed candidates, exported the ordered
@@ -45,11 +45,11 @@ then request local input if tools/access prevent acquisition. After final QA,
 remove only exact run-owned temporary video/partial-download files. Preserve
 user originals, outputs and provenance; record cleanup status.
 
-## V3 ACTIVE
+## V3 STRUCTURED SCORE PASS
 
 Source-faithful ordered measures → structured music → Guitar Pro. The multimodal
 model consumes the actual source style directly, without monochrome preparation.
-V1 COMPLETE / V2 CORE COMPLETE / V3 ACTIVE. Do not implement V3 in this cleanup.
+V1 COMPLETE / V2 COMPLETE / V3 STRUCTURED SCORE PASS. V3 GUITAR PRO EXPORT NEXT; do not mark all of V3 complete.
 URL acquisition remains unvalidated but does not block V3.
 
 ## Current V2 output policy
@@ -91,4 +91,18 @@ Every source/output pair, difficult enlarged examples, full score sections, thre
 page PNGs and all actual PDF pages were inspected. This validates one light-background
 scrolling video only. See [normalization evidence](../acceptance/V2_NORMALIZATION.md).
 Preserve these artifacts and the Una Mattina test evidence. New runs do not repeat
-normalization. Stop after the source-faithful cleanup and commit; no V3 work.
+normalization. The historical cleanup is complete; V3 phase 1 is described above.
+
+## Structured-score execution evidence
+
+- All 45 accepted Una Mattina units visually transcribed and independently
+  reopened: 628 events, 692 note records, two repeat regions, two pairs of
+  alternate endings, 14 ties, seven descending slides and the opening harmonic.
+- Canonical schema, assembler, exact-fraction validator and readable QA report
+  implemented. No recognition code, normalization or Guitar Pro output.
+- Zero rhythmic warnings. One first-ending slide destination remains unknown.
+  All three full-score sections were globally rechecked after assembly.
+- Yuki no Hana printed 1, 16, 29, 30 are a limited second-style sample covering
+  chords, H/P, triplets, slides/slurs and outgoing sample-boundary ties.
+- V1/V2 artifacts are unchanged. Deterministic tests are separate from visual
+  acceptance; see [acceptance](../acceptance/V3_STRUCTURED_SCORE.md).

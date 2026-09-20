@@ -3,8 +3,9 @@
 Private Codex-first workflow. Invoke [$guitar-tab-cracker](.agents/skills/guitar-tab-cracker/SKILL.md).
 
 - **V1 COMPLETE:** screenshots → ordered measures → reconstructed visual score.
-- **V2 CORE COMPLETE:** video / accessible URL → ordered clean measure set → visual score.
-- **V3 ACTIVE:** ordered clean measure set → structured music data → Guitar Pro.
+- **V2 COMPLETE:** video / accessible URL → ordered clean measure set → visual score.
+- **V3 STRUCTURED SCORE PASS:** ordered measures → canonical written score JSON.
+- **V3 GUITAR PRO EXPORT NEXT:** export is not implemented in this phase.
 
 Provide one local video or accessible URL and ask **Convert this guitar-tab
 video.** Codex chooses inspection timestamps, extracts frames, revisits gaps,
@@ -35,8 +36,8 @@ remain in this run. The user-owned original video is unchanged.
 
 Local-video reconstruction is validated on the original light-background video
 and the translucent Una Mattina fixture. This is not a universal robustness claim.
-URL/Xiazaitool acquisition remains unvalidated. V1 COMPLETE; V2 CORE COMPLETE;
-V3 ACTIVE. This cleanup does not implement transcription or Guitar Pro export.
+URL/Xiazaitool acquisition remains unvalidated. V1 COMPLETE; V2 COMPLETE;
+V3 STRUCTURED SCORE PASS. Structured-score phase 1 passes; Guitar Pro export is next.
 
 Codex makes every visual decision. Helpers execute explicit timestamps, crops,
 order, scales and placements; they never detect notation or infer layout.
@@ -78,7 +79,7 @@ validated; residual source overlays are documented. See
 Read [requirements](docs/PRODUCT_REQUIREMENTS.md) and
 [execution plan](docs/EXECUTION_PLAN.md). Implementation and evidence remain
 private. A future hosted runtime would use a multimodal agent with controlled
-tools; no hosted application or musical transcription is implemented here.
+tools; no hosted application is implemented here. Codex now performs local V3 transcription visually.
 
 The [V2 handoff regression](acceptance/V2_HARDENING.md) confirms unchanged
 measure images, metadata and score order after generic PDF export.
@@ -90,3 +91,17 @@ The [Una Mattina test](acceptance/V2_UNA_MATTINA.md) reconstructs 45 units from
 translucent notation over moving footage, with 3 checked PDF pages. Whitening did
 not pass; source pixels were retained. This motivated the source-faithful policy.
 [Test outputs](runs/v2-una-mattina/result/).
+
+## V3 structured score
+
+All 45 accepted Una Mattina units have two-pass visual transcription: 628 events,
+692 note records, two repeat regions and first/second endings. Validation passes
+with no rhythmic warnings. One slide destination remains explicitly unresolved.
+Four difficult Yuki no Hana measures are a separate limited sample.
+
+- [Canonical score](runs/v2-una-mattina/result/v3/score.json)
+- [Transcription report](runs/v2-una-mattina/result/v3/TRANSCRIPTION_REPORT.md)
+- [Schema and tool usage](docs/STRUCTURED_SCORE.md)
+- [Phase 1 acceptance](acceptance/V3_STRUCTURED_SCORE.md)
+
+No OCR/OMR, normalization, metadata web search or Guitar Pro export is involved.

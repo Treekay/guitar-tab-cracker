@@ -1,6 +1,6 @@
 ---
 name: guitar-tab-cracker
-description: Autonomously reconstruct guitar-tab videos, accessible video URLs, or overlapping screenshots into ordered source-faithful measure images and a source-faithful visual score with A4 PNG/PDF. No musical transcription or Guitar Pro export.
+description: Autonomously reconstruct guitar-tab videos, accessible video URLs, or overlapping screenshots into ordered source-faithful measure images and a source-faithful visual score with A4 PNG/PDF. V3 visually transcribes accepted V2 measures into canonical structured music; no OCR/OMR or Guitar Pro export yet.
 ---
 
 # Guitar Tab Cracker
@@ -15,9 +15,9 @@ order and presentation decisions.
 No string/fret, rhythm, technique, chord or other musical transcription in V2.
 
 Read docs/PRODUCT_REQUIREMENTS.md and docs/EXECUTION_PLAN.md before scope or
-architecture changes. **V1 COMPLETE; V2 CORE COMPLETE; V3 ACTIVE.** Preserve V1 without
-further polish. V2 exports selected source crops directly; this cleanup stops
-at verification and commit without implementing V3. Keep evidence private.
+architecture changes. **V1 COMPLETE; V2 COMPLETE; V3 STRUCTURED SCORE PASS.** Preserve V1 without
+further polish. V2 exports selected source crops directly. V3 phase 1 ends at
+canonical structured JSON; Guitar Pro export is next. Keep evidence private.
 Local-video reconstruction is validated on the light-background and translucent
 fixtures. URL acquisition is supported but unvalidated; no universal robustness
 claim. Normalization is only an optional future presentation enhancement, never
@@ -207,7 +207,7 @@ readable score/PDF and a clean ordered set suitable for V3. Prefer two video
 styles before claiming public robustness. For mechanical export changes, reuse
 the accepted selections and frames; do not repeat video reconstruction unless
 changed mechanics or evidence require it. Review affected crops and regenerated
-artifact against source evidence. Preserve accepted runs unchanged. Core acceptance and final hardening are complete; current status is V2 CORE COMPLETE / V3 ACTIVE. Further visual
+artifact against source evidence. Preserve accepted runs unchanged. Core acceptance and final hardening are complete; current status is V2 COMPLETE / V3 STRUCTURED SCORE PASS. Further visual
 beautification is not a prerequisite to the structured-music stage.
 
 On failure classify insufficient survey, fast transition, incomplete gap audit,
@@ -243,9 +243,44 @@ Never embed fixture timestamps/answers in this skill or redesign as CV/OMR.
    Recheck changed inputs before declaring gaps. Ask for more source only when
    genuinely necessary, not for routine coordinates or ordering.
 
-## V3 ACTIVE — handoff boundary
+## V3 structured written score — Guitar Pro export next
 
 Source-faithful ordered measure images → visual transcription → structured music →
 independent alphaTab/MusicXML/Guitar Pro export tools. A future hosted runtime
 may use a multimodal API agent with controlled tools. V3 handles the actual source
 style without normalization. These stages are outside V2.
+
+
+Read docs/STRUCTURED_SCORE.md and schema/score.schema.json. Use accepted complete
+ordered V2 measures directly. Codex is the recognizer: no OCR/OMR, fret/rhythm
+detectors or visual parsing algorithms. Do not fetch music metadata. Revisit
+source frames only if an individual crop is insufficient.
+
+For every measure, open the image at readable resolution and explicitly record
+written structure, chronological events, durations, dots/tuplets/rests,
+simultaneous notes, strings/frets, parentheses, techniques and boundary context.
+String 1 is top/highest, 6 bottom/lowest. Use stems/flags/beams, never spacing
+alone. Write v3/measures/NNN.json. Independently reopen every image and audit
+every event for omissions/duplicates, wrong strings/digits, merged/split chords,
+rhythms, technique relations, repeats and endings before marking pass2 inspected.
+
+Represent written order, not repeat playback. Preserve endings; unknown repeat
+counts stay null. Use explicit cross-measure references. Context outside the core
+is not another event. A tied continuation without a reprinted fret retains its
+written duration and incoming tie, not a new attack. Parentheses alone do not
+imply ghost articulation. Unknown metadata stays null.
+
+Mark ambiguity with confidence, uncertainty and root unresolved records. Helpers
+may merge JSON, validate schema/references/coverage/repeats and calculate dotted
+and tuplet totals; they must not infer music. A mismatch requires image review,
+never a duration edit merely to fit. Genuine ambiguity may remain explicit.
+
+Assemble result/v3/score.json from finalized records in exact V2 written order.
+Export schema/score.schema.json, validation.json and TRANSCRIPTION_REPORT.md.
+Include difficult source images, JSON links, readable event tables, counts,
+repeats/endings, techniques, warnings and uncertain items. Globally recheck
+coverage/order, opening metadata, final bar and cross-boundary notation after
+assembly. Test validation separately; synthetic tests do not prove visual accuracy.
+Preserve V1/V2 artifacts. Label limited second-style samples explicitly and record
+relations into unsampled measures. Never embed fixture answers in this skill.
+Structured-score phase 1 passes; Guitar Pro export is next, not all of V3 complete.

@@ -1,6 +1,6 @@
 # Guitar Tab Cracker — Product Requirements
 
-**V1 COMPLETE · V2 CORE COMPLETE · V3 ACTIVE**
+**V1 COMPLETE · V2 COMPLETE · V3 STRUCTURED SCORE PASS**
 
 ## Core model
 
@@ -18,7 +18,7 @@ The existing [acceptance](../acceptance/V1_ACCEPTANCE.md) covers 10 screenshots,
 26 logical measures and 2 A4 pages. Unseen-set reliability is not established.
 Preserve this result and workflow; do not spend V2 effort polishing V1.
 
-## V2 CORE COMPLETE
+## V2 COMPLETE
 
 Input is only one local raw guitar-tab video or an accessible video URL.
 Users provide no screenshots, timestamps, sampling rate, ROI, crop coordinates,
@@ -144,12 +144,34 @@ dirty source selection, access failure or helper failure. Improve general skill
 or mechanical tools and repeat; never embed fixture timestamps/answers in the
 skill or replace visual reasoning with CV.
 
-## V3 ACTIVE
+## V3 STRUCTURED SCORE PASS
 
 Source-faithful ordered measure images → structured music → Guitar Pro.
 V3 consumes measures/ directly; the multimodal model must handle the actual
 visual source style. There is no monochrome normalization prerequisite.
-This cleanup stops at the V2 handoff and does not implement V3. Local-video V2
+V3 phase 1 ends at canonical score.json; Guitar Pro export is next. Local-video V2
 is validated on the tested fixtures; URL acquisition is supported in the workflow
 but unvalidated. A future hosted runtime may use a multimodal API agent with
 controlled tools; no hosting or application framework is required for V2.
+
+### V3 phase 1 contract
+
+Codex reads every accepted V2 measure twice and records the written score without
+OCR/OMR or music detectors. Strings are top/highest 1 to bottom/lowest 6. Preserve
+durations, dots, tuplets, rests, simultaneous notes, fret/string, parentheses,
+visible techniques, ties/slurs, repeats/endings, pickup state and visible changes.
+Adjacent context introduces no extra events. Unknown metadata remains null;
+ambiguities carry confidence, uncertainty and root unresolved records.
+
+Required result/v3/ outputs: schema/score.schema.json, all per-measure JSON files,
+score.json, validation.json and TRANSCRIPTION_REPORT.md with difficult source
+images, JSON links and readable event tables. Helpers only merge explicit data,
+validate structure/references/coverage and calculate exact fractional rhythms.
+A mismatch requires image review, never arithmetic editing to force a fit.
+
+Phase 1 acceptance requires every written unit exactly once, both visual passes,
+global visual audit, coherent repeats/endings and cross-boundary relations,
+deterministic validation and explicit ambiguity. Una Mattina passes with 45 units
+and one unknown slide target. Four difficult Yuki no Hana units test another
+style; they do not claim full-song coverage. See [schema](STRUCTURED_SCORE.md)
+and [acceptance](../acceptance/V3_STRUCTURED_SCORE.md). Guitar Pro export is next.
