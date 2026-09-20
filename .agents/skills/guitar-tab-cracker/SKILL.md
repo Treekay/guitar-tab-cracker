@@ -1,111 +1,226 @@
 ---
 name: guitar-tab-cracker
-description: Autonomously reconstruct overlapping guitar-tab screenshots into a source-faithful full score image and printable A4 PNG/PDF using Codex visual reasoning. Use for screenshot reconstruction; video and structured/Guitar Pro output are separate future stages.
+description: Autonomously reconstruct guitar-tab videos, accessible video URLs, or overlapping screenshots into ordered clean measure images and a source-faithful visual score with A4 PNG/PDF. No musical transcription or Guitar Pro export.
 ---
 
 # Guitar Tab Cracker
 
-Codex is the visual agent and executor. Users supply images only. You decide
-boundaries, identities, order, source selection and page breaks. Tools execute
-explicit decisions. Do not build/invoke a CV detector, matching/ordering
-algorithm, ROI application or automatic score-layout interpreter. No musical
-transcription in V1.
+Codex is the visual agent and workflow executor. Users provide only a video,
+accessible URL or screenshots. Codex decides timestamps, score regions,
+boundaries, identities, duplicates, order, source selection and page breaks.
+Tools execute explicit decisions. Never build/invoke CV, OCR, morphology,
+projection, matching/ordering algorithms or automatic score-layout interpreters.
+No string/fret, rhythm, technique, chord or other musical transcription in V2.
 
-In this repository read docs/PRODUCT_REQUIREMENTS.md and docs/EXECUTION_PLAN.md
-before scope/architecture changes. V1 is active; do not start video/Guitar Pro
-work without an explicit version advance. Keep implementation/evidence private.
+Read docs/PRODUCT_REQUIREMENTS.md and docs/EXECUTION_PLAN.md before scope or
+architecture changes. **V1 COMPLETE; V2 COMPLETE; V3 NEXT (not started).** Preserve V1 without
+further polish. Do not begin V3 automatically. Keep implementation/evidence private.
+Users never supply timestamps, sampling rates, ROI, coordinates, measure labels,
+duplicate relationships, order or page breaks.
 
-## 1. Inventory
+## V2 — video to ordered clean measures
 
-Find all source images, preserving original bytes and names. Recheck the actual
-file set, not just historical benchmark counts. Use temporary/result workspaces
-for derivatives. Mechanical file/dimension listing is fine; filename order is
-not score order. Do not require user labels or ROI.
+### Phase 1 — Acquire video
 
-## 2. Visual inspection
+Inspect local input directly. For URLs determine whether available tools can
+access/download without bypassing login, DRM, paywalls or access restrictions.
+If direct acquisition fails, use the user-selected fallback
+https://www.xiazaitool.com/: paste the public video URL into its input, select
+解析链接, then download the available video using the normal interface. Use
+available browser tools; do not claim to submit a form if only page reading is
+available. This fallback is authorized for future video conversions in this
+project without asking again. Reconstruction remains website-independent.
+If the service fails, cannot be operated with available tools or requires
+unavailable access, state the concrete blocker and ask for a local file. Do not
+bypass login, DRM, paywalls or access restrictions via the fallback.
 
-Open every image. Identify TAB region, visible barlines/measures/numbers,
-partial left/right regions, cursor/UI overlays and clean alternatives. Enlarge
-explicit regions when needed; coordinate grids can help select precise pixels.
-Inspect above/below the strings for stems/beams, ties, techniques, repeats and
-opening annotations. Record visual evidence and uncertainty, not musical events.
+Keep downloaded bytes unchanged throughout processing. Put downloads in a
+run-specific temporary directory; record source URL, acquisition method, local
+path, hash and exact run-owned download/partial-download paths in
+result/source/source.json. Never fabricate video from screenshots.
 
-## 3. Candidate extraction
+### Phase 2 — Video inventory
 
-Choose boxes visually; execute explicit pixel crops. Retain every useful
-complete/partial candidate with source, bbox, identity evidence and boundary
-state (complete, partial_left, partial_right, partial_both). Never infer crop
-boundaries with morphology, projection, OCR or another application algorithm.
+Inspect duration, resolution, approximate frame rate and general structure.
+Open a small representative frame set. Establish actual behavior: scrolling,
+page replacement, fixed score/moving playhead, multiple visible measures,
+changing zoom/position or combinations. Do not assume one behavior.
+tools/extract_frames.py probe provides mechanical metadata; use --help.
 
-## 4. Cross-image reconciliation
+### Phase 3 — Coarse visual survey
 
-Compare candidates visually. Decide which are the same logical measure, which
-are distinct repeated passages, and which partials have complete alternatives.
-Printed numbers help but are not required. Never substitute a later repetition
-for an unavailable measure. Preserve ambiguous alternatives.
+Choose several timestamps across the video; extract with ffmpeg or
+tools/extract_frames.py frames. Open frames, using contact sheets if useful.
+Visually estimate change speed, visible measures, overlap and transitions to
+decide where to inspect next. This is not fixed sampling or proof of coverage.
 
-## 5. Global ordering
+### Phase 4 — Adaptive frame collection
 
-Keep concise agent-authored notes/ledger: each logical measure, supporting
-sources, partials accounted for, ordering evidence, selected source and uncertainty.
-This is working evidence, not an application manifest pipeline or required schema.
-Verify every visible measure is represented once, overlaps reconcile, partials
-are retained or linked to better sources, and the sequence is coherent. Check
-numbering jumps; an unlabeled edge does not prove its missing contents.
+Dynamically choose timestamps: sparse for slow changes, dense for fast changes,
+nearby additional frames at unclear transitions. Seek every logical occurrence
+at least once, preferably repeatedly. For playheads, cursors, highlights, blur
+or overlays, search before/after for clean views. Do not settle for a dirty
+source if a cleaner observation can reasonably be found. Keep useful frames
+in result/frames/. Tools never choose timestamps or detect content changes.
 
-If coverage is incomplete, finish resolvable work, show explicit gap/partial
-labels and explain the additional source needed. Do not imply an incomplete
-set yielded a complete song. Recheck new/changed inputs before declaring gaps.
+### Phase 5 — Working coverage ledger
 
-## 6. Final source selection
+Maintain working/coverage.md or .json with operational facts: source frame and
+timestamp, visible logical occurrences, partials, newly observed content,
+duplicate observations, suspicious intervals, preferred sources and unresolved
+gaps. Distinguish actually inspected from merely extracted frames; track extra
+gap-recovery inspections. No chain-of-thought or user-maintained state.
 
-Prefer complete, sharp, unobstructed, high-resolution views with minimal cursor
-interference. Preserve notation and boundary context. Combining complementary
-views requires visually established identity/alignment and review of the join.
-Never invent notation to paint over an overlay.
+### Phase 6 — Extract measure candidates
 
-## 7. Compose full score
+Visually choose every useful complete/partial box and mechanically crop into
+working/candidates/. Record box, frame/timestamp, identity evidence and boundary
+state (complete, partial_left, partial_right, partial_both).
+Preserve all six TAB lines, stems/beams, techniques above/below, ties/slurs,
+opening annotations and useful boundaries. Avoid excessive scenery; never crop
+meaningful notation. Enlarge explicit regions when needed.
 
-Mechanically resize to your chosen scale, align staff bands and place crops in
-your explicit order. Preserve aspect ratio and markings. Keep original color
-crops unless a visually verified tonal change improves printing without losses.
+### Phase 7 — Cross-frame reconciliation
 
-Create a small helper only for repeatedly useful mechanical work. It consumes
-explicit crops/order/scale/placements; it must not decide them. This repository's
-tools/compose.py is mechanical. benchmark/decisions.json is one run's evidence,
-never a template for another song's visual decisions.
+Visually determine identity, partial versus complete, continuity, global order
+and preferred sources. Printed numbers help but are optional. Use chronology
+and neighboring context to distinguish repeated musical occurrences from
+duplicate observations. Never collapse occurrences merely because they look
+alike, or substitute a later repetition for missing material. Preserve ambiguous
+alternatives and account for each useful partial.
 
-## 8. A4 layout
+### Phase 8 — Build final logical measure set
 
-Default to portrait with sensible margins and readable, consistent scale.
-Choose row groups and page placements visually. Never split a measure; preserve
-cross-boundary annotations/ties. Arithmetic executing selected placements is
-allowed, automatic musical layout decisions are not.
+The PRIMARY product is result/measures/001.png, 002.png, ...: exactly one
+cleanest practical selected crop per logical occurrence, stable crops in global
+order, without silent omissions or accidental duplication. Preserve notation
+and boundary context. Combining complementary observations requires visually
+established identity/alignment and review of the join. Never invent pixels to
+erase obscuring overlays.
 
-## 9. Export
+Write result/measures.json as an ordered array of operational records:
+sequence_index, printed_measure_number (nullable), source_timestamp in seconds,
+source_frame, output (e.g. measures/001.png), confidence and uncertainty.
+When boundary context extends beyond a logical measure, record core_bbox_in_output
+and context extents explicitly; compose cores only to avoid repeated notation.
+Retain crop boxes; for composites list every contributing frame/timestamp,
+box and placement. No musical transcription. Unknown numbers stay null.
+Partial/gap status must remain explicit, not presented as complete recovery.
 
-Produce result/full_score.png, result/page_001.png (and subsequent pages) and
-result/full_score.pdf. Optionally retain measures/, inspection/, the decision
-ledger and coverage report. PDF pages must have actual A4 dimensions.
+### Phase 9 — Explicit gap audit
 
-## 10. Final visual QA
+Before composition inspect unobserved transitions, briefly visible content,
+beginning, ending, unmatched partials and similar-looking separate occurrences.
+For EVERY suspicious interval return to the video, extract additional chosen
+frames and inspect again. Do not finalize until coverage is reasonably complete.
+If true source gaps cannot be resolved, finish available work with explicit
+gap/partial labels in output and report, and state what additional source is
+needed. Incomplete source recovery does not pass the completion gate.
 
-Open the full score at readable scale (sections for a long strip), every page
-PNG and rendered pages of the actual PDF. Compare against all sources again:
-omissions, duplicates, order, fragments, clipped markings, wrong crops, poor row
-breaks, unreadable scale and overlays. Correct decisions and regenerate; do not
-stop at the first render. File/hash/count/geometry checks supplement visual QA.
+### Phase 10 — Visual score output
 
-Report source count, reconstructed logical-measure count, complete/partial/gap
-coverage, duplicate/omission findings, A4 page count, paths and remaining source
-limitations. Do not ask for coordinates/order/duplicates/page breaks unless
-the source is genuinely impossible to resolve.
+Compose the ordered set into result/full_score.png, multi-line A4 page_001.png
+and subsequent pages, and full_score.pdf. Choose scale, staff alignment, row
+groups and placements visually. Preserve aspect ratio, readable consistent
+scale, sensible margins and cross-boundary annotation context. Never split a
+measure. PDF pages must be actual A4. Content quality exceeds publication polish.
 
-## Later versions
+Use mechanical helpers when they save repeated work. tools/export_visual_score.py
+executes explicit source boxes, context extents, optional agent-chosen pointwise
+tone, order and placements, exporting three-digit images and metadata. Visually
+check any tonal conversion against original color frames; it must not erase
+notation or invent hidden pixels. Tools must never choose these decisions.
+tools/compose.py consumes
+explicit V1 plans with input/ beside the plan; its mNN.png names are not the V2
+contract. When reusing it, explicitly export selected tiles to three-digit V2
+names with provenance, or mechanically compose the already exported ordered
+set. Benchmark decisions are one run's evidence, never another song's template.
+Build each revision in a fresh run directory so stale measure/page files cannot
+remain in the delivered set. Do not invent automatic musical layout logic.
 
-V2 extends this same workflow: inspect video/file URL, choose timestamps, extract
-with ffmpeg, inspect novelty/coverage, return for more frames and perform V1.
-Fixed sampling is not the product. V3 visually transcribes the reconstructed
-score into structured music, then calls independent alphaTab/MusicXML/Guitar
-Pro MCP export tools. A future hosted runtime is a multimodal API agent with
-controlled tools. None of those future stages is part of V1.
+### Phase 11 — Independent video cross-check
+
+After generation return to the original video. Inspect beginning, early,
+middle and late transitions, and ending, using different timestamps where
+useful. Compare with measures/ and full_score.png. Autonomously repair missing
+or duplicated occurrences, incorrect order and poor source selections, then
+regenerate affected outputs and metadata.
+
+### Phase 12 — Final output QA
+
+Open EVERY selected measure, full_score.png at readable scale (sections if
+long), every page PNG and rendered pages of the actual PDF. Verify all logical
+occurrences, no accidental duplicates, order against video, unclipped notation,
+cleanest practical sources, readability and PDF/page agreement. Correct and
+regenerate; successful script execution does not establish visual correctness.
+Hashes, counts and geometry checks supplement mandatory visual inspection.
+
+Write concise result/report.md: source video/URL, duration, frames actually
+inspected, extra gap-recovery frames, logical measure count, unresolved
+fragments/gaps, unavoidable artifacts, duplicate/omission findings, page count,
+final paths and remaining source limitations. No chain-of-thought.
+
+### Post-QA — Download cleanup
+
+After reconstruction and all final visual/video checks are finished, delete the
+video copies downloaded for this run, including partial downloads. This cleanup
+is explicitly user-authorized; do not request permission again. Before deletion,
+resolve each exact path and verify it stays inside this run's temporary download
+directory. Delete individual files, never recursively delete a directory or use
+broad wildcard removal. Never delete user-supplied local originals, frames,
+measure images, scores, PDFs, ledgers or source metadata. Retain URL/hash and mark
+local video as removed, with cleanup status and removed paths in source.json
+and report.md. If interrupted while video is needed to resume, record cleanup
+pending; remove it once processing finishes or the run is abandoned.
+
+## Development and completion
+
+Test from at least one REAL raw guitar-tab video without prepared screenshots
+or user timestamp/crop instructions. If no fixture exists, request a
+representative video while completing independent implementation. Never
+manufacture a video benchmark.
+
+V2 completes only after autonomous evidence collection and gap revisits,
+independent video coverage review, no known duplicate/order/omission errors,
+readable score/PDF and a clean ordered set suitable for V3. Prefer two video
+styles before claiming public robustness. After acceptance update project status
+to V2 COMPLETE / V3 NEXT; do not start V3.
+
+On failure classify insufficient survey, fast transition, incomplete gap audit,
+reconciliation mistake, repeated occurrence confusion, crop, dirty source,
+access or helper failure. Improve general instructions/mechanics and repeat.
+Never embed fixture timestamps/answers in this skill or redesign as CV/OMR.
+
+## Preserved V1 screenshot workflow
+
+1. Recheck all source images, preserving original bytes/names. Filename order
+   is not score order; mechanical inventory/dimensions are allowed.
+2. Open EVERY source. Visually identify TAB regions, numbers, boundaries,
+   partials, overlays and clean alternatives. Inspect above/below the strings.
+3. Choose all useful complete/partial candidate boxes visually, crop mechanically
+   and retain source, box, identity evidence and boundary state.
+4. Reconcile overlaps, distinct repeated occurrences and partial-to-complete
+   alternatives visually. Preserve ambiguities; do not substitute repetitions.
+5. Keep a concise operational ledger of each logical occurrence, supporting
+   sources, partials, order evidence, selection and uncertainty. Audit coverage
+   and numbering jumps; an unlabeled edge does not establish missing contents.
+6. Select sharp, complete, unobstructed sources with minimal overlays. Preserve
+   original color unless visually verified tonal changes improve printing.
+   Composite only established matching views; inspect joins, never invent music.
+7. Execute explicit crop/order/scale/alignment decisions with mechanical tools.
+   Choose A4 portrait row/page breaks visually, preserving annotation context
+   and never splitting measures.
+8. Export full_score.png, page_001.png and subsequent pages, full_score.pdf.
+   Open the full score at readable scale, every PNG page and actual PDF renders;
+   compare against all sources, correct and regenerate.
+9. Report source/logical counts, complete/partial/gap coverage, duplicate and
+   omission findings, page count, paths and source limitations. Finish resolvable
+   work and label genuine gaps; never imply incomplete input yielded a full song.
+   Recheck changed inputs before declaring gaps. Ask for more source only when
+   genuinely necessary, not for routine coordinates or ordering.
+
+## Future V3
+
+Ordered clean measure images → visual transcription → structured music →
+independent alphaTab/MusicXML/Guitar Pro export tools. A future hosted runtime
+may use a multimodal API agent with controlled tools. These stages are outside V2.

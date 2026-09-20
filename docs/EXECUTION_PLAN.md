@@ -1,38 +1,49 @@
 # Execution Plan
 
-## V1 COMPLETE — images → reconstructed printable score.
+## V1 COMPLETE
 
-The [final acceptance](../acceptance/V1_ACCEPTANCE.md) passed on the existing
-10-image benchmark: 26 logical measures, 2 visually verified A4 pages. No unseen
-set was available; broader reliability remains unvalidated. Source limitations
-are documented in the acceptance report. V2 remains not started.
+Preserve the accepted 10-screenshot / 26-measure / 2-page result. No V1 polish.
 
-Build/refine one Codex skill:
+## V2 COMPLETE — local raw-video acceptance passed
 
-images -> complete reconstructed printable score
+The user supplied a raw local video. Codex chose all timestamps and crops,
+reconciled overlap, revisited gaps/obstructed candidates, exported the ordered
+set, returned to the video independently and visually reviewed final outputs.
 
-Codex makes visual decisions and controls mechanical tools. Repeatedly benchmark
-representative image sets, inspect every final page and record coverage and
-uncertainty. V1 is complete when the skill works reliably without manual
-crop/order/duplicate instructions. Genuine source gaps are disclosed, not filled.
+- Source: 209.95 seconds, 986 × 720, approximately 30 fps.
+- 69 inspected frames: 6 initial, 37 adaptive, 13 recovery, 13 second-pass.
+- 57 complete logical occurrences (1–57), no unresolved partials or known
+  omissions/duplicates/order errors.
+- Stable measures/001.png–057.png with source timestamp, crop, confidence,
+  boundary context and core_bbox_in_output metadata.
+- Full score image, 3 A4 landscape page PNGs and PDF; every selected crop and
+  actual PDF page visually reviewed. Embedded PDF pixels equal page PNGs.
+- Original user-owned video remains unchanged; no downloaded video copy exists.
 
-## V2 (not started)
+See [acceptance](../acceptance/V2_ACCEPTANCE.md) and the private
+[result report](../runs/v2-yukinohana/result/report.md). Explicit decisions and
+coverage evidence remain in runs/v2-yukinohana/working/. No CV/OMR or musical
+transcription was implemented. Tools only execute selected timestamps, regions,
+pointwise tone, ordering and placement.
 
-Extend the SAME skill:
+FFmpeg is available from the project temporary imageio-ffmpeg wheel; ReportLab
+and Pillow are in the bundled Python runtime; Poppler rendered the actual PDF.
+The ffprobe-based metadata command remains available when ffprobe is installed;
+this run used FFmpeg's input inventory and the same explicit extraction helper.
 
-video / URL -> agent-chosen frame inspection/extraction -> V1 -> complete score
+## Remaining robustness validation
 
-Codex decides where to look again until coverage is established. V2 is complete
-when the user only supplies a file or link. No fixed-sampling application.
+Validate another genuinely different video style before a public robustness
+claim. The earlier Bilibili URL returned HTTP 412; Xiazaitool is the authorized
+normal-interface fallback but has not passed an acquisition test. Do not equate
+local-file success with proven website compatibility.
 
-## V3 (not started)
+For future URL runs: try direct acquisition, then https://www.xiazaitool.com/,
+then request local input if tools/access prevent acquisition. After final QA,
+remove only exact run-owned temporary video/partial-download files. Preserve
+user originals, outputs and provenance; record cleanup status.
 
-Extend the workflow:
+## V3 NEXT — not started
 
-reconstructed score -> visual transcription -> structured data -> Guitar Pro export
-
-Validate visible musical decisions before export; retain uncertainty.
-
-The current reset ends after repository simplification, rewritten docs/skill,
-a fresh run on all current benchmark images, visual image/PDF QA, a concise
-report and a normal Git commit. Do not start V2 or create traditional-CV milestones.
+Ordered clean measure set → structured music → Guitar Pro. Requires a separate
+explicit advance; V2 completion does not authorize beginning V3.

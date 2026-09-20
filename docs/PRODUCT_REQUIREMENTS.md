@@ -1,91 +1,131 @@
-# Guitar Tab Cracker - Product Requirements
+# Guitar Tab Cracker — Product Requirements
 
-Status: **V1 COMPLETE — images → reconstructed printable score.** Existing-set
-[acceptance](../acceptance/V1_ACCEPTANCE.md) passed; unseen-set reliability is
-not yet validated. V2 and V3 remain not started.
+**V1 COMPLETE · V2 COMPLETE · V3 NEXT (not started)**
 
 ## Core model
 
-Codex is the primary visual agent and executor. Users supply source material;
-Codex makes all visual and workflow decisions and controls mechanical tools.
-This is an agent workflow repository, not a traditional CV application.
+Codex is the visual agent and workflow executor. Tools execute explicit
+decisions; no CV/OMR algorithm decides score location, boundaries, content
+changes, useful timestamps, duplicates, global order, best sources or layout.
+No musical transcription in V1/V2. Preserve notation as pixels without parsing
+string/fret numbers, durations, techniques, chords or other musical semantics.
+Keep implementation and evidence private.
 
-No deterministic application algorithm decides staff/barlines, measure
-boundaries, duplicates, global order, source selection or row breaks. Python,
-Pillow, ImageMagick and PDF tools may crop, resize, place and export explicit
-agent decisions. Helpers must accept decisions, not infer them.
+## V1 COMPLETE
 
-## V1 - Images to printable score
+Multiple screenshots → ordered measures → reconstructed printable score.
+The existing [acceptance](../acceptance/V1_ACCEPTANCE.md) covers 10 screenshots,
+26 logical measures and 2 A4 pages. Unseen-set reliability is not established.
+Preserve this result and workflow; do not spend V2 effort polishing V1.
 
-Input: multiple guitar-tab images only.
+## V2 COMPLETE
 
-Output: result/full_score.png, A4 portrait result/page_001.png and subsequent
-pages, and result/full_score.pdf. Working crops, inspection images and a
-concise coverage/evidence report may be retained.
+Input is only one local raw guitar-tab video or an accessible video URL.
+Users provide no screenshots, timestamps, sampling rate, ROI, crop coordinates,
+measure numbers, duplicate relationships, ordering or page breaks.
 
-Codex opens every image; visually identifies TAB regions, measures, visible
-numbers, clipping and overlays; chooses exact crops; reconciles duplicates;
-orders all measures; selects the best source for each; composes the full score;
-decides A4 row/page breaks; exports; and visually corrects the result against
-every source. The user supplies no ROI, coordinates, numbering, ordering,
-duplicate information or page breaks. Ask for additional source only when
-genuinely necessary, after completing all available independent work.
+Acquire with available tools; preserve supplied source information and keep
+video bytes unchanged during processing. If direct URL acquisition fails, use
+the user's chosen fallback https://www.xiazaitool.com/: paste the public video
+URL, parse it and download the available video through its normal interface.
+This is an acquisition fallback; visual reconstruction remains site-independent.
+Do not bypass login, DRM, paywalls or access restrictions. If the fallback is
+unavailable, fails or needs unavailable access, explain the specific blocker and
+request a local file. Never claim acquisition succeeded without a usable file.
 
-V1 is visual reconstruction, not musical transcription. Preserve visible
-string/fret symbols, rhythm, techniques and chords as pixels, without parsing
-them into musical data.
+Use a run-specific temporary download directory and record exact downloaded
+paths, acquisition method, source URL and file hash. After output generation and
+all final QA passes, delete those downloaded video copies and partial downloads.
+Verify each resolved deletion target belongs to this run's download directory;
+do not recursively delete directories. Never delete user-supplied local originals,
+selected frames, measures, scores, PDFs or provenance records. Record cleanup
+status and removed paths in source metadata and the report. If processing is
+interrupted and video is needed to resume, retain it as temporary working input
+and disclose cleanup pending; clean it when processing finishes or is abandoned.
 
-### Fidelity
+Inventory duration, resolution and approximate frame rate. Visually inspect a
+small representative survey to establish actual video behavior, without assuming
+scrolling, page replacement, a fixed score/playhead or constant zoom.
+Codex then adaptively selects timestamps based on overlap, novelty, transitions
+and coverage. Fixed sampling is not the product. Revisit unclear transitions
+and search before/after obstructed frames for cleaner observations.
 
-- Preserve original bytes and crop provenance.
-- Account for every visible measure and useful partial fragment. Filename order
-  is not musical truth. Use visual overlap and visible numbers as evidence.
-- Prefer complete, sharp, unobstructed sources. Include notation outside the
-  strings: stems, beams, ties, techniques, repeats and opening annotations.
-- Never silently merge distinct repeated passages, invent clipped content,
-  remove notation or substitute a later repetition for missing material.
-- Preserve unresolved identity/order/coverage explicitly. Show genuine source
-  gaps in both printable output and report; placeholders are not reconstructed music.
-- Visually verify tonal/scale changes and preserve original crops. Do not erase
-  overlays by inventing obscured notation.
+Maintain an internal operational ledger: source frames/timestamps, visible
+occurrences, partials, new content, duplicate observations, preferred sources,
+suspicious intervals and unresolved gaps. Record facts and uncertainty, not
+chain-of-thought. Visually select useful complete/partial crops, preserving all
+six TAB lines, stems/beams, ties/slurs, techniques and boundary context.
+Avoid excessive scenery; never invent pixels to erase overlays.
 
-### Composition and acceptance
+Reconcile using visual evidence, chronology and neighboring context. Printed
+numbers help but are optional. Separate repeated occurrences must not collapse
+merely because they look alike. Never substitute a later repetition for missing
+material. Combining complementary views requires established identity/alignment,
+provenance for every contributing source and visual review of the join.
 
-Codex chooses scale, alignment, row groups and placements. Preserve aspect
-ratio, readable size and sensible margins. Never split a measure across rows;
-retain cross-boundary annotation/tie context.
+### Required artifacts
 
-Open the full image at readable scale, every page PNG, and rendered pages of the
-actual A4 PDF. Compare with all sources for omissions, duplicates, order,
-clipping, incorrect crops and unreadable scale. Fix and re-export until QA
-passes or the remaining source limitation is explicitly documented.
+- `result/measures/001.png`, `002.png`, ...: PRIMARY product and direct future
+  V3 input. Exactly one selected cleanest practical crop per logical occurrence,
+  stable visual crops in complete global order.
+- `result/measures.json`: ordered operational records with sequence_index,
+  printed_measure_number (nullable), source_timestamp, source_frame, output,
+  confidence and uncertainty. Preserve crop coordinates and all contributing
+  sources for composite crops. No musical transcription.
+- `result/source/source.json`: supplied source path/URL, acquired local path,
+  video metadata and source identity; `result/frames/`: useful extracted frames.
+- `result/inspection/`: optional contact sheets and review crops.
+- `result/full_score.png`, multi-line A4 `page_001.png` and subsequent pages,
+  `result/full_score.pdf`, concise `result/report.md`.
 
-V1 is complete when representative sets work reliably without user crop/order/
-duplicate instructions. One successful benchmark is evidence, not proof of
-general reliability. Incomplete inputs cannot establish complete-song recovery.
+Before composition, explicitly audit beginning, ending, transitions, unmatched
+partials and distinct repetitions. Could content have appeared briefly in an
+unobserved interval? Revisit every suspicious interval before finalizing.
+If a true source gap remains, finish resolvable work, label gaps/fragments and
+report the limitation; never claim complete-song recovery or pass acceptance.
 
-## V2 - Agent-controlled video inspection
+Codex chooses scale, staff alignment, row groups and page positions. Preserve
+aspect ratios, annotation context and readable scale; never split measures.
+Use actual A4 PDF dimensions. Complete, readable, correctly ordered and reasonably
+consistent output is sufficient; content quality exceeds publication polish.
 
-Input: a video file or downloadable video URL only. Output: the same printable
-score. Extend the same skill: Codex accesses the video, chooses useful inspection
-timestamps, extracts those frames using ffmpeg or similar tools, checks novelty
-and coverage, returns for more frames as needed, and performs V1. Do not make
-fixed frame sampling the product. Respect source access permissions. Not started.
+After export, independently revisit the video beginning, early/middle/late
+transitions and ending, using different timestamps where useful. Compare with
+the ordered set and score; repair omissions, duplicates, order and poor source
+selections, then regenerate. Open every selected measure, the full score at
+readable scale, every page PNG and rendered pages of the actual PDF. Compare
+against source evidence; mechanical success does not establish visual coverage.
 
-## V3 - Visual transcription and export
+The report includes source/URL, duration, frames actually inspected, extra
+gap-recovery frames, logical count, unresolved fragments/gaps, unavoidable
+artifacts, duplicate/omission findings, page count and final paths. No
+chain-of-thought. Count inspected frames separately from merely extracted frames.
 
-Input: V2 reconstructed score. Output: structured music and a Guitar Pro-compatible
-file. Codex/multimodal AI reads visible notation, preserving uncertainty, then
-uses independent exporters such as Guitar Pro MCP, alphaTab or MusicXML. Do not
-invent hidden music or implement Guitar Pro binary formats manually. Not started.
+### Acceptance
 
-## Future hosted product (documentation only)
+Start at least one development run from a real raw guitar-tab video, never
+screenshots converted into a fabricated video benchmark. If none exists, request
+a representative video and complete independent implementation work meanwhile.
+Raw-video acceptance passed on the local Yukinohana video: 209.95 seconds,
+69 inspected frames, 57 complete logical measures and 3 A4 landscape pages.
+See [acceptance](../acceptance/V2_ACCEPTANCE.md). One scrolling style is validated;
+other styles and URL/Xiazaitool acquisition remain unvalidated.
 
-The hosted runtime replaces Codex reasoning with a multimodal GPT/API agent
-using controlled file/image/video tools:
+V2 passes only after autonomous evidence collection and gap revisits, no user
+screenshot/timestamp/crop instructions, complete occurrence coverage confirmed by
+independent video cross-check, no known duplicate/omission/order errors, readable
+score/PDF, and ordered clean measure images suitable for V3. Prefer two different
+video styles before claiming public robustness.
 
-upload -> AI agent -> tool calls -> generated score -> download
+Classify failures as insufficient survey, missed fast transition, incomplete
+gap audit, reconciliation error, repeated occurrence confusion, wrong crop,
+dirty source selection, access failure or helper failure. Improve general skill
+or mechanical tools and repeat; never embed fixture timestamps/answers in the
+skill or replace visual reasoning with CV.
 
-V3 adds structured transcription and export tool calls. The core remains an
-agent workflow. No hosted framework, API integration, billing, auth, UI or
-deployment is required now. Private prompts/workflows and evidence remain private.
+## V3 NEXT (not started)
+
+Ordered clean measure images → structured music → Guitar Pro. This version
+requires a separate explicit advance. Do not begin it automatically after V2.
+A future hosted runtime may use a multimodal API agent with controlled tools;
+no hosting, application framework or export integration is required for V2.
