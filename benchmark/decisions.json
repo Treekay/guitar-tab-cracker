@@ -1,0 +1,1353 @@
+{
+  "decision_author": "Codex visual inspection of current sources; no detector or prior note JSON used",
+  "title": "Guitar TAB - reconstructed score",
+  "footer": "Source-faithful image reconstruction | 26 measures | original notation preserved",
+  "dpi": 300,
+  "page_size_pixels": [
+    2480,
+    3508
+  ],
+  "page_size_points": [
+    595.2755905511812,
+    841.8897637795277
+  ],
+  "tile_height": 330,
+  "staff_anchor": 140,
+  "inventory": [
+    {
+      "file": "1.png",
+      "size": [
+        1563,
+        345
+      ],
+      "staff": 155,
+      "top": 50,
+      "bottom": 312,
+      "candidates": [
+        {
+          "measure": 1,
+          "boundary": "complete",
+          "box": [
+            0,
+            50,
+            492,
+            312
+          ]
+        },
+        {
+          "measure": 2,
+          "boundary": "complete",
+          "box": [
+            492,
+            115,
+            995,
+            312
+          ]
+        },
+        {
+          "measure": 3,
+          "boundary": "complete",
+          "box": [
+            995,
+            115,
+            1332,
+            312
+          ]
+        },
+        {
+          "measure": 4,
+          "boundary": "partial_right",
+          "box": [
+            1332,
+            15,
+            1563,
+            312
+          ]
+        }
+      ],
+      "note": "Opening staff header/capo retained. Only source for 1-3; cursor in 1 retained."
+    },
+    {
+      "file": "2.png",
+      "size": [
+        1560,
+        321
+      ],
+      "candidates": [
+        {
+          "measure": 3,
+          "boundary": "partial_left",
+          "box": [
+            0,
+            99,
+            312,
+            300
+          ]
+        },
+        {
+          "measure": 4,
+          "boundary": "complete",
+          "box": [
+            312,
+            0,
+            800,
+            300
+          ]
+        },
+        {
+          "measure": 5,
+          "boundary": "complete",
+          "box": [
+            800,
+            99,
+            1338,
+            300
+          ]
+        },
+        {
+          "measure": 6,
+          "boundary": "partial_right",
+          "box": [
+            1338,
+            99,
+            1560,
+            300
+          ]
+        }
+      ],
+      "note": "Repeat/first-ending bracket belongs to measure 4 context; clean partial 6 supports composite."
+    },
+    {
+      "file": "3.png",
+      "size": [
+        1534,
+        320
+      ],
+      "candidates": [
+        {
+          "measure": 5,
+          "boundary": "partial_left",
+          "box": [
+            0,
+            108,
+            268,
+            308
+          ]
+        },
+        {
+          "measure": 6,
+          "boundary": "complete",
+          "box": [
+            268,
+            110,
+            492,
+            308
+          ]
+        },
+        {
+          "measure": 7,
+          "boundary": "complete",
+          "box": [
+            492,
+            103,
+            1022,
+            308
+          ]
+        },
+        {
+          "measure": 8,
+          "boundary": "complete",
+          "box": [
+            1022,
+            108,
+            1507,
+            308
+          ]
+        },
+        {
+          "measure": 9,
+          "boundary": "partial_right",
+          "box": [
+            1507,
+            108,
+            1534,
+            308
+          ]
+        }
+      ],
+      "note": "6 overlaps image2; 7 and 8 complete and sharp; tiny 9 edge accounted by image4."
+    },
+    {
+      "file": "4.png",
+      "size": [
+        1535,
+        327
+      ],
+      "candidates": [
+        {
+          "measure": 8,
+          "boundary": "complete",
+          "box": [
+            0,
+            107,
+            478,
+            304
+          ]
+        },
+        {
+          "measure": 9,
+          "boundary": "complete",
+          "box": [
+            478,
+            108,
+            908,
+            304
+          ]
+        },
+        {
+          "measure": 10,
+          "boundary": "complete",
+          "box": [
+            908,
+            106,
+            1190,
+            304
+          ]
+        },
+        {
+          "measure": 11,
+          "boundary": "complete",
+          "box": [
+            1190,
+            107,
+            1522,
+            304
+          ]
+        },
+        {
+          "measure": 12,
+          "boundary": "partial_right",
+          "box": [
+            1522,
+            107,
+            1535,
+            304
+          ]
+        }
+      ],
+      "note": "8 has cursor, select image3. 11 clean up to 12 boundary; tie continues in image5."
+    },
+    {
+      "file": "5.png",
+      "size": [
+        1567,
+        313
+      ],
+      "candidates": [
+        {
+          "measure": 10,
+          "boundary": "partial_left",
+          "box": [
+            0,
+            96,
+            180,
+            300
+          ]
+        },
+        {
+          "measure": 11,
+          "boundary": "complete",
+          "box": [
+            180,
+            96,
+            510,
+            300
+          ]
+        },
+        {
+          "measure": 12,
+          "boundary": "complete",
+          "box": [
+            510,
+            96,
+            674,
+            300
+          ]
+        },
+        {
+          "measure": 13,
+          "boundary": "complete",
+          "box": [
+            674,
+            95,
+            1163,
+            300
+          ]
+        },
+        {
+          "measure": 14,
+          "boundary": "partial_right",
+          "box": [
+            1163,
+            95,
+            1567,
+            300
+          ]
+        }
+      ],
+      "note": "11 cursor avoided using image4. 12-13 complete. Clean partial 14 complements image6."
+    },
+    {
+      "file": "6.png",
+      "size": [
+        1530,
+        410
+      ],
+      "candidates": [
+        {
+          "measure": 13,
+          "boundary": "partial_left",
+          "box": [
+            0,
+            187,
+            109,
+            389
+          ]
+        },
+        {
+          "measure": 14,
+          "boundary": "complete",
+          "box": [
+            109,
+            187,
+            620,
+            389
+          ]
+        },
+        {
+          "measure": 15,
+          "boundary": "complete",
+          "box": [
+            620,
+            187,
+            1024,
+            389
+          ]
+        },
+        {
+          "measure": 16,
+          "boundary": "complete",
+          "box": [
+            1024,
+            187,
+            1489,
+            389
+          ]
+        },
+        {
+          "measure": 17,
+          "boundary": "partial_right",
+          "box": [
+            1489,
+            187,
+            1530,
+            389
+          ]
+        }
+      ],
+      "note": "New middle source closes the old gap. 14 cursor avoided via a visually aligned image5/image6 composite. 15-16 clean."
+    },
+    {
+      "file": "7.png",
+      "size": [
+        1560,
+        319
+      ],
+      "candidates": [
+        {
+          "measure": 15,
+          "boundary": "partial_left",
+          "box": [
+            0,
+            102,
+            20,
+            305
+          ]
+        },
+        {
+          "measure": 16,
+          "boundary": "complete",
+          "box": [
+            20,
+            102,
+            484,
+            305
+          ]
+        },
+        {
+          "measure": 17,
+          "boundary": "complete",
+          "box": [
+            484,
+            102,
+            973,
+            305
+          ]
+        },
+        {
+          "measure": 18,
+          "boundary": "complete",
+          "box": [
+            973,
+            102,
+            1483,
+            305
+          ]
+        },
+        {
+          "measure": 19,
+          "boundary": "partial_right",
+          "box": [
+            1483,
+            102,
+            1560,
+            305
+          ]
+        }
+      ],
+      "note": "Former 6.png. Complete 16 has cursor; choose new image6. 17-18 complete."
+    },
+    {
+      "file": "8.png",
+      "size": [
+        1547,
+        316
+      ],
+      "candidates": [
+        {
+          "measure": 18,
+          "boundary": "partial_left",
+          "box": [
+            0,
+            100,
+            450,
+            304
+          ]
+        },
+        {
+          "measure": 19,
+          "boundary": "complete",
+          "box": [
+            450,
+            100,
+            855,
+            304
+          ]
+        },
+        {
+          "measure": 20,
+          "boundary": "complete",
+          "box": [
+            855,
+            100,
+            1319,
+            304
+          ]
+        },
+        {
+          "measure": 21,
+          "boundary": "complete",
+          "box": [
+            1319,
+            100,
+            1482,
+            304
+          ]
+        },
+        {
+          "measure": 22,
+          "boundary": "partial_right",
+          "box": [
+            1482,
+            100,
+            1547,
+            304
+          ]
+        }
+      ],
+      "note": "Former 7.png. Tied group across 20/21 kept adjacent. Left 18 cursor avoided with image7."
+    },
+    {
+      "file": "9.png",
+      "size": [
+        1560,
+        323
+      ],
+      "candidates": [
+        {
+          "measure": 20,
+          "boundary": "partial_left",
+          "box": [
+            0,
+            99,
+            289,
+            304
+          ]
+        },
+        {
+          "measure": 21,
+          "boundary": "complete",
+          "box": [
+            289,
+            99,
+            452,
+            304
+          ]
+        },
+        {
+          "measure": 22,
+          "boundary": "complete",
+          "box": [
+            452,
+            99,
+            855,
+            304
+          ]
+        },
+        {
+          "measure": 23,
+          "boundary": "complete",
+          "box": [
+            855,
+            99,
+            1358,
+            304
+          ]
+        },
+        {
+          "measure": 24,
+          "boundary": "partial_right",
+          "box": [
+            1358,
+            99,
+            1560,
+            304
+          ]
+        }
+      ],
+      "note": "Former 8.png. 21 overlap reconciled with image8; 22-23 are distinct from similar measures1-2."
+    },
+    {
+      "file": "10.png",
+      "size": [
+        1551,
+        318
+      ],
+      "candidates": [
+        {
+          "measure": 23,
+          "boundary": "partial_left",
+          "box": [
+            0,
+            101,
+            329,
+            304
+          ]
+        },
+        {
+          "measure": 24,
+          "boundary": "complete",
+          "box": [
+            329,
+            101,
+            668,
+            304
+          ]
+        },
+        {
+          "measure": 25,
+          "boundary": "complete",
+          "box": [
+            668,
+            101,
+            1200,
+            304
+          ]
+        },
+        {
+          "measure": 26,
+          "boundary": "complete",
+          "box": [
+            1200,
+            101,
+            1540,
+            304
+          ]
+        }
+      ],
+      "note": "Former 9.png. Last double bar and all lower stems retained. 23 overlap reconciled."
+    }
+  ],
+  "selected": [
+    {
+      "measure": 1,
+      "boundary": "complete",
+      "width": 492,
+      "pieces": [
+        {
+          "file": "1.png",
+          "box": [
+            0,
+            50,
+            492,
+            312
+          ],
+          "source_staff_y": 155,
+          "x": 0
+        }
+      ],
+      "reason": "Only visible complete source; keep opening header and capo, with residual cursor."
+    },
+    {
+      "measure": 2,
+      "boundary": "complete",
+      "width": 503,
+      "pieces": [
+        {
+          "file": "1.png",
+          "box": [
+            492,
+            115,
+            995,
+            312
+          ],
+          "source_staff_y": 155,
+          "x": 0
+        }
+      ],
+      "reason": "Complete; source image1."
+    },
+    {
+      "measure": 3,
+      "boundary": "complete",
+      "width": 337,
+      "pieces": [
+        {
+          "file": "1.png",
+          "box": [
+            995,
+            115,
+            1332,
+            312
+          ],
+          "source_staff_y": 155,
+          "x": 0
+        }
+      ],
+      "reason": "Complete; image2 left fragment duplicate."
+    },
+    {
+      "measure": 4,
+      "boundary": "complete",
+      "width": 488,
+      "pieces": [
+        {
+          "file": "2.png",
+          "box": [
+            312,
+            0,
+            800,
+            300
+          ],
+          "source_staff_y": 137,
+          "x": 0
+        }
+      ],
+      "reason": "Complete; retain first-ending bracket and closing repeat dots."
+    },
+    {
+      "measure": 5,
+      "boundary": "complete",
+      "width": 538,
+      "pieces": [
+        {
+          "file": "2.png",
+          "box": [
+            800,
+            99,
+            1338,
+            300
+          ],
+          "source_staff_y": 137,
+          "x": 0
+        }
+      ],
+      "reason": "Complete; repeat double boundary and printed 5 retained."
+    },
+    {
+      "measure": 6,
+      "boundary": "complete",
+      "width": 224,
+      "pieces": [
+        {
+          "file": "2.png",
+          "box": [
+            1338,
+            99,
+            1530,
+            300
+          ],
+          "source_staff_y": 137,
+          "x": 0
+        },
+        {
+          "file": "3.png",
+          "box": [
+            460,
+            111,
+            492,
+            312
+          ],
+          "source_staff_y": 149,
+          "x": 192
+        }
+      ],
+      "reason": "Visually matched overlap: use clean image2 left portion and image3 terminal region; avoids image3 cursor."
+    },
+    {
+      "measure": 7,
+      "boundary": "complete",
+      "width": 530,
+      "pieces": [
+        {
+          "file": "3.png",
+          "box": [
+            492,
+            103,
+            1022,
+            308
+          ],
+          "source_staff_y": 149,
+          "x": 0
+        }
+      ],
+      "reason": "Complete; preserve high H and arrow markings."
+    },
+    {
+      "measure": 8,
+      "boundary": "complete",
+      "width": 485,
+      "pieces": [
+        {
+          "file": "3.png",
+          "box": [
+            1022,
+            108,
+            1507,
+            308
+          ],
+          "source_staff_y": 149,
+          "x": 0
+        }
+      ],
+      "reason": "Complete and no cursor; image4 full duplicate not selected."
+    },
+    {
+      "measure": 9,
+      "boundary": "complete",
+      "width": 430,
+      "pieces": [
+        {
+          "file": "4.png",
+          "box": [
+            478,
+            108,
+            908,
+            304
+          ],
+          "source_staff_y": 142,
+          "x": 0
+        }
+      ],
+      "reason": "Complete; image3 tiny right edge accounted."
+    },
+    {
+      "measure": 10,
+      "boundary": "complete",
+      "width": 282,
+      "pieces": [
+        {
+          "file": "4.png",
+          "box": [
+            908,
+            106,
+            1190,
+            304
+          ],
+          "source_staff_y": 142,
+          "x": 0
+        }
+      ],
+      "reason": "Complete; image5 left partial accounted."
+    },
+    {
+      "measure": 11,
+      "boundary": "complete",
+      "width": 332,
+      "pieces": [
+        {
+          "file": "4.png",
+          "box": [
+            1190,
+            107,
+            1522,
+            304
+          ],
+          "source_staff_y": 142,
+          "x": 0
+        }
+      ],
+      "reason": "Clean complete source; image5 full copy has cursor. Tie continues into 12."
+    },
+    {
+      "measure": 12,
+      "boundary": "complete",
+      "width": 164,
+      "pieces": [
+        {
+          "file": "5.png",
+          "box": [
+            510,
+            96,
+            674,
+            300
+          ],
+          "source_staff_y": 135,
+          "x": 0
+        }
+      ],
+      "reason": "Complete tied continuation; keep next to 11."
+    },
+    {
+      "measure": 13,
+      "boundary": "complete",
+      "width": 489,
+      "pieces": [
+        {
+          "file": "5.png",
+          "box": [
+            674,
+            95,
+            1163,
+            300
+          ],
+          "source_staff_y": 135,
+          "x": 0
+        }
+      ],
+      "reason": "Complete; image6 left partial accounted."
+    },
+    {
+      "measure": 14,
+      "boundary": "complete",
+      "width": 510,
+      "pieces": [
+        {
+          "file": "5.png",
+          "box": [
+            1163,
+            95,
+            1393,
+            300
+          ],
+          "source_staff_y": 135,
+          "x": 0
+        },
+        {
+          "file": "6.png",
+          "box": [
+            340,
+            186,
+            620,
+            391
+          ],
+          "source_staff_y": 226,
+          "x": 230
+        }
+      ],
+      "reason": "Visually align overlapping views (x offset 1053, y offset 91). Clean image5 beginning plus image6 ending removes cursor without invented pixels."
+    },
+    {
+      "measure": 15,
+      "boundary": "complete",
+      "width": 404,
+      "pieces": [
+        {
+          "file": "6.png",
+          "box": [
+            620,
+            187,
+            1024,
+            389
+          ],
+          "source_staff_y": 226,
+          "x": 0
+        }
+      ],
+      "reason": "New source supplies entire formerly missing measure15."
+    },
+    {
+      "measure": 16,
+      "boundary": "complete",
+      "width": 465,
+      "pieces": [
+        {
+          "file": "6.png",
+          "box": [
+            1024,
+            187,
+            1489,
+            389
+          ],
+          "source_staff_y": 226,
+          "x": 0
+        }
+      ],
+      "reason": "New source is complete and cleaner than image7 cursor-overlaid duplicate."
+    },
+    {
+      "measure": 17,
+      "boundary": "complete",
+      "width": 489,
+      "pieces": [
+        {
+          "file": "7.png",
+          "box": [
+            484,
+            102,
+            973,
+            305
+          ],
+          "source_staff_y": 139,
+          "x": 0
+        }
+      ],
+      "reason": "Complete; image6 right edge accounted."
+    },
+    {
+      "measure": 18,
+      "boundary": "complete",
+      "width": 510,
+      "pieces": [
+        {
+          "file": "7.png",
+          "box": [
+            973,
+            102,
+            1483,
+            305
+          ],
+          "source_staff_y": 139,
+          "x": 0
+        }
+      ],
+      "reason": "Complete without cursor; image8 partial not selected."
+    },
+    {
+      "measure": 19,
+      "boundary": "complete",
+      "width": 405,
+      "pieces": [
+        {
+          "file": "8.png",
+          "box": [
+            450,
+            100,
+            855,
+            304
+          ],
+          "source_staff_y": 139,
+          "x": 0
+        }
+      ],
+      "reason": "Complete; image7 partial accounted."
+    },
+    {
+      "measure": 20,
+      "boundary": "complete",
+      "width": 464,
+      "pieces": [
+        {
+          "file": "8.png",
+          "box": [
+            855,
+            100,
+            1319,
+            304
+          ],
+          "source_staff_y": 139,
+          "x": 0
+        }
+      ],
+      "reason": "Complete; tied ending kept beside21; image9 partial accounted."
+    },
+    {
+      "measure": 21,
+      "boundary": "complete",
+      "width": 163,
+      "pieces": [
+        {
+          "file": "8.png",
+          "box": [
+            1319,
+            100,
+            1482,
+            304
+          ],
+          "source_staff_y": 139,
+          "x": 0
+        }
+      ],
+      "reason": "Complete tied continuation; image9 duplicate not selected."
+    },
+    {
+      "measure": 22,
+      "boundary": "complete",
+      "width": 403,
+      "pieces": [
+        {
+          "file": "9.png",
+          "box": [
+            452,
+            99,
+            855,
+            304
+          ],
+          "source_staff_y": 137,
+          "x": 0
+        }
+      ],
+      "reason": "Complete; distinct printed22, not a duplicate of similar measure1."
+    },
+    {
+      "measure": 23,
+      "boundary": "complete",
+      "width": 503,
+      "pieces": [
+        {
+          "file": "9.png",
+          "box": [
+            855,
+            99,
+            1358,
+            304
+          ],
+          "source_staff_y": 137,
+          "x": 0
+        }
+      ],
+      "reason": "Complete; image10 partial accounted."
+    },
+    {
+      "measure": 24,
+      "boundary": "complete",
+      "width": 339,
+      "pieces": [
+        {
+          "file": "10.png",
+          "box": [
+            329,
+            101,
+            668,
+            304
+          ],
+          "source_staff_y": 139,
+          "x": 0
+        }
+      ],
+      "reason": "Complete; image9 partial accounted."
+    },
+    {
+      "measure": 25,
+      "boundary": "complete",
+      "width": 532,
+      "pieces": [
+        {
+          "file": "10.png",
+          "box": [
+            668,
+            101,
+            1200,
+            304
+          ],
+          "source_staff_y": 139,
+          "x": 0
+        }
+      ],
+      "reason": "Complete; not substituted for similar earlier passages."
+    },
+    {
+      "measure": 26,
+      "boundary": "complete",
+      "width": 340,
+      "pieces": [
+        {
+          "file": "10.png",
+          "box": [
+            1200,
+            101,
+            1540,
+            304
+          ],
+          "source_staff_y": 139,
+          "x": 0
+        }
+      ],
+      "reason": "Complete final measure, terminal double line and lower annotations retained."
+    }
+  ],
+  "order": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26
+  ],
+  "pages": [
+    {
+      "subtitle": "Measures 1-16 | original screenshot markings retained",
+      "rows": [
+        {
+          "measures": [
+            1,
+            2,
+            3
+          ],
+          "position": [
+            140,
+            250
+          ],
+          "scale": 1.5,
+          "endcap": {
+            "file": "1.png",
+            "box": [
+              1332,
+              155,
+              1345,
+              258
+            ],
+            "source_staff_y": 155
+          },
+          "trim_body_top": 25
+        },
+        {
+          "measures": [
+            4,
+            5,
+            6
+          ],
+          "position": [
+            140,
+            850
+          ],
+          "scale": 1.5,
+          "endcap": {
+            "file": "3.png",
+            "box": [
+              492,
+              149,
+              504,
+              252
+            ],
+            "source_staff_y": 149
+          },
+          "trim_body_top": 0
+        },
+        {
+          "measures": [
+            7,
+            8,
+            9
+          ],
+          "position": [
+            140,
+            1450
+          ],
+          "scale": 1.5,
+          "endcap": {
+            "file": "4.png",
+            "box": [
+              908,
+              142,
+              920,
+              245
+            ],
+            "source_staff_y": 142
+          },
+          "trim_body_top": 80
+        },
+        {
+          "measures": [
+            10,
+            11,
+            12,
+            13
+          ],
+          "position": [
+            140,
+            2050
+          ],
+          "scale": 1.5,
+          "endcap": {
+            "file": "5.png",
+            "box": [
+              1163,
+              135,
+              1175,
+              238
+            ],
+            "source_staff_y": 135
+          },
+          "trim_body_top": 80
+        },
+        {
+          "measures": [
+            14,
+            15,
+            16
+          ],
+          "position": [
+            140,
+            2650
+          ],
+          "scale": 1.5,
+          "endcap": {
+            "file": "6.png",
+            "box": [
+              1489,
+              226,
+              1501,
+              329
+            ],
+            "source_staff_y": 226
+          },
+          "trim_body_top": 80
+        }
+      ]
+    },
+    {
+      "subtitle": "Measures 17-26 | same notation scale as page 1",
+      "rows": [
+        {
+          "measures": [
+            17,
+            18
+          ],
+          "position": [
+            140,
+            250
+          ],
+          "scale": 1.5,
+          "endcap": {
+            "file": "7.png",
+            "box": [
+              1483,
+              139,
+              1496,
+              242
+            ],
+            "source_staff_y": 139
+          },
+          "trim_body_top": 80
+        },
+        {
+          "measures": [
+            19,
+            20,
+            21
+          ],
+          "position": [
+            140,
+            950
+          ],
+          "scale": 1.5,
+          "endcap": {
+            "file": "8.png",
+            "box": [
+              1482,
+              139,
+              1495,
+              242
+            ],
+            "source_staff_y": 139
+          },
+          "trim_body_top": 80
+        },
+        {
+          "measures": [
+            22,
+            23,
+            24
+          ],
+          "position": [
+            140,
+            1650
+          ],
+          "scale": 1.5,
+          "endcap": {
+            "file": "10.png",
+            "box": [
+              668,
+              139,
+              681,
+              242
+            ],
+            "source_staff_y": 139
+          },
+          "trim_body_top": 80
+        },
+        {
+          "measures": [
+            25,
+            26
+          ],
+          "position": [
+            140,
+            2350
+          ],
+          "scale": 1.5,
+          "trim_body_top": 80
+        }
+      ]
+    }
+  ],
+  "unresolved_fragments": [],
+  "residual_overlays": [
+    "Measure1 retains the only visible playhead in the available source. No notes were invented to erase it."
+  ],
+  "notes": [
+    "Left crop padding preserves printed measure numbers; consistent staff anchoring aligns all selected sources.",
+    "All source edge fragments are linked to complete selections. Original evidence remains in input/."
+  ]
+}

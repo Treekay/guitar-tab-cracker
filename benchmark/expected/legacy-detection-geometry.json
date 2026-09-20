@@ -1,0 +1,15 @@
+{
+  "description": "Private manual visual annotations; normalized full-image ROI coordinates. Double/repeat bars count as one logical boundary. Never import in production code.",
+  "tolerance_px": 6,
+  "images": [
+    {"filename": "1.png", "staff_y": [155, 175, 196, 216, 236, 257], "barline_x": [78, 501, 1004, 1342], "cursor_x": 414, "decorative_x": [230, 374]},
+    {"filename": "2.png", "staff_y": [137, 157, 178, 198, 218, 239], "barline_x": [322, 809, 1348], "cursor_x": 256, "decorative_x": [118]},
+    {"filename": "3.png", "staff_y": [149, 169, 190, 210, 230, 251], "barline_x": [278, 501, 1030, 1516], "cursor_x": 401, "decorative_x": [536, 764, 1066, 1331]},
+    {"filename": "4.png", "staff_y": [142, 162, 183, 203, 223, 244], "barline_x": [2, 488, 918, 1200, 1531], "cursor_x": 385, "decorative_x": [38, 303]},
+    {"filename": "5.png", "staff_y": [135, 155, 176, 196, 216, 237], "barline_x": [190, 520, 683, 1172], "cursor_x": 229, "decorative_x": [958, 1250, 1337]},
+    {"filename": "6.png", "staff_y": [139, 159, 180, 200, 220, 241], "barline_x": [30, 494, 983, 1493], "cursor_x": 352, "decorative_x": [64, 312, 571, 782, 1060, 1148]},
+    {"filename": "7.png", "staff_y": [139, 159, 180, 200, 220, 241], "barline_x": [460, 865, 1329, 1492], "cursor_x": 322, "decorative_x": [28, 115, 538, 899, 1146]},
+    {"filename": "8.png", "staff_y": [137, 157, 178, 198, 218, 239], "barline_x": [299, 462, 865, 1368], "cursor_x": 208, "decorative_x": [117, 605]},
+    {"filename": "9.png", "staff_y": [139, 159, 180, 200, 220, 241], "barline_x": [339, 678, 1210, 1529], "cursor_x": 290, "decorative_x": [473]}
+  ]
+}

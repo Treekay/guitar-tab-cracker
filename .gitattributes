@@ -1,0 +1,3 @@
+# Preserve image/PDF bytes; never apply Windows line-ending conversion.
+*.png binary
+*.pdf binary
