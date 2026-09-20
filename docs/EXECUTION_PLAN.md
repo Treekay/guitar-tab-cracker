@@ -46,10 +46,10 @@ user originals, outputs and provenance; record cleanup status.
 ## V3 ACTIVE
 
 Ordered clean measure set → structured music → Guitar Pro. Status advanced by
-the user's V2 hardening request. Stop after this cleanup and its commit; do not
-implement V3 in this task. URL acquisition and the second video style remain
-unvalidated but do not block V3. Further raster-score beautification is out of
-scope unless V3 fails and raster output becomes the primary final product.
+the user's V2 hardening request. The subsequent V2 normalization request adds a
+final source-preserving preparation stage; it does not start V3 implementation.
+URL acquisition and the second video style remain unvalidated but do not block V3.
+Perfect raster publication polish is not a completion requirement.
 
 ## Final V2 hardening complete
 
@@ -62,3 +62,17 @@ All 57 measures, measures.json, full_score.png and 15 row images are byte-identi
 all 3 page bodies are pixel-identical. The regenerated A4 PDF opens and its three
 actual rendered pages were visually checked. Five automated tests pass, including
 five presentation variants. See [hardening evidence](../acceptance/V2_HARDENING.md).
+
+## V2 normalization complete
+
+Reused accepted source selections and frames in a new run. Retained 57 untouched
+RGB crops in source_measures/ and generated 57 visually reviewed normalized
+measures, with source_output and normalization records. Identities, timestamps,
+crop/context geometry, order and layout remain unchanged. Methods live in explicit
+run plans, with per-measure overrides and original-source fallback; no automatic
+style or musical identity inference was added.
+
+Every source/output pair, difficult enlarged examples, full score sections, three
+page PNGs and all actual PDF pages were inspected. This validates one light-background
+scrolling video only. See [normalization evidence](../acceptance/V2_NORMALIZATION.md).
+Stop after this enhancement and commit; no V3 work in this task.

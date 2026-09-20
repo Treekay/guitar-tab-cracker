@@ -13,7 +13,11 @@ Users supply no screenshots, sampling rate, ROI, coordinates, numbering,
 duplicate relationships, sequence order or page breaks.
 
 The primary V2 artifact is `result/measures/001.png`, `002.png`, ... in global
-order, accompanied by source timestamps and uncertainty in `measures.json`.
+order: preferably black notation on white, with visual fidelity taking priority.
+`result/source_measures/` preserves the original selected crops for comparison
+and V3 fallback. `measures.json` links both versions and records source timestamps,
+normalization status, confidence and uncertainty. Codex chooses the method for
+the actual source style and visually compares every pair; no fixed recipe is imposed.
 Other outputs: source metadata, useful frames, `full_score.png`, multi-line A4
 `page_001.png` (and later pages), `full_score.pdf` and concise `report.md`.
 Content coverage and clean crops take priority over publication polish.
@@ -28,9 +32,8 @@ remain in this run. The user-owned original video is unchanged.
 Only this horizontally scrolling style has passed. A second video style and
 URL/Xiazaitool acquisition remain unvalidated; this is not a claim of universal
 robustness. These validation gaps do not block V3. V3 is now ACTIVE;
-this handoff cleanup does not implement transcription or Guitar Pro export.
-Do not further beautify raster scores unless V3 fails and raster output becomes
-the primary final product.
+the V2 normalization enhancement does not implement transcription or Guitar Pro
+export. Further publication polish is not a prerequisite for V3.
 
 Codex makes every visual decision. Helpers execute explicit timestamps, crops,
 order, scales and placements; they never detect notation or infer layout.
@@ -55,6 +58,11 @@ metadata. Never delete a user-supplied local original.
   font path is resolved relative to the plan. Supply a font with suitable glyph
   coverage when needed. Normal pages show only supplied metadata and page numbers;
   engineering labels require `debug: true`. `show_header: false` hides the header.
+- `tools/normalize_measures.py`: executes explicit plan normalization, with a
+  song-level decision and optional per-measure overrides. No decision preserves
+  source pixels. Supports explicit operations or an externally prepared image;
+  see the [normalization plan contract](docs/NORMALIZATION.md). It never chooses
+  a recipe or infers visual fidelity. Unreviewed legacy tone output is `partial`.
 - `tools/compose.py`: existing mechanical crop/place/export helper, using Pillow
   and ReportLab. Its existing V1 plan format is preserved; the V2 skill describes
   adapting explicit paths and exporting the stable measure set.
@@ -76,3 +84,6 @@ tools; no hosted application or musical transcription is implemented here.
 
 The [V2 handoff regression](acceptance/V2_HARDENING.md) confirms unchanged
 measure images, metadata and score order after generic PDF export.
+The later [normalization acceptance](acceptance/V2_NORMALIZATION.md) adds 57 raw
+source crops and 57 visually reviewed normalized measures, preserving identities,
+order and source coordinates. [Latest outputs](runs/v2-yukinohana-normalized/result/).
