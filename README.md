@@ -3,8 +3,8 @@
 Private Codex-first workflow. Invoke [$guitar-tab-cracker](.agents/skills/guitar-tab-cracker/SKILL.md).
 
 - **V1 COMPLETE:** screenshots → ordered measures → reconstructed visual score.
-- **V2 COMPLETE:** video / accessible URL → ordered clean measure set → visual score.
-- **V3 NEXT (not started):** ordered clean measure set → structured music data → Guitar Pro.
+- **V2 CORE COMPLETE:** video / accessible URL → ordered clean measure set → visual score.
+- **V3 ACTIVE:** ordered clean measure set → structured music data → Guitar Pro.
 
 Provide one local video or accessible URL and ask **Convert this guitar-tab
 video.** Codex chooses inspection timestamps, extracts frames, revisits gaps,
@@ -27,7 +27,10 @@ remain in this run. The user-owned original video is unchanged.
 
 Only this horizontally scrolling style has passed. A second video style and
 URL/Xiazaitool acquisition remain unvalidated; this is not a claim of universal
-robustness. V3 has not started.
+robustness. These validation gaps do not block V3. V3 is now ACTIVE;
+this handoff cleanup does not implement transcription or Guitar Pro export.
+Do not further beautify raster scores unless V3 fails and raster output becomes
+the primary final product.
 
 Codex makes every visual decision. Helpers execute explicit timestamps, crops,
 order, scales and placements; they never detect notation or infer layout.
@@ -47,6 +50,11 @@ metadata. Never delete a user-supplied local original.
   using ffprobe/ffmpeg on PATH or supplied executable paths. Run `--help`.
 - `tools/export_visual_score.py`: V2 explicit crop/context/order/page exporter,
   using Pillow and ReportLab; saves stable three-digit measures and provenance.
+  Optional plan keys: `title`, `artist`, `font`, `show_header`, `debug`. Metadata
+  is omitted when unknown. The default font is Pillow's bundled font; an explicit
+  font path is resolved relative to the plan. Supply a font with suitable glyph
+  coverage when needed. Normal pages show only supplied metadata and page numbers;
+  engineering labels require `debug: true`. `show_header: false` hides the header.
 - `tools/compose.py`: existing mechanical crop/place/export helper, using Pillow
   and ReportLab. Its existing V1 plan format is preserved; the V2 skill describes
   adapting explicit paths and exporting the stable measure set.
@@ -65,3 +73,6 @@ Read [requirements](docs/PRODUCT_REQUIREMENTS.md) and
 [execution plan](docs/EXECUTION_PLAN.md). Implementation and evidence remain
 private. A future hosted runtime would use a multimodal agent with controlled
 tools; no hosted application or musical transcription is implemented here.
+
+The [V2 handoff regression](acceptance/V2_HARDENING.md) confirms unchanged
+measure images, metadata and score order after generic PDF export.

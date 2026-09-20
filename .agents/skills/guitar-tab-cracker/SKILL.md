@@ -13,8 +13,13 @@ projection, matching/ordering algorithms or automatic score-layout interpreters.
 No string/fret, rhythm, technique, chord or other musical transcription in V2.
 
 Read docs/PRODUCT_REQUIREMENTS.md and docs/EXECUTION_PLAN.md before scope or
-architecture changes. **V1 COMPLETE; V2 COMPLETE; V3 NEXT (not started).** Preserve V1 without
-further polish. Do not begin V3 automatically. Keep implementation/evidence private.
+architecture changes. **V1 COMPLETE; V2 CORE COMPLETE; V3 ACTIVE.** Preserve V1 without
+further polish. The V2 handoff cleanup stops after generic export verification
+and commit; it does not implement V3. Keep implementation/evidence private.
+Local-video V2 is validated. URL acquisition is supported in the workflow but
+unvalidated; a second video style is unvalidated. Neither gap blocks V3.
+Do not beautify raster scores further unless V3 fails and visual-score output
+becomes the primary final product.
 Users never supply timestamps, sampling rates, ROI, coordinates, measure labels,
 duplicate relationships, order or page breaks.
 
@@ -130,6 +135,13 @@ executes explicit source boxes, context extents, optional agent-chosen pointwise
 tone, order and placements, exporting three-digit images and metadata. Visually
 check any tonal conversion against original color frames; it must not erase
 notation or invent hidden pixels. Tools must never choose these decisions.
+The export plan may supply title and artist; omit unknown metadata. Optional
+font paths are relative to the plan, otherwise use Pillow's portable bundled
+font. Supply a suitable font for glyphs outside its coverage; do not commit
+proprietary fonts. Normal headers contain only supplied metadata and page numbers.
+show_header=false hides the header; debug=true opts into engineering labels.
+Presentation-only changes must preserve measures/ and measures.json. Verify
+against the accepted run rather than repeating raw-video reconstruction.
 tools/compose.py consumes
 explicit V1 plans with input/ beside the plan; its mNN.png names are not the V2
 contract. When reusing it, explicitly export selected tiles to three-digit V2
@@ -183,8 +195,9 @@ manufacture a video benchmark.
 V2 completes only after autonomous evidence collection and gap revisits,
 independent video coverage review, no known duplicate/order/omission errors,
 readable score/PDF and a clean ordered set suitable for V3. Prefer two video
-styles before claiming public robustness. After acceptance update project status
-to V2 COMPLETE / V3 NEXT; do not start V3.
+styles before claiming public robustness. Core acceptance and final hardening
+are complete; current status is V2 CORE COMPLETE / V3 ACTIVE. Further visual
+beautification is not a prerequisite to the structured-music stage.
 
 On failure classify insufficient survey, fast transition, incomplete gap audit,
 reconciliation mistake, repeated occurrence confusion, crop, dirty source,
@@ -219,7 +232,7 @@ Never embed fixture timestamps/answers in this skill or redesign as CV/OMR.
    Recheck changed inputs before declaring gaps. Ask for more source only when
    genuinely necessary, not for routine coordinates or ordering.
 
-## Future V3
+## V3 ACTIVE — handoff boundary
 
 Ordered clean measure images → visual transcription → structured music →
 independent alphaTab/MusicXML/Guitar Pro export tools. A future hosted runtime

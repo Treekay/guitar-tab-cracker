@@ -1,6 +1,6 @@
 # Guitar Tab Cracker — Product Requirements
 
-**V1 COMPLETE · V2 COMPLETE · V3 NEXT (not started)**
+**V1 COMPLETE · V2 CORE COMPLETE · V3 ACTIVE**
 
 ## Core model
 
@@ -18,7 +18,7 @@ The existing [acceptance](../acceptance/V1_ACCEPTANCE.md) covers 10 screenshots,
 26 logical measures and 2 A4 pages. Unseen-set reliability is not established.
 Preserve this result and workflow; do not spend V2 effort polishing V1.
 
-## V2 COMPLETE
+## V2 CORE COMPLETE
 
 Input is only one local raw guitar-tab video or an accessible video URL.
 Users provide no screenshots, timestamps, sampling rate, ROI, crop coordinates,
@@ -88,6 +88,11 @@ Codex chooses scale, staff alignment, row groups and page positions. Preserve
 aspect ratios, annotation context and readable scale; never split measures.
 Use actual A4 PDF dimensions. Complete, readable, correctly ordered and reasonably
 consistent output is sufficient; content quality exceeds publication polish.
+The exporter accepts optional title/artist metadata from its explicit plan and
+omits unknown metadata. Use Pillow's portable default font or an explicit font
+path relative to the plan; no proprietary font is committed. Normal pages show
+only supplied metadata and page numbers. Engineering wording is debug-only.
+Presentation changes must preserve measures/, measures.json and explicit order.
 
 After export, independently revisit the video beginning, early/middle/late
 transitions and ending, using different timestamps where useful. Compare with
@@ -123,9 +128,14 @@ dirty source selection, access failure or helper failure. Improve general skill
 or mechanical tools and repeat; never embed fixture timestamps/answers in the
 skill or replace visual reasoning with CV.
 
-## V3 NEXT (not started)
+## V3 ACTIVE
 
-Ordered clean measure images → structured music → Guitar Pro. This version
-requires a separate explicit advance. Do not begin it automatically after V2.
+Ordered clean measure images → structured music → Guitar Pro. The user has
+advanced project status to V3 ACTIVE. The final V2 cleanup stops at this handoff;
+no transcription or Guitar Pro implementation is part of that cleanup.
+Local-video V2 is validated; URL acquisition is supported by the workflow but
+unvalidated, and a second video style is unvalidated. Neither gap blocks V3.
+Do not further beautify raster scores unless V3 fails and visual-score output
+becomes the primary final product.
 A future hosted runtime may use a multimodal API agent with controlled tools;
 no hosting, application framework or export integration is required for V2.

@@ -4,7 +4,7 @@
 
 Preserve the accepted 10-screenshot / 26-measure / 2-page result. No V1 polish.
 
-## V2 COMPLETE — local raw-video acceptance passed
+## V2 CORE COMPLETE — local raw-video acceptance passed
 
 The user supplied a raw local video. Codex chose all timestamps and crops,
 reconciled overlap, revisited gaps/obstructed candidates, exported the ordered
@@ -43,7 +43,22 @@ then request local input if tools/access prevent acquisition. After final QA,
 remove only exact run-owned temporary video/partial-download files. Preserve
 user originals, outputs and provenance; record cleanup status.
 
-## V3 NEXT — not started
+## V3 ACTIVE
 
-Ordered clean measure set → structured music → Guitar Pro. Requires a separate
-explicit advance; V2 completion does not authorize beginning V3.
+Ordered clean measure set → structured music → Guitar Pro. Status advanced by
+the user's V2 hardening request. Stop after this cleanup and its commit; do not
+implement V3 in this task. URL acquisition and the second video style remain
+unvalidated but do not block V3. Further raster-score beautification is out of
+scope unless V3 fails and raster output becomes the primary final product.
+
+## Final V2 hardening complete
+
+Generic optional title/artist metadata, portable default or explicit font,
+minimal user-facing page headers, and debug-only engineering wording are in
+place. No measure identity or visual decision logic was added.
+
+Re-exported the existing accepted plan/frames without revisiting raw video.
+All 57 measures, measures.json, full_score.png and 15 row images are byte-identical;
+all 3 page bodies are pixel-identical. The regenerated A4 PDF opens and its three
+actual rendered pages were visually checked. Five automated tests pass, including
+five presentation variants. See [hardening evidence](../acceptance/V2_HARDENING.md).
