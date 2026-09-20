@@ -12,15 +12,19 @@ reconciles observations, selects clean sources and visually verifies the output.
 Users supply no screenshots, sampling rate, ROI, coordinates, numbering,
 duplicate relationships, sequence order or page breaks.
 
-The primary V2 artifact is `result/measures/001.png`, `002.png`, ... in global
-order: preferably black notation on white, with visual fidelity taking priority.
-`result/source_measures/` preserves the original selected crops for comparison
-and V3 fallback. `measures.json` links both versions and records source timestamps,
-normalization status, confidence and uncertainty. Codex chooses the method for
-the actual source style and visually compares every pair; no fixed recipe is imposed.
-Other outputs: source metadata, useful frames, `full_score.png`, multi-line A4
-`page_001.png` (and later pages), `full_score.pdf` and concise `report.md`.
-Content coverage and clean crops take priority over publication polish.
+The primary V2 artifact is `result/measures/001.png`, `002.png`, ...: the
+source-faithful selected crops in global order, ready for V3. `measures.json`
+records source timestamps, coordinates, confidence and uncertainty. New runs
+create one measure folder, without normalization status or duplicate source crops.
+Other outputs: source metadata, useful frames, `full_score.png`, A4 page PNGs,
+`full_score.pdf` and concise `report.md`.
+
+Priorities, in order: complete coverage, correct order, no accidental duplicates,
+cleanest available source frame, faithful crop, readable preview/PDF. Preserve
+original notation pixels; seek another observation to avoid cursors or overlays.
+Do not invert, threshold, whiten or remove backgrounds. Visual uniformity is
+secondary. Normalization is only an optional future presentation enhancement,
+not a V2 stage or V3 prerequisite. V3 must handle the actual source style.
 
 **Raw-video acceptance passed:** one 209.95-second local video → 69 inspected
 frames → 57 ordered complete logical measures → 3 visually checked A4 landscape
@@ -29,11 +33,10 @@ See [V2 acceptance](acceptance/V2_ACCEPTANCE.md) and
 [outputs](runs/v2-yukinohana/result/). No known omissions or duplicate occurrences
 remain in this run. The user-owned original video is unchanged.
 
-Only this horizontally scrolling style has passed. A second video style and
-URL/Xiazaitool acquisition remain unvalidated; this is not a claim of universal
-robustness. These validation gaps do not block V3. V3 is now ACTIVE;
-the V2 normalization enhancement does not implement transcription or Guitar Pro
-export. Further publication polish is not a prerequisite for V3.
+Local-video reconstruction is validated on the original light-background video
+and the translucent Una Mattina fixture. This is not a universal robustness claim.
+URL/Xiazaitool acquisition remains unvalidated. V1 COMPLETE; V2 CORE COMPLETE;
+V3 ACTIVE. This cleanup does not implement transcription or Guitar Pro export.
 
 Codex makes every visual decision. Helpers execute explicit timestamps, crops,
 order, scales and placements; they never detect notation or infer layout.
@@ -58,11 +61,6 @@ metadata. Never delete a user-supplied local original.
   font path is resolved relative to the plan. Supply a font with suitable glyph
   coverage when needed. Normal pages show only supplied metadata and page numbers;
   engineering labels require `debug: true`. `show_header: false` hides the header.
-- `tools/normalize_measures.py`: executes explicit plan normalization, with a
-  song-level decision and optional per-measure overrides. No decision preserves
-  source pixels. Supports explicit operations or an externally prepared image;
-  see the [normalization plan contract](docs/NORMALIZATION.md). It never chooses
-  a recipe or infers visual fidelity. Unreviewed legacy tone output is `partial`.
 - `tools/compose.py`: existing mechanical crop/place/export helper, using Pillow
   and ReportLab. Its existing V1 plan format is preserved; the V2 skill describes
   adapting explicit paths and exporting the stable measure set.
@@ -84,6 +82,11 @@ tools; no hosted application or musical transcription is implemented here.
 
 The [V2 handoff regression](acceptance/V2_HARDENING.md) confirms unchanged
 measure images, metadata and score order after generic PDF export.
-The later [normalization acceptance](acceptance/V2_NORMALIZATION.md) adds 57 raw
-source crops and 57 visually reviewed normalized measures, preserving identities,
-order and source coordinates. [Latest outputs](runs/v2-yukinohana-normalized/result/).
+Historical [normalization evidence](acceptance/V2_NORMALIZATION.md) and its
+[outputs](runs/v2-yukinohana-normalized/result/) are retained unchanged. That
+experiment is no longer the output policy; see [retirement note](docs/NORMALIZATION.md).
+
+The [Una Mattina test](acceptance/V2_UNA_MATTINA.md) reconstructs 45 units from
+translucent notation over moving footage, with 3 checked PDF pages. Whitening did
+not pass; source pixels were retained. This motivated the source-faithful policy.
+[Test outputs](runs/v2-una-mattina/result/).

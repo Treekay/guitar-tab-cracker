@@ -65,16 +65,14 @@ provenance for every contributing source and visual review of the join.
 
 ### Required artifacts
 
-- `result/measures/001.png`, `002.png`, ...: PRIMARY product and direct future
-  V3 input. Exactly one selected crop per logical occurrence in global order,
-  normalized to black notation on white when visually safe.
-- `result/source_measures/001.png`, `002.png`, ...: original selected source crops
-  before normalization, including boundary context, for evidence and V3 fallback.
-- `result/measures.json`: ordered operational records with sequence_index,
-  printed_measure_number (nullable), source_timestamp, source_frame, source_output,
-  output, confidence, uncertainty and a normalization record (status, confidence,
-  source_faithful, uncertainty). Preserve crop coordinates and all contributing
-  sources for composite crops. No musical transcription.
+- `result/measures/001.png`, `002.png`, ...: PRIMARY product and direct V3 input.
+  One source-faithful selected crop per logical occurrence, in complete global order.
+  Preserve original notation pixels and boundary context. No duplicate source_measures/
+  folder unless a specific future debugging case requires one.
+- `result/measures.json`: ordered records with sequence_index,
+  printed_measure_number (nullable), source_timestamp, source_frame, output,
+  confidence and uncertainty. Preserve crop/context coordinates and contributing
+  sources for composites. No monochrome normalization status or musical transcription.
 - `result/source/source.json`: supplied source path/URL, acquired local path,
   video metadata and source identity; `result/frames/`: useful extracted frames.
 - `result/inspection/`: optional contact sheets and review crops.
@@ -96,30 +94,19 @@ omits unknown metadata. Use Pillow's portable default font or an explicit font
 path relative to the plan; no proprietary font is committed. Normal pages show
 only supplied metadata and page numbers. Engineering wording is debug-only.
 Header/font/layout-only changes must preserve measure pixels and records.
-Normalization intentionally changes preferred pixels and adds provenance; it
-must preserve identities, source evidence, geometry, context and explicit order.
+### V2 priorities and source fidelity
 
-### Source-faithful normalization
+Prioritize: (1) complete coverage, (2) correct order, (3) no accidental duplicates,
+(4) cleanest available source frame, (5) faithful crop, (6) readable preview/PDF.
+Choose another clean observation when cursors or overlays obscure notation.
+Preserve original pixels, including faint lines, multidigit frets, dots, beams,
+rests, ties/slurs, techniques, parentheses and all other meaningful marks.
+Do not attempt inversion, thresholding, whitening, background removal or compare
+cleanup methods in new V2 runs. Visual uniformity is secondary.
 
-After selecting sources, inspect representative measures to establish source
-style and song-level consistency. Codex selects suitable processing, compares
-candidates and uses a consistent treatment where safe, with per-measure exceptions.
-No universal recipe is required. Any mechanical local image tool is allowed for
-explicitly chosen transformations; it must not make measure-identity decisions.
-Preserve all visible notation, including thin lines, multi-digit frets, dots,
-beams, rests, tuplets, ties/slurs, slides, bends, harmonics, parentheses, X marks,
-H/P/sl labels and accents. Never redraw, invent or fill hidden music.
-
-Visually compare EVERY source/normalized pair at readable scale. Check loss,
-merged digits, broken lines, erased marks and background artifacts that could
-look like notation. Keep antialiasing when it protects fidelity. Unsafe processing
-must fall back to source pixels (`source_preserved`); safe but incomplete cleanup
-may be `partial`. Set `normalized` only after explicit visual review confirms
-source fidelity. Retain uncertainty and prefer information over cleanliness.
-Regenerate the full score, page PNGs and PDF from the preferred measures, inspect
-all pairs/contact sheets/full score/page PNGs/actual PDF pages, and enlarge
-difficult examples. The report records method, review coverage, status counts
-and limitations. See [plan contract](NORMALIZATION.md).
+Normalization is only an optional future presentation enhancement. It is not a
+V2 stage, an acceptance requirement or a V3 dependency. Keep accepted historical
+runs and their evidence unchanged. New runs use a single measures/ folder.
 
 After export, independently revisit the video beginning, early/middle/late
 transitions and ending, using different timestamps where useful. Compare with
@@ -140,8 +127,10 @@ screenshots converted into a fabricated video benchmark. If none exists, request
 a representative video and complete independent implementation work meanwhile.
 Raw-video acceptance passed on the local Yukinohana video: 209.95 seconds,
 69 inspected frames, 57 complete logical measures and 3 A4 landscape pages.
-See [acceptance](../acceptance/V2_ACCEPTANCE.md). One scrolling style is validated;
-other styles and URL/Xiazaitool acquisition remain unvalidated.
+See [acceptance](../acceptance/V2_ACCEPTANCE.md). The translucent Una Mattina
+fixture also passed source-faithful reconstruction (45 units, 3 pages); see its
+[test record](../acceptance/V2_UNA_MATTINA.md). URL/Xiazaitool acquisition remains
+unvalidated, and these two fixtures do not establish universal robustness.
 
 V2 passes only after autonomous evidence collection and gap revisits, no user
 screenshot/timestamp/crop instructions, complete occurrence coverage confirmed by
@@ -157,12 +146,10 @@ skill or replace visual reasoning with CV.
 
 ## V3 ACTIVE
 
-Ordered clean measure images → structured music → Guitar Pro. The user has
-advanced project status to V3 ACTIVE. V2 normalization stops at this handoff;
-no transcription or Guitar Pro implementation is part of this enhancement.
-Local-video V2 is validated; URL acquisition is supported by the workflow but
-unvalidated, and a second video style is unvalidated. Neither gap blocks V3.
-The user's subsequent normalization request adds source-preserving preparation
-to V2; perfect raster publication polish remains unnecessary.
-A future hosted runtime may use a multimodal API agent with controlled tools;
-no hosting, application framework or export integration is required for V2.
+Source-faithful ordered measure images → structured music → Guitar Pro.
+V3 consumes measures/ directly; the multimodal model must handle the actual
+visual source style. There is no monochrome normalization prerequisite.
+This cleanup stops at the V2 handoff and does not implement V3. Local-video V2
+is validated on the tested fixtures; URL acquisition is supported in the workflow
+but unvalidated. A future hosted runtime may use a multimodal API agent with
+controlled tools; no hosting or application framework is required for V2.

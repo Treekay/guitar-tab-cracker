@@ -6,9 +6,8 @@ Optional plan fields: title, artist, font (path relative to the plan),
 show_header (default true), debug (default false). Unknown metadata is omitted.
 Without font, Pillow's bundled default font is used; supply a font for scripts
 outside its glyph coverage. No font files are bundled by this project.
-Source RGB crops are retained in source_measures/. Explicit normalization may
-be specified song-wide or overridden per selection; absent a decision, preserve
-source pixels. Legacy tone plans remain supported as unreviewed partial output.
+Selected RGB crops are the final measures/. No normalization or duplicate source
+folder is produced. Legacy transformation plans must be migrated explicitly.
 """
 import json
 from pathlib import Path
@@ -17,7 +16,6 @@ import sys
 from PIL import Image, ImageDraw, ImageFont
 from reportlab.pdfgen import canvas
 from reportlab.lib.utils import ImageReader
-from normalize_measures import normalize_selected_crop
 
 
 def presentation(plan, plan_path):
@@ -42,10 +40,13 @@ def presentation(plan, plan_path):
 
 def execute(plan_path, root):
     plan = json.loads(Path(plan_path).read_text(encoding="utf-8"))
+    if "normalization" in plan or any("normalization" in item for item in plan["selection"]):
+        raise ValueError("Normalization is no longer supported; remove legacy normalization fields for source-faithful export")
+    if plan.get("tone", "none") != "none":
+        raise ValueError("Tonal transforms are no longer supported; remove legacy tone for source-faithful export")
     heading, (font, small) = presentation(plan, plan_path)
     root = Path(root)
     (root / "measures").mkdir(exist_ok=True)
-    (root / "source_measures").mkdir(exist_ok=True)
     (root / "inspection").mkdir(exist_ok=True)
     records, cores, contextual = [], {}, {}
     for item in plan["selection"]:
@@ -56,26 +57,13 @@ def execute(plan_path, root):
             if not (0 <= left-before < right+after <= source.width and 0 <= top < bottom <= source.height):
                 raise ValueError(f"Invalid explicit crop/context for {n}")
             tile = source.crop((left-before, top, right+after, bottom)).convert("RGB")
-        source_output = f"source_measures/{n:03d}.png"
-        tile.save(root / source_output)
-        decision = item.get("normalization", plan.get("normalization"))
-        if "normalization" not in item and "normalization" not in plan:
-            if plan.get("tone", "none") == "max_rgb_to_gray":
-                decision = {"status": "partial", "confidence": "unknown",
-                            "source_faithful": None, "uncertainty": "Legacy tone; normalization review not recorded.",
-                            "operations": [{"op": "grayscale", "mode": "max_rgb"}]}
-            elif plan.get("tone", "none") != "none":
-                raise ValueError("Unknown explicit tonal transform")
-        tile, normalization = normalize_selected_crop(tile, decision, plan_path)
         output = f"measures/{n:03d}.png"
         tile.save(root / output)
         contextual[n] = tile
         cores[n] = tile.crop((before, 0, before+right-left, bottom-top))
-        records.append({**item, "source_output": source_output, "output": output,
-                        "normalization": normalization, "boundary_state": "complete",
+        records.append({**item, "output": output, "boundary_state": "complete",
                         "source_crop_box": [left-before, top, right+after, bottom],
                         "core_bbox_in_output": [before, 0, before+right-left, bottom-top],
-                        "tonal_transform": "explicit_normalization" if "normalization" in item or "normalization" in plan else plan.get("tone", "none"),
                         "context_note": "Extra pixels preserve a crossing annotation; they are not another logical occurrence." if before or after else None})
     sequence = [item["sequence_index"] for item in records]
     if sequence != list(range(1, len(records)+1)):

@@ -24,7 +24,7 @@ See [acceptance](../acceptance/V2_ACCEPTANCE.md) and the private
 [result report](../runs/v2-yukinohana/result/report.md). Explicit decisions and
 coverage evidence remain in runs/v2-yukinohana/working/. No CV/OMR or musical
 transcription was implemented. Tools only execute selected timestamps, regions,
-pointwise tone, ordering and placement.
+ordering and placement. Historical tonal experiments are retained as evidence only.
 
 FFmpeg is available from the project temporary imageio-ffmpeg wheel; ReportLab
 and Pillow are in the bundled Python runtime; Poppler rendered the actual PDF.
@@ -33,8 +33,10 @@ this run used FFmpeg's input inventory and the same explicit extraction helper.
 
 ## Remaining robustness validation
 
-Validate another genuinely different video style before a public robustness
-claim. The earlier Bilibili URL returned HTTP 412; Xiazaitool is the authorized
+The translucent Una Mattina fixture passed source-faithful reconstruction: 61
+inspected frames, 45 ordered units, 3 checked PDF pages. Whitening did not pass
+and is no longer required. Broader robustness still needs more evidence.
+Bilibili acquisition returned HTTP 412; Xiazaitool is the authorized
 normal-interface fallback but has not passed an acquisition test. Do not equate
 local-file success with proven website compatibility.
 
@@ -45,11 +47,24 @@ user originals, outputs and provenance; record cleanup status.
 
 ## V3 ACTIVE
 
-Ordered clean measure set → structured music → Guitar Pro. Status advanced by
-the user's V2 hardening request. The subsequent V2 normalization request adds a
-final source-preserving preparation stage; it does not start V3 implementation.
-URL acquisition and the second video style remain unvalidated but do not block V3.
-Perfect raster publication polish is not a completion requirement.
+Source-faithful ordered measures → structured music → Guitar Pro. The multimodal
+model consumes the actual source style directly, without monochrome preparation.
+V1 COMPLETE / V2 CORE COMPLETE / V3 ACTIVE. Do not implement V3 in this cleanup.
+URL acquisition remains unvalidated but does not block V3.
+
+## Current V2 output policy
+
+Select the cleanest source observation and export its pixels directly to measures/.
+Prioritize coverage, order, no duplicates, source selection, faithful crop and
+readable PDF, in that order. No duplicate source_measures/ folder, normalization
+status, method comparison or whitening stage in new runs. Visual uniformity is
+secondary; normalization is only an optional future presentation enhancement.
+
+Remove legacy normalization fields and non-none tone settings from copied plans
+before source-faithful export. The exporter rejects them before writing outputs.
+Reuse accepted selections for mechanical regression in a fresh directory; do not
+reconstruct the videos or alter historical outputs. Verify exact crop pixels,
+order, single-directory output and unchanged generic presentation behavior.
 
 ## Final V2 hardening complete
 
@@ -63,7 +78,7 @@ all 3 page bodies are pixel-identical. The regenerated A4 PDF opens and its thre
 actual rendered pages were visually checked. Five automated tests pass, including
 five presentation variants. See [hardening evidence](../acceptance/V2_HARDENING.md).
 
-## V2 normalization complete
+## Historical normalization experiment — retired
 
 Reused accepted source selections and frames in a new run. Retained 57 untouched
 RGB crops in source_measures/ and generated 57 visually reviewed normalized
@@ -75,4 +90,5 @@ style or musical identity inference was added.
 Every source/output pair, difficult enlarged examples, full score sections, three
 page PNGs and all actual PDF pages were inspected. This validates one light-background
 scrolling video only. See [normalization evidence](../acceptance/V2_NORMALIZATION.md).
-Stop after this enhancement and commit; no V3 work in this task.
+Preserve these artifacts and the Una Mattina test evidence. New runs do not repeat
+normalization. Stop after the source-faithful cleanup and commit; no V3 work.

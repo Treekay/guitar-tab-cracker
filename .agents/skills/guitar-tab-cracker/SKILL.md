@@ -1,6 +1,6 @@
 ---
 name: guitar-tab-cracker
-description: Autonomously reconstruct guitar-tab videos, accessible video URLs, or overlapping screenshots into ordered source and normalized measure images and a source-faithful visual score with A4 PNG/PDF. No musical transcription or Guitar Pro export.
+description: Autonomously reconstruct guitar-tab videos, accessible video URLs, or overlapping screenshots into ordered source-faithful measure images and a source-faithful visual score with A4 PNG/PDF. No musical transcription or Guitar Pro export.
 ---
 
 # Guitar Tab Cracker
@@ -10,18 +10,22 @@ accessible URL or screenshots. Codex decides timestamps, score regions,
 boundaries, identities, duplicates, order, source selection and page breaks.
 Tools execute explicit decisions. Never use CV/OCR, projection or matching/ordering
 algorithms to decide measure identity, boundaries, source selection or layout.
-Mechanical image processing for agent-selected normalization is allowed; the
-agent chooses methods and parameters and verifies visual fidelity.
+Preserve selected source pixels; helpers only execute explicit extraction, crop,
+order and presentation decisions.
 No string/fret, rhythm, technique, chord or other musical transcription in V2.
 
 Read docs/PRODUCT_REQUIREMENTS.md and docs/EXECUTION_PLAN.md before scope or
 architecture changes. **V1 COMPLETE; V2 CORE COMPLETE; V3 ACTIVE.** Preserve V1 without
-further polish. V2 includes source-preserving normalization and generic export;
-the current enhancement stops after verification and commit without implementing V3. Keep implementation/evidence private.
-Local-video V2 is validated. URL acquisition is supported in the workflow but
-unvalidated; a second video style is unvalidated. Neither gap blocks V3.
-The subsequent normalization request adds final V2 preparation; perfect raster
-publication polish is not a prerequisite for V3.
+further polish. V2 exports selected source crops directly; this cleanup stops
+at verification and commit without implementing V3. Keep evidence private.
+Local-video reconstruction is validated on the light-background and translucent
+fixtures. URL acquisition is supported but unvalidated; no universal robustness
+claim. Normalization is only an optional future presentation enhancement, never
+required by V2 or V3. Do not perform it in new runs.
+
+Prioritize complete coverage, correct order, no accidental duplicates, cleanest
+source frame, faithful crop and readable preview/PDF, in that order. Visual
+uniformity is secondary. Avoid cursors/overlays by finding cleaner observations.
 Users never supply timestamps, sampling rates, ROI, coordinates, measure labels,
 duplicate relationships, order or page breaks.
 
@@ -98,20 +102,16 @@ alternatives and account for each useful partial.
 
 ### Phase 8 — Build final logical measure set
 
-Retain selected source crops before tonal processing in result/source_measures/001.png,
-002.png, ... . The PRIMARY product is result/measures/ with matching names: the
-preferred normalized version of each logical occurrence in the same global order,
-without silent omissions or accidental duplication. Source evidence remains
-available to V3 when normalized notation is ambiguous. Preserve notation
-and boundary context. Combining complementary observations requires visually
-established identity/alignment and review of the join. Never invent pixels to
-erase obscuring overlays.
+The PRIMARY product is result/measures/001.png, 002.png, ...: exactly one
+source-faithful selected crop per logical occurrence in global order. Preserve
+original notation pixels and boundary context. Do not create duplicate
+source_measures/ folders unless a specific future debugging case requires one.
+Combining complementary observations requires established identity/alignment,
+source provenance and visual review of the join. Never invent hidden notation.
 
-Write result/measures.json as an ordered array of operational records:
-sequence_index, printed_measure_number (nullable), source_timestamp in seconds,
-source_frame, source_output (e.g. source_measures/001.png), output (e.g. measures/001.png),
-confidence and uncertainty. Add normalization status, confidence, source_faithful
-and uncertainty; keep these separate from source-selection confidence.
+Write result/measures.json as ordered records: sequence_index,
+printed_measure_number (nullable), source_timestamp, source_frame, output,
+confidence and uncertainty. Do not add monochrome normalization status fields.
 When boundary context extends beyond a logical measure, record core_bbox_in_output
 and context extents explicitly; compose cores only to avoid repeated notation.
 Retain crop boxes; for composites list every contributing frame/timestamp,
@@ -128,45 +128,20 @@ If true source gaps cannot be resolved, finish available work with explicit
 gap/partial labels in output and report, and state what additional source is
 needed. Incomplete source recovery does not pass the completion gate.
 
-### Phase 9b — Source-faithful score normalization
-
-Inspect representative selected measures for actual source style and song-level
-consistency. Choose and compare suitable transformations using any available
-mechanical local tools. No fixed recipe is prescribed: light/dark/translucent
-backgrounds, moving imagery, overlays and antialiasing may require different
-methods. Use a consistent song-level treatment where safe and explicit
-per-measure exceptions where needed. Do not force white backgrounds at the cost
-of information. Never redraw, invent music or reconstruct hidden pixels.
-
-Preserve original selected evidence in source_measures/. Visually compare EVERY
-source/output pair at native/readable scale. Preserve six lines, barlines, frets
-including multi-digit numbers, stems, beams, rests, dots, tuplets, ties/slurs,
-slides, bends, harmonics, parentheses/ghost notes, X marks, H/P/sl labels, accents
-and all other meaningful marks. Check erased thin lines, merged/broken digits,
-lost curves and false notation from background noise. Keep antialiasing if useful.
-
-Record normalized only after visual confirmation of fidelity; partial for safe
-but incomplete cleanup (or explicitly unreviewed candidates), source_preserved
-for original-pixel fallback. If uncertain, use the source crop and explain why.
-Always record confidence, source_faithful and uncertainty honestly. Keep crop
-geometry, core context, identities and order stable. Methods and parameters belong
-in run decisions, not song-specific helper constants or a universal skill recipe.
-See docs/NORMALIZATION.md for operations, external prepared images, song-level
-profiles and per-measure overrides. Other evidence-based tools remain allowed.
-
 ### Phase 10 — Visual score output
 
-Compose the preferred normalized measures/ set into result/full_score.png, multi-line A4 page_001.png
+Compose the source-faithful measures/ set into result/full_score.png, multi-line A4 page_001.png
 and subsequent pages, and full_score.pdf. Choose scale, staff alignment, row
 groups and placements visually. Preserve aspect ratio, readable consistent
 scale, sensible margins and cross-boundary annotation context. Never split a
 measure. PDF pages must be actual A4. Content quality exceeds publication polish.
 
 Use mechanical helpers when they save repeated work. tools/export_visual_score.py
-executes explicit source boxes, context extents, normalization decisions, order
-and placements, exporting both three-digit source and preferred images with
-metadata. tools/normalize_measures.py executes chosen operations or uses an
-externally prepared image; tools never choose methods or claim visual fidelity.
+executes explicit source boxes, context extents, order and placements, exporting
+one measures/ folder and provenance. Do not compare inversion/thresholding methods,
+whiten or remove backgrounds. V3 consumes the actual source style directly.
+Legacy normalization or non-none tone settings are rejected before output; remove
+them from a copied plan for a new run, preserving historical plans and artifacts.
 The export plan may supply title and artist; omit unknown metadata. Optional
 font paths are relative to the plan, otherwise use Pillow's portable bundled
 font. Supply a suitable font for glyphs outside its coverage; do not commit
@@ -192,7 +167,7 @@ regenerate affected outputs and metadata.
 
 ### Phase 12 — Final output QA
 
-Open EVERY source/normalized measure pair and readable contact sheets, full_score.png
+Open EVERY selected measure against its source evidence and readable contact sheets, full_score.png
 at readable scale (sections if long), every page PNG and rendered pages of the
 actual PDF. Enlarge representative difficult notation against original crops. Verify all logical
 occurrences, no accidental duplicates, order against video, unclipped notation,
@@ -203,8 +178,8 @@ Hashes, counts and geometry checks supplement mandatory visual inspection.
 Write concise result/report.md: source video/URL, duration, frames actually
 inspected, extra gap-recovery frames, logical measure count, unresolved
 fragments/gaps, unavoidable artifacts, duplicate/omission findings, page count,
-final paths and remaining source limitations. Include normalization method, status
-counts, pair-review coverage, fallback reasons and known uncertainty. No chain-of-thought.
+final paths and remaining source limitations. No normalization method/status
+reporting is needed. Record operational facts, not chain-of-thought.
 
 ### Post-QA — Download cleanup
 
@@ -229,10 +204,10 @@ manufacture a video benchmark.
 V2 completes only after autonomous evidence collection and gap revisits,
 independent video coverage review, no known duplicate/order/omission errors,
 readable score/PDF and a clean ordered set suitable for V3. Prefer two video
-styles before claiming public robustness. For normalization-only changes, reuse
+styles before claiming public robustness. For mechanical export changes, reuse
 the accepted selections and frames; do not repeat video reconstruction unless
-changed mechanics or evidence require it. Review every pair and regenerated
-artifact. Core acceptance and final hardening are complete; current status is V2 CORE COMPLETE / V3 ACTIVE. Further visual
+changed mechanics or evidence require it. Review affected crops and regenerated
+artifact against source evidence. Preserve accepted runs unchanged. Core acceptance and final hardening are complete; current status is V2 CORE COMPLETE / V3 ACTIVE. Further visual
 beautification is not a prerequisite to the structured-music stage.
 
 On failure classify insufficient survey, fast transition, incomplete gap audit,
@@ -270,6 +245,7 @@ Never embed fixture timestamps/answers in this skill or redesign as CV/OMR.
 
 ## V3 ACTIVE — handoff boundary
 
-Ordered clean measure images → visual transcription → structured music →
+Source-faithful ordered measure images → visual transcription → structured music →
 independent alphaTab/MusicXML/Guitar Pro export tools. A future hosted runtime
-may use a multimodal API agent with controlled tools. These stages are outside V2.
+may use a multimodal API agent with controlled tools. V3 handles the actual source
+style without normalization. These stages are outside V2.
