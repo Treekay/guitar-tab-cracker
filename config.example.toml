@@ -3,3 +3,13 @@ root = "runs"
 
 [logging]
 level = "INFO"
+
+[image]
+supported_extensions = [".png", ".jpg", ".jpeg", ".webp"]
+
+[roi]
+enabled = false
+x = 0.0
+y = 0.0
+width = 1.0
+height = 1.0
