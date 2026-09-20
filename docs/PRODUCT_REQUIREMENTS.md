@@ -1,6 +1,8 @@
 # Guitar Tab Cracker - Product Requirements
 
-Status: agent-first architecture reset. Active version: V1.
+Status: **V1 COMPLETE — images → reconstructed printable score.** Existing-set
+[acceptance](../acceptance/V1_ACCEPTANCE.md) passed; unseen-set reliability is
+not yet validated. V2 and V3 remain not started.
 
 ## Core model
 

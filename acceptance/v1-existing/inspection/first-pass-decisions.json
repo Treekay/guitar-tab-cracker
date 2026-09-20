@@ -600,28 +600,6 @@
           ],
           "x": 0,
           "source_staff_y": 155
-        },
-        {
-          "file": "F:\\code\\guitar-tab-cracker\\benchmark\\input\\2.png",
-          "box": [
-            0,
-            102,
-            247,
-            293
-          ],
-          "x": 28,
-          "source_staff_y": 137
-        },
-        {
-          "file": "F:\\code\\guitar-tab-cracker\\benchmark\\input\\2.png",
-          "box": [
-            263,
-            102,
-            310,
-            293
-          ],
-          "x": 291,
-          "source_staff_y": 137
         }
       ]
     },
@@ -1106,18 +1084,7 @@
             140,
             270
           ],
-          "trim_body_top": 0,
-          "endcap": {
-            "file": "F:\\code\\guitar-tab-cracker\\benchmark\\input\\1.png",
-            "box": [
-              1331,
-              155,
-              1346,
-              311
-            ],
-            "x": 0,
-            "source_staff_y": 155
-          }
+          "trim_body_top": 0
         },
         {
           "measures": [
@@ -1130,18 +1097,7 @@
             140,
             900
           ],
-          "trim_body_top": 0,
-          "endcap": {
-            "file": "F:\\code\\guitar-tab-cracker\\benchmark\\input\\3.png",
-            "box": [
-              489,
-              149,
-              504,
-              315
-            ],
-            "x": 0,
-            "source_staff_y": 149
-          }
+          "trim_body_top": 0
         },
         {
           "measures": [
@@ -1153,18 +1109,7 @@
             140,
             1530
           ],
-          "trim_body_top": 90,
-          "endcap": {
-            "file": "F:\\code\\guitar-tab-cracker\\benchmark\\input\\3.png",
-            "box": [
-              1504,
-              149,
-              1519,
-              315
-            ],
-            "x": 0,
-            "source_staff_y": 149
-          }
+          "trim_body_top": 90
         },
         {
           "measures": [
@@ -1178,18 +1123,7 @@
             140,
             2070
           ],
-          "trim_body_top": 90,
-          "endcap": {
-            "file": "F:\\code\\guitar-tab-cracker\\benchmark\\input\\5.png",
-            "box": [
-              671,
-              135,
-              686,
-              305
-            ],
-            "x": 0,
-            "source_staff_y": 135
-          }
+          "trim_body_top": 90
         },
         {
           "measures": [
@@ -1201,18 +1135,7 @@
             140,
             2610
           ],
-          "trim_body_top": 90,
-          "endcap": {
-            "file": "F:\\code\\guitar-tab-cracker\\benchmark\\input\\6.png",
-            "box": [
-              617,
-              226,
-              632,
-              390
-            ],
-            "x": 0,
-            "source_staff_y": 226
-          }
+          "trim_body_top": 90
         }
       ]
     },
@@ -1229,18 +1152,7 @@
             140,
             350
           ],
-          "trim_body_top": 90,
-          "endcap": {
-            "file": "F:\\code\\guitar-tab-cracker\\benchmark\\input\\6.png",
-            "box": [
-              1486,
-              226,
-              1501,
-              390
-            ],
-            "x": 0,
-            "source_staff_y": 226
-          }
+          "trim_body_top": 90
         },
         {
           "measures": [
@@ -1252,18 +1164,7 @@
             140,
             900
           ],
-          "trim_body_top": 90,
-          "endcap": {
-            "file": "F:\\code\\guitar-tab-cracker\\benchmark\\input\\7.png",
-            "box": [
-              1481,
-              139,
-              1496,
-              309
-            ],
-            "x": 0,
-            "source_staff_y": 139
-          }
+          "trim_body_top": 90
         },
         {
           "measures": [
@@ -1276,18 +1177,7 @@
             140,
             1450
           ],
-          "trim_body_top": 90,
-          "endcap": {
-            "file": "F:\\code\\guitar-tab-cracker\\benchmark\\input\\8.png",
-            "box": [
-              1480,
-              139,
-              1495,
-              309
-            ],
-            "x": 0,
-            "source_staff_y": 139
-          }
+          "trim_body_top": 90
         },
         {
           "measures": [
@@ -1299,18 +1189,7 @@
             140,
             2000
           ],
-          "trim_body_top": 90,
-          "endcap": {
-            "file": "F:\\code\\guitar-tab-cracker\\benchmark\\input\\9.png",
-            "box": [
-              1356,
-              137,
-              1371,
-              308
-            ],
-            "x": 0,
-            "source_staff_y": 137
-          }
+          "trim_body_top": 90
         },
         {
           "measures": [

@@ -1,0 +1,22 @@
+Title:           Reconstructed guitar score
+Subject:         unspecified
+Keywords:
+Author:          Codex visual reconstruction
+Creator:         anonymous
+Producer:        ReportLab PDF Library - (opensource)
+CreationDate:    2026-09-20T17:43:52+12
+ModDate:         2026-09-20T17:43:52+12
+Custom Metadata: no
+Metadata Stream: no
+Tagged:          no
+UserProperties:  no
+Suspects:        no
+Form:            none
+JavaScript:      no
+Pages:           2
+Encrypted:       no
+Page size:       595.276 x 841.89 pts (A4)
+Page rot:        0
+File size:       3464978 bytes
+Optimized:       no
+PDF version:     1.3

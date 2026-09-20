@@ -1,0 +1,24 @@
+{
+  "source_files_unchanged": 10,
+  "measure_tiles": 26,
+  "full_score_pixels": [
+    10819,
+    358
+  ],
+  "strip_section_count": 10,
+  "strip_sections_cover_all_pixels": true,
+  "page_count": 2,
+  "page_pixels": [
+    2480,
+    3508
+  ],
+  "pdf_size_points": [
+    595.2755905511812,
+    841.8897637795276
+  ],
+  "pdf_embedded_images_equal_page_pngs": true,
+  "scale_values": [
+    1.55
+  ],
+  "visual_verdict": "Recorded separately in report.md; mechanical checks do not establish visual correctness."
+}

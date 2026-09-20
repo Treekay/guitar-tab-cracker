@@ -9,12 +9,19 @@ Invoke [$guitar-tab-cracker](.agents/skills/guitar-tab-cracker/SKILL.md).
 There is no application installation, tabstitch CLI, ROI config or CV pipeline.
 Mechanical tools only execute explicit visual decisions made by the agent.
 
-- V1 (active): images -> full score PNG, A4 page PNGs and PDF.
+- **V1 COMPLETE — images → reconstructed printable score.**
 - V2 (not started): video/file URL -> agent-selected frames -> the same V1 workflow.
 - V3 (not started): reconstructed score -> visual transcription -> structured data and Guitar Pro-compatible export.
 
 Users do not supply ROI, coordinates, order, duplicates or page breaks. Genuine
 source gaps stay visible; missing content is never invented.
+
+Final acceptance: **10 screenshots → 26 logical measures → 2 A4 pages**, with
+source comparison, iterative page inspection and actual PDF verification.
+V1 has only been validated on the existing benchmark; no independent unseen
+set was available. Residual source overlays are documented. See
+[V1 acceptance](acceptance/V1_ACCEPTANCE.md) and
+[printable score](acceptance/v1-existing/full_score.pdf).
 
 ```text
 .agents/skills/guitar-tab-cracker/SKILL.md  autonomous workflow

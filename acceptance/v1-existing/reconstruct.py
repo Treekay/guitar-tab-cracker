@@ -51,6 +51,7 @@ for m,n in PICKS:
 # Same-measure complementary source views. Translation was established visually
 # from both barlines, staff bands and identical graphic shapes, without reading events.
 # Replace cursor-bearing areas only with actual source pixels.
+selected[2]['pieces'] = [piece(1,[993,120,1331,311]),piece(2,[0,102,247,293],28),piece(2,[263,102,310,293],291)]
 selected[5]['pieces'] = [piece(3,[266,90,489,315]),piece(2,[1464,78,1478,303],128)]
 selected[10]['pieces'] = [piece(5,[178,95,508,305]),piece(4,[1218,102,1258,312],30)]
 selected[13]['pieces'] = [piece(6,[107,185,617,390]),piece(5,[1365,94,1383,299],205)]
@@ -61,7 +62,13 @@ pages=[]
 for pi,groups in enumerate(GROUPS):
     rows=[]
     for ri,group in enumerate(groups):
-        rows.append(dict(measures=group,scale=1.55,position=[140,POSITIONS[pi][ri]],trim_body_top=0 if pi==0 and ri<2 else 90))
+        row=dict(measures=group,scale=1.55,position=[140,POSITIONS[pi][ri]],trim_body_top=0 if pi==0 and ri<2 else 90)
+        if group[-1] != 26:
+            end_m=selected[group[-1]-1]
+            n=dict(PICKS)[group[-1]]
+            right=end_m['pieces'][0]['box'][2]
+            row['endcap']=piece(n,[right,STAFF[n],right+15,VERTICAL[n][1]])
+        rows.append(row)
     pages.append(dict(subtitle=f'Source-faithful visual reconstruction | Measures {groups[0][0]}-{groups[-1][-1]}',rows=rows))
 plan=dict(inventory=inventory,selected=selected,order=list(range(1,27)),tile_height=330,staff_anchor=155,dpi=300,page_size_pixels=[2480,3508],page_size_points=[595.2755905511812,841.8897637795276],title='Reconstructed guitar score',footer='Original source appearance retained. Opening measure contains an unavoidable source overlay.',pages=pages)
 plan_path=HERE/'decisions.json'

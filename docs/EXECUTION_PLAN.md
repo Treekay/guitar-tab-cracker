@@ -1,6 +1,11 @@
 # Execution Plan
 
-## V1 (active)
+## V1 COMPLETE — images → reconstructed printable score.
+
+The [final acceptance](../acceptance/V1_ACCEPTANCE.md) passed on the existing
+10-image benchmark: 26 logical measures, 2 visually verified A4 pages. No unseen
+set was available; broader reliability remains unvalidated. Source limitations
+are documented in the acceptance report. V2 remains not started.
 
 Build/refine one Codex skill:
 
