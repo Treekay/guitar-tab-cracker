@@ -1,0 +1,5 @@
+[workspace]
+root = "runs"
+
+[logging]
+level = "INFO"

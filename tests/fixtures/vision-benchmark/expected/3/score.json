@@ -1,0 +1,712 @@
+{
+  "schema_version": 1,
+  "source": {
+    "image": "../../benchmark-input/3.png",
+    "string_numbering": "1=top/highest, 6=bottom/lowest",
+    "staff_line_y_pixels": [
+      149,
+      170,
+      190,
+      210,
+      230,
+      251
+    ],
+    "annotations": [
+      "Video background and vertical turquoise playhead near x=402 are non-musical.",
+      "Printed 9 and its opening barline are visible at the right edge, but no event from that region is visible.",
+      "No time signature is visible."
+    ]
+  },
+  "measures": [
+    {
+      "printed_number": null,
+      "boundary": "partial_left",
+      "confidence": "medium",
+      "annotations": [
+        "Slide labels/diagonals and curves at events 1–2 and 3–4; measure number is outside the crop."
+      ],
+      "events": [
+        {
+          "index": 1,
+          "duration": 16,
+          "dots": 0,
+          "tuplet": null,
+          "rest": false,
+          "notes": [
+            {
+              "string": 3,
+              "fret": 7,
+              "parenthesized": false,
+              "techniques": [
+                "slide"
+              ],
+              "confidence": "high"
+            }
+          ],
+          "confidence": "medium",
+          "uncertainty": "The left edge clips part of the 7 glyph; visible remainder reads as 7."
+        },
+        {
+          "index": 2,
+          "duration": 16,
+          "dots": 0,
+          "tuplet": null,
+          "rest": false,
+          "notes": [
+            {
+              "string": 3,
+              "fret": 4,
+              "parenthesized": false,
+              "techniques": [],
+              "confidence": "high"
+            }
+          ],
+          "confidence": "high",
+          "uncertainty": null
+        },
+        {
+          "index": 3,
+          "duration": 16,
+          "dots": 0,
+          "tuplet": null,
+          "rest": false,
+          "notes": [
+            {
+              "string": 4,
+              "fret": 5,
+              "parenthesized": false,
+              "techniques": [
+                "slide"
+              ],
+              "confidence": "high"
+            }
+          ],
+          "confidence": "high",
+          "uncertainty": null
+        },
+        {
+          "index": 4,
+          "duration": 16,
+          "dots": 0,
+          "tuplet": null,
+          "rest": false,
+          "notes": [
+            {
+              "string": 4,
+              "fret": 3,
+              "parenthesized": false,
+              "techniques": [],
+              "confidence": "high"
+            }
+          ],
+          "confidence": "high",
+          "uncertainty": null
+        },
+        {
+          "index": 5,
+          "duration": 16,
+          "dots": 0,
+          "tuplet": null,
+          "rest": false,
+          "notes": [
+            {
+              "string": 4,
+              "fret": 2,
+              "parenthesized": false,
+              "techniques": [],
+              "confidence": "high"
+            }
+          ],
+          "confidence": "high",
+          "uncertainty": null
+        },
+        {
+          "index": 6,
+          "duration": 16,
+          "dots": 0,
+          "tuplet": null,
+          "rest": false,
+          "notes": [
+            {
+              "string": 4,
+              "fret": 0,
+              "parenthesized": false,
+              "techniques": [],
+              "confidence": "high"
+            }
+          ],
+          "confidence": "high",
+          "uncertainty": null
+        },
+        {
+          "index": 7,
+          "duration": 16,
+          "dots": 0,
+          "tuplet": null,
+          "rest": false,
+          "notes": [
+            {
+              "string": 5,
+              "fret": 3,
+              "parenthesized": false,
+              "techniques": [],
+              "confidence": "high"
+            }
+          ],
+          "confidence": "high",
+          "uncertainty": null
+        },
+        {
+          "index": 8,
+          "duration": 16,
+          "dots": 0,
+          "tuplet": null,
+          "rest": false,
+          "notes": [
+            {
+              "string": 5,
+              "fret": 2,
+              "parenthesized": false,
+              "techniques": [],
+              "confidence": "high"
+            }
+          ],
+          "confidence": "high",
+          "uncertainty": null
+        }
+      ]
+    },
+    {
+      "printed_number": 6,
+      "boundary": "complete",
+      "confidence": "medium",
+      "annotations": [
+        "Curved continuation from event 2 ends near event 3; unseen fret content is not inferred."
+      ],
+      "events": [
+        {
+          "index": 1,
+          "duration": 8,
+          "dots": 0,
+          "tuplet": null,
+          "rest": false,
+          "notes": [
+            {
+              "string": 5,
+              "fret": 0,
+              "parenthesized": false,
+              "techniques": [],
+              "confidence": "high"
+            }
+          ],
+          "confidence": "high",
+          "uncertainty": null
+        },
+        {
+          "index": 2,
+          "duration": 8,
+          "dots": 0,
+          "tuplet": null,
+          "rest": false,
+          "notes": [
+            {
+              "string": 6,
+              "fret": 5,
+              "parenthesized": false,
+              "techniques": [],
+              "confidence": "high"
+            }
+          ],
+          "confidence": "high",
+          "uncertainty": null
+        },
+        {
+          "index": 3,
+          "duration": 4,
+          "dots": 1,
+          "tuplet": null,
+          "rest": false,
+          "notes": [],
+          "confidence": "low",
+          "uncertainty": "Stem near x=395 with augmentation dot and an incoming curve is visible; destination fret content is unreadable at the playhead."
+        }
+      ]
+    },
+    {
+      "printed_number": 7,
+      "boundary": "complete",
+      "confidence": "medium",
+      "annotations": [
+        "Upward arpeggio arrows at events 1 and 7. H connects events 3–4. A partly clipped tuplet marking lies below events 3–5."
+      ],
+      "events": [
+        {
+          "index": 1,
+          "duration": 16,
+          "dots": 0,
+          "tuplet": null,
+          "rest": false,
+          "notes": [
+            {
+              "string": 1,
+              "fret": 8,
+              "parenthesized": false,
+              "techniques": [],
+              "confidence": "high"
+            },
+            {
+              "string": 5,
+              "fret": 8,
+              "parenthesized": false,
+              "techniques": [],
+              "confidence": "high"
+            }
+          ],
+          "confidence": "high",
+          "uncertainty": null
+        },
+        {
+          "index": 2,
+          "duration": 16,
+          "dots": 0,
+          "tuplet": null,
+          "rest": false,
+          "notes": [
+            {
+              "string": 1,
+              "fret": 10,
+              "parenthesized": false,
+              "techniques": [],
+              "confidence": "high"
+            }
+          ],
+          "confidence": "high",
+          "uncertainty": null
+        },
+        {
+          "index": 3,
+          "duration": 16,
+          "dots": 0,
+          "tuplet": null,
+          "rest": false,
+          "notes": [
+            {
+              "string": 1,
+              "fret": 8,
+              "parenthesized": false,
+              "techniques": [
+                "hammer-on"
+              ],
+              "confidence": "high"
+            }
+          ],
+          "confidence": "medium",
+          "uncertainty": "Tuplet numeral/bracket below this three-note group is cut off by the image bottom; duration records the two visible beams, tuplet remains unconfirmed."
+        },
+        {
+          "index": 4,
+          "duration": 16,
+          "dots": 0,
+          "tuplet": null,
+          "rest": false,
+          "notes": [
+            {
+              "string": 1,
+              "fret": 10,
+              "parenthesized": false,
+              "techniques": [],
+              "confidence": "high"
+            }
+          ],
+          "confidence": "medium",
+          "uncertainty": "Tuplet numeral/bracket below this three-note group is cut off by the image bottom; duration records the two visible beams, tuplet remains unconfirmed."
+        },
+        {
+          "index": 5,
+          "duration": 16,
+          "dots": 0,
+          "tuplet": null,
+          "rest": false,
+          "notes": [
+            {
+              "string": 1,
+              "fret": 8,
+              "parenthesized": true,
+              "techniques": [],
+              "confidence": "high"
+            }
+          ],
+          "confidence": "medium",
+          "uncertainty": "Tuplet numeral/bracket below this three-note group is cut off by the image bottom; duration records the two visible beams, tuplet remains unconfirmed."
+        },
+        {
+          "index": 6,
+          "duration": 8,
+          "dots": 0,
+          "tuplet": null,
+          "rest": false,
+          "notes": [],
+          "confidence": "low",
+          "uncertainty": "An eighth-note stem near x=733 receives a curve from parenthesized 8, but destination fret content is unreadable."
+        },
+        {
+          "index": 7,
+          "duration": 8,
+          "dots": 0,
+          "tuplet": null,
+          "rest": false,
+          "notes": [
+            {
+              "string": 1,
+              "fret": 7,
+              "parenthesized": false,
+              "techniques": [],
+              "confidence": "high"
+            },
+            {
+              "string": 2,
+              "fret": 7,
+              "parenthesized": false,
+              "techniques": [],
+              "confidence": "high"
+            },
+            {
+              "string": 3,
+              "fret": 7,
+              "parenthesized": false,
+              "techniques": [],
+              "confidence": "high"
+            },
+            {
+              "string": 5,
+              "fret": 7,
+              "parenthesized": false,
+              "techniques": [],
+              "confidence": "high"
+            }
+          ],
+          "confidence": "high",
+          "uncertainty": null
+        },
+        {
+          "index": 8,
+          "duration": 16,
+          "dots": 0,
+          "tuplet": null,
+          "rest": false,
+          "notes": [
+            {
+              "string": 2,
+              "fret": 7,
+              "parenthesized": false,
+              "techniques": [],
+              "confidence": "high"
+            }
+          ],
+          "confidence": "high",
+          "uncertainty": null
+        },
+        {
+          "index": 9,
+          "duration": 8,
+          "dots": 1,
+          "tuplet": null,
+          "rest": false,
+          "notes": [
+            {
+              "string": 3,
+              "fret": 9,
+              "parenthesized": false,
+              "techniques": [],
+              "confidence": "high"
+            }
+          ],
+          "confidence": "high",
+          "uncertainty": null
+        },
+        {
+          "index": 10,
+          "duration": 4,
+          "dots": 0,
+          "tuplet": null,
+          "rest": false,
+          "notes": [],
+          "confidence": "low",
+          "uncertainty": "Unflagged stem near x=947 follows a curve from fret 9 without readable destination fret content."
+        }
+      ]
+    },
+    {
+      "printed_number": 8,
+      "boundary": "complete",
+      "confidence": "high",
+      "annotations": [
+        "H and curves connect events 1–2 and 3–4; upward arpeggio arrows at events 1 and 8. Event 7 is a two-flag rest."
+      ],
+      "events": [
+        {
+          "index": 1,
+          "duration": 16,
+          "dots": 0,
+          "tuplet": null,
+          "rest": false,
+          "notes": [
+            {
+              "string": 2,
+              "fret": 4,
+              "parenthesized": false,
+              "techniques": [
+                "hammer-on"
+              ],
+              "confidence": "high"
+            },
+            {
+              "string": 3,
+              "fret": 5,
+              "parenthesized": false,
+              "techniques": [],
+              "confidence": "high"
+            },
+            {
+              "string": 5,
+              "fret": 5,
+              "parenthesized": false,
+              "techniques": [],
+              "confidence": "high"
+            }
+          ],
+          "confidence": "high",
+          "uncertainty": null
+        },
+        {
+          "index": 2,
+          "duration": 16,
+          "dots": 0,
+          "tuplet": null,
+          "rest": false,
+          "notes": [
+            {
+              "string": 2,
+              "fret": 5,
+              "parenthesized": false,
+              "techniques": [],
+              "confidence": "high"
+            }
+          ],
+          "confidence": "high",
+          "uncertainty": null
+        },
+        {
+          "index": 3,
+          "duration": 16,
+          "dots": 0,
+          "tuplet": null,
+          "rest": false,
+          "notes": [
+            {
+              "string": 2,
+              "fret": 4,
+              "parenthesized": false,
+              "techniques": [
+                "hammer-on"
+              ],
+              "confidence": "high"
+            }
+          ],
+          "confidence": "high",
+          "uncertainty": null
+        },
+        {
+          "index": 4,
+          "duration": 16,
+          "dots": 0,
+          "tuplet": null,
+          "rest": false,
+          "notes": [
+            {
+              "string": 2,
+              "fret": 5,
+              "parenthesized": false,
+              "techniques": [],
+              "confidence": "high"
+            }
+          ],
+          "confidence": "high",
+          "uncertainty": null
+        },
+        {
+          "index": 5,
+          "duration": 8,
+          "dots": 0,
+          "tuplet": null,
+          "rest": false,
+          "notes": [
+            {
+              "string": 2,
+              "fret": 4,
+              "parenthesized": false,
+              "techniques": [],
+              "confidence": "high"
+            }
+          ],
+          "confidence": "high",
+          "uncertainty": null
+        },
+        {
+          "index": 6,
+          "duration": 16,
+          "dots": 0,
+          "tuplet": null,
+          "rest": false,
+          "notes": [
+            {
+              "string": 3,
+              "fret": 5,
+              "parenthesized": false,
+              "techniques": [],
+              "confidence": "high"
+            }
+          ],
+          "confidence": "high",
+          "uncertainty": null
+        },
+        {
+          "index": 7,
+          "duration": 16,
+          "dots": 0,
+          "tuplet": null,
+          "rest": true,
+          "notes": [],
+          "confidence": "high",
+          "uncertainty": null
+        },
+        {
+          "index": 8,
+          "duration": 4,
+          "dots": 0,
+          "tuplet": null,
+          "rest": false,
+          "notes": [
+            {
+              "string": 1,
+              "fret": 0,
+              "parenthesized": false,
+              "techniques": [],
+              "confidence": "high"
+            },
+            {
+              "string": 2,
+              "fret": 0,
+              "parenthesized": false,
+              "techniques": [],
+              "confidence": "high"
+            },
+            {
+              "string": 3,
+              "fret": 0,
+              "parenthesized": false,
+              "techniques": [],
+              "confidence": "high"
+            },
+            {
+              "string": 5,
+              "fret": 3,
+              "parenthesized": false,
+              "techniques": [],
+              "confidence": "high"
+            }
+          ],
+          "confidence": "high",
+          "uncertainty": null
+        },
+        {
+          "index": 9,
+          "duration": 8,
+          "dots": 0,
+          "tuplet": null,
+          "rest": false,
+          "notes": [
+            {
+              "string": 1,
+              "fret": 3,
+              "parenthesized": false,
+              "techniques": [],
+              "confidence": "high"
+            }
+          ],
+          "confidence": "high",
+          "uncertainty": null
+        },
+        {
+          "index": 10,
+          "duration": 8,
+          "dots": 0,
+          "tuplet": null,
+          "rest": false,
+          "notes": [
+            {
+              "string": 4,
+              "fret": 2,
+              "parenthesized": false,
+              "techniques": [],
+              "confidence": "high"
+            }
+          ],
+          "confidence": "high",
+          "uncertainty": null
+        }
+      ]
+    },
+    {
+      "printed_number": 9,
+      "boundary": "partial_right",
+      "confidence": "high",
+      "annotations": [
+        "Only the printed number and opening barline are visible; no musical event is invented."
+      ],
+      "events": []
+    }
+  ],
+  "unresolved": [
+    {
+      "measure": null,
+      "event_index": 1,
+      "issue": "Partially clipped fret glyph at x≈0 is read as 7 on string 3; edge prevents full-glyph confirmation.",
+      "candidates": [
+        7
+      ]
+    },
+    {
+      "measure": 6,
+      "event_index": 3,
+      "issue": "Curve and dotted-quarter stem at x≈395 are visible; fret content is absent/obscured by the playhead.",
+      "candidates": []
+    },
+    {
+      "measure": 7,
+      "event_index": 3,
+      "event_indexes": [
+        3,
+        4,
+        5
+      ],
+      "issue": "Bottom edge clips a probable tuplet numeral under events 3–5; two beams are clear but the ratio is unconfirmed.",
+      "candidates": [
+        "3:2 triplet",
+        "no confirmed tuplet"
+      ]
+    },
+    {
+      "measure": 7,
+      "event_index": 6,
+      "issue": "Curved continuation into an eighth stem near x≈733 has no readable fret content.",
+      "candidates": []
+    },
+    {
+      "measure": 7,
+      "event_index": 10,
+      "issue": "Curved continuation into a quarter stem near x≈947 has no readable fret content.",
+      "candidates": []
+    }
+  ]
+}

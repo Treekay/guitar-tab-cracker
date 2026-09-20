@@ -1,0 +1,863 @@
+{
+  "schema_version": 1,
+  "source": {
+    "image": "../../benchmark-input/7.png",
+    "string_numbering": "1=top/highest, 6=bottom/lowest",
+    "staff_line_y_pixels": [
+      139,
+      160,
+      180,
+      200,
+      221,
+      241
+    ],
+    "annotations": [
+      "Video background and turquoise playhead near x=322 are non-musical. No time signature is visible.",
+      "Dead-note X symbols use unpitched_notes rather than invented frets."
+    ]
+  },
+  "measures": [
+    {
+      "printed_number": null,
+      "boundary": "partial_left",
+      "confidence": "medium",
+      "annotations": [
+        "No printed measure number is visible. Straight upward arrows at events 1 and 6; wavy arpeggio at event 3."
+      ],
+      "events": [
+        {
+          "index": 1,
+          "duration": 8,
+          "dots": 0,
+          "tuplet": null,
+          "rest": false,
+          "notes": [
+            {
+              "string": 3,
+              "fret": 2,
+              "parenthesized": false,
+              "techniques": [],
+              "confidence": "high"
+            }
+          ],
+          "confidence": "medium",
+          "uncertainty": "Incoming slide curve/diagonal is visible, but its source fret is clipped off the left edge.",
+          "unpitched_notes": [
+            {
+              "string": 6,
+              "symbol": "X",
+              "techniques": [
+                "dead-note"
+              ],
+              "confidence": "high"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "duration": 8,
+          "dots": 0,
+          "tuplet": null,
+          "rest": false,
+          "notes": [
+            {
+              "string": 2,
+              "fret": 0,
+              "parenthesized": false,
+              "techniques": [],
+              "confidence": "high"
+            }
+          ],
+          "confidence": "high",
+          "uncertainty": null
+        },
+        {
+          "index": 3,
+          "duration": 8,
+          "dots": 0,
+          "tuplet": null,
+          "rest": false,
+          "notes": [
+            {
+              "string": 1,
+              "fret": 7,
+              "parenthesized": false,
+              "techniques": [],
+              "confidence": "high"
+            },
+            {
+              "string": 2,
+              "fret": 7,
+              "parenthesized": false,
+              "techniques": [],
+              "confidence": "high"
+            },
+            {
+              "string": 3,
+              "fret": 7,
+              "parenthesized": false,
+              "techniques": [],
+              "confidence": "high"
+            },
+            {
+              "string": 5,
+              "fret": 0,
+              "parenthesized": false,
+              "techniques": [],
+              "confidence": "high"
+            }
+          ],
+          "confidence": "high",
+          "uncertainty": null
+        },
+        {
+          "index": 4,
+          "duration": 16,
+          "dots": 0,
+          "tuplet": null,
+          "rest": false,
+          "notes": [
+            {
+              "string": 4,
+              "fret": 9,
+              "parenthesized": false,
+              "techniques": [],
+              "confidence": "high"
+            }
+          ],
+          "confidence": "high",
+          "uncertainty": null
+        },
+        {
+          "index": 5,
+          "duration": 16,
+          "dots": 0,
+          "tuplet": null,
+          "rest": false,
+          "notes": [
+            {
+              "string": 1,
+              "fret": 8,
+              "parenthesized": false,
+              "techniques": [],
+              "confidence": "high"
+            }
+          ],
+          "confidence": "high",
+          "uncertainty": null
+        },
+        {
+          "index": 6,
+          "duration": 16,
+          "dots": 0,
+          "tuplet": null,
+          "rest": false,
+          "notes": [
+            {
+              "string": 1,
+              "fret": 7,
+              "parenthesized": false,
+              "techniques": [],
+              "confidence": "high"
+            }
+          ],
+          "confidence": "high",
+          "uncertainty": null,
+          "unpitched_notes": [
+            {
+              "string": 6,
+              "symbol": "X",
+              "techniques": [
+                "dead-note"
+              ],
+              "confidence": "high"
+            }
+          ]
+        },
+        {
+          "index": 7,
+          "duration": 16,
+          "dots": 0,
+          "tuplet": null,
+          "rest": false,
+          "notes": [
+            {
+              "string": 1,
+              "fret": 8,
+              "parenthesized": false,
+              "techniques": [],
+              "confidence": "high"
+            }
+          ],
+          "confidence": "high",
+          "uncertainty": null
+        },
+        {
+          "index": 8,
+          "duration": 16,
+          "dots": 0,
+          "tuplet": null,
+          "rest": false,
+          "notes": [
+            {
+              "string": 1,
+              "fret": 7,
+              "parenthesized": false,
+              "techniques": [],
+              "confidence": "high"
+            }
+          ],
+          "confidence": "high",
+          "uncertainty": null
+        },
+        {
+          "index": 9,
+          "duration": 16,
+          "dots": 0,
+          "tuplet": null,
+          "rest": false,
+          "notes": [
+            {
+              "string": 1,
+              "fret": 8,
+              "parenthesized": false,
+              "techniques": [],
+              "confidence": "high"
+            }
+          ],
+          "confidence": "high",
+          "uncertainty": null
+        },
+        {
+          "index": 10,
+          "duration": 8,
+          "dots": 0,
+          "tuplet": null,
+          "rest": false,
+          "notes": [
+            {
+              "string": 1,
+              "fret": 7,
+              "parenthesized": false,
+              "techniques": [],
+              "confidence": "high"
+            },
+            {
+              "string": 2,
+              "fret": 7,
+              "parenthesized": false,
+              "techniques": [],
+              "confidence": "high"
+            },
+            {
+              "string": 3,
+              "fret": 7,
+              "parenthesized": false,
+              "techniques": [],
+              "confidence": "high"
+            },
+            {
+              "string": 5,
+              "fret": 0,
+              "parenthesized": false,
+              "techniques": [],
+              "confidence": "high"
+            }
+          ],
+          "confidence": "high",
+          "uncertainty": null
+        },
+        {
+          "index": 11,
+          "duration": 8,
+          "dots": 0,
+          "tuplet": null,
+          "rest": false,
+          "notes": [
+            {
+              "string": 2,
+              "fret": 7,
+              "parenthesized": false,
+              "techniques": [],
+              "confidence": "high"
+            }
+          ],
+          "confidence": "high",
+          "uncertainty": null
+        }
+      ]
+    },
+    {
+      "printed_number": 19,
+      "boundary": "complete",
+      "confidence": "medium",
+      "annotations": [
+        "Slide at events 1–2. Straight upward arrows at events 2 and 6; wavy arpeggio at event 4."
+      ],
+      "events": [
+        {
+          "index": 1,
+          "duration": null,
+          "dots": 0,
+          "tuplet": null,
+          "rest": false,
+          "notes": [
+            {
+              "string": 3,
+              "fret": 1,
+              "parenthesized": false,
+              "techniques": [
+                "slide"
+              ],
+              "confidence": "high"
+            }
+          ],
+          "confidence": "medium",
+          "uncertainty": "Small slide-source fret has no independently readable rhythmic value.",
+          "grace": true
+        },
+        {
+          "index": 2,
+          "duration": 8,
+          "dots": 0,
+          "tuplet": null,
+          "rest": false,
+          "notes": [
+            {
+              "string": 3,
+              "fret": 2,
+              "parenthesized": false,
+              "techniques": [],
+              "confidence": "high"
+            }
+          ],
+          "confidence": "high",
+          "uncertainty": null,
+          "unpitched_notes": [
+            {
+              "string": 6,
+              "symbol": "X",
+              "techniques": [
+                "dead-note"
+              ],
+              "confidence": "high"
+            }
+          ]
+        },
+        {
+          "index": 3,
+          "duration": 8,
+          "dots": 0,
+          "tuplet": null,
+          "rest": false,
+          "notes": [
+            {
+              "string": 2,
+              "fret": 0,
+              "parenthesized": false,
+              "techniques": [],
+              "confidence": "high"
+            }
+          ],
+          "confidence": "high",
+          "uncertainty": null
+        },
+        {
+          "index": 4,
+          "duration": 8,
+          "dots": 0,
+          "tuplet": null,
+          "rest": false,
+          "notes": [
+            {
+              "string": 1,
+              "fret": 0,
+              "parenthesized": false,
+              "techniques": [],
+              "confidence": "high"
+            },
+            {
+              "string": 2,
+              "fret": 0,
+              "parenthesized": false,
+              "techniques": [],
+              "confidence": "high"
+            },
+            {
+              "string": 3,
+              "fret": 2,
+              "parenthesized": false,
+              "techniques": [],
+              "confidence": "high"
+            },
+            {
+              "string": 6,
+              "fret": 3,
+              "parenthesized": false,
+              "techniques": [],
+              "confidence": "high"
+            }
+          ],
+          "confidence": "high",
+          "uncertainty": null
+        },
+        {
+          "index": 5,
+          "duration": 8,
+          "dots": 0,
+          "tuplet": null,
+          "rest": false,
+          "notes": [
+            {
+              "string": 4,
+              "fret": 3,
+              "parenthesized": false,
+              "techniques": [],
+              "confidence": "high"
+            }
+          ],
+          "confidence": "high",
+          "uncertainty": null
+        },
+        {
+          "index": 6,
+          "duration": 8,
+          "dots": 0,
+          "tuplet": null,
+          "rest": false,
+          "notes": [
+            {
+              "string": 1,
+              "fret": 1,
+              "parenthesized": false,
+              "techniques": [],
+              "confidence": "high"
+            },
+            {
+              "string": 2,
+              "fret": 0,
+              "parenthesized": false,
+              "techniques": [],
+              "confidence": "high"
+            }
+          ],
+          "confidence": "high",
+          "uncertainty": null,
+          "unpitched_notes": [
+            {
+              "string": 6,
+              "symbol": "X",
+              "techniques": [
+                "dead-note"
+              ],
+              "confidence": "high"
+            }
+          ]
+        },
+        {
+          "index": 7,
+          "duration": 8,
+          "dots": 0,
+          "tuplet": null,
+          "rest": false,
+          "notes": [
+            {
+              "string": 1,
+              "fret": 3,
+              "parenthesized": false,
+              "techniques": [],
+              "confidence": "high"
+            }
+          ],
+          "confidence": "high",
+          "uncertainty": null
+        },
+        {
+          "index": 8,
+          "duration": 8,
+          "dots": 0,
+          "tuplet": null,
+          "rest": false,
+          "notes": [
+            {
+              "string": 2,
+              "fret": 2,
+              "parenthesized": false,
+              "techniques": [],
+              "confidence": "high"
+            },
+            {
+              "string": 3,
+              "fret": 1,
+              "parenthesized": false,
+              "techniques": [],
+              "confidence": "high"
+            },
+            {
+              "string": 6,
+              "fret": 2,
+              "parenthesized": false,
+              "techniques": [],
+              "confidence": "high"
+            }
+          ],
+          "confidence": "high",
+          "uncertainty": null
+        },
+        {
+          "index": 9,
+          "duration": 8,
+          "dots": 0,
+          "tuplet": null,
+          "rest": false,
+          "notes": [
+            {
+              "string": 4,
+              "fret": 0,
+              "parenthesized": false,
+              "techniques": [],
+              "confidence": "high"
+            }
+          ],
+          "confidence": "high",
+          "uncertainty": null
+        }
+      ]
+    },
+    {
+      "printed_number": 20,
+      "boundary": "complete",
+      "confidence": "medium",
+      "annotations": [
+        "Slide at events 2–3. Straight upward arrows at events 1 and 8; wavy arpeggio at event 9. Curved lines continue toward measure 21, with an unreadable intermediate event."
+      ],
+      "events": [
+        {
+          "index": 1,
+          "duration": 8,
+          "dots": 0,
+          "tuplet": null,
+          "rest": false,
+          "notes": [
+            {
+              "string": 2,
+              "fret": 0,
+              "parenthesized": false,
+              "techniques": [],
+              "confidence": "high"
+            }
+          ],
+          "confidence": "high",
+          "uncertainty": null,
+          "unpitched_notes": [
+            {
+              "string": 6,
+              "symbol": "X",
+              "techniques": [
+                "dead-note"
+              ],
+              "confidence": "high"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "duration": null,
+          "dots": 0,
+          "tuplet": null,
+          "rest": false,
+          "notes": [
+            {
+              "string": 3,
+              "fret": 2,
+              "parenthesized": false,
+              "techniques": [
+                "slide"
+              ],
+              "confidence": "high"
+            }
+          ],
+          "confidence": "medium",
+          "uncertainty": "Small slide-source fret has no independently readable rhythmic value.",
+          "grace": true
+        },
+        {
+          "index": 3,
+          "duration": 8,
+          "dots": 0,
+          "tuplet": null,
+          "rest": false,
+          "notes": [
+            {
+              "string": 3,
+              "fret": 4,
+              "parenthesized": false,
+              "techniques": [],
+              "confidence": "high"
+            }
+          ],
+          "confidence": "high",
+          "uncertainty": null
+        },
+        {
+          "index": 4,
+          "duration": 16,
+          "dots": 0,
+          "tuplet": null,
+          "rest": false,
+          "notes": [
+            {
+              "string": 3,
+              "fret": 4,
+              "parenthesized": false,
+              "techniques": [],
+              "confidence": "high"
+            },
+            {
+              "string": 5,
+              "fret": 0,
+              "parenthesized": false,
+              "techniques": [],
+              "confidence": "high"
+            }
+          ],
+          "confidence": "high",
+          "uncertainty": null
+        },
+        {
+          "index": 5,
+          "duration": 16,
+          "dots": 0,
+          "tuplet": null,
+          "rest": false,
+          "notes": [
+            {
+              "string": 2,
+              "fret": 0,
+              "parenthesized": false,
+              "techniques": [],
+              "confidence": "high"
+            }
+          ],
+          "confidence": "high",
+          "uncertainty": null
+        },
+        {
+          "index": 6,
+          "duration": 16,
+          "dots": 0,
+          "tuplet": null,
+          "rest": false,
+          "notes": [
+            {
+              "string": 3,
+              "fret": 4,
+              "parenthesized": false,
+              "techniques": [],
+              "confidence": "high"
+            }
+          ],
+          "confidence": "high",
+          "uncertainty": null
+        },
+        {
+          "index": 7,
+          "duration": 16,
+          "dots": 0,
+          "tuplet": null,
+          "rest": false,
+          "notes": [
+            {
+              "string": 2,
+              "fret": 0,
+              "parenthesized": false,
+              "techniques": [],
+              "confidence": "high"
+            }
+          ],
+          "confidence": "high",
+          "uncertainty": null
+        },
+        {
+          "index": 8,
+          "duration": 8,
+          "dots": 0,
+          "tuplet": null,
+          "rest": false,
+          "notes": [
+            {
+              "string": 3,
+              "fret": 4,
+              "parenthesized": false,
+              "techniques": [],
+              "confidence": "high"
+            }
+          ],
+          "confidence": "high",
+          "uncertainty": null,
+          "unpitched_notes": [
+            {
+              "string": 6,
+              "symbol": "X",
+              "techniques": [
+                "dead-note"
+              ],
+              "confidence": "high"
+            }
+          ]
+        },
+        {
+          "index": 9,
+          "duration": 8,
+          "dots": 0,
+          "tuplet": null,
+          "rest": false,
+          "notes": [
+            {
+              "string": 3,
+              "fret": 0,
+              "parenthesized": false,
+              "techniques": [],
+              "confidence": "high"
+            },
+            {
+              "string": 4,
+              "fret": 2,
+              "parenthesized": false,
+              "techniques": [],
+              "confidence": "high"
+            },
+            {
+              "string": 5,
+              "fret": 0,
+              "parenthesized": false,
+              "techniques": [],
+              "confidence": "high"
+            }
+          ],
+          "confidence": "high",
+          "uncertainty": null
+        },
+        {
+          "index": 10,
+          "duration": 4,
+          "dots": 0,
+          "tuplet": null,
+          "rest": false,
+          "notes": [],
+          "confidence": "low",
+          "uncertainty": "Detached quarter stem near x=1256 has incoming/outgoing tie-like curves but no readable fret content."
+        }
+      ]
+    },
+    {
+      "printed_number": 21,
+      "boundary": "complete",
+      "confidence": "medium",
+      "annotations": [
+        "Incoming curves end on the parenthesized chord; the preceding intermediate fret content is not readable."
+      ],
+      "events": [
+        {
+          "index": 1,
+          "duration": null,
+          "dots": 0,
+          "tuplet": null,
+          "rest": false,
+          "notes": [
+            {
+              "string": 3,
+              "fret": 0,
+              "parenthesized": true,
+              "techniques": [],
+              "confidence": "high"
+            },
+            {
+              "string": 4,
+              "fret": 2,
+              "parenthesized": true,
+              "techniques": [],
+              "confidence": "high"
+            },
+            {
+              "string": 5,
+              "fret": 0,
+              "parenthesized": true,
+              "techniques": [],
+              "confidence": "high"
+            }
+          ],
+          "confidence": "medium",
+          "uncertainty": "Stemless parenthesized chord receives incoming tie-like curves; duration is not explicitly readable."
+        }
+      ]
+    },
+    {
+      "printed_number": 22,
+      "boundary": "partial_right",
+      "confidence": "medium",
+      "annotations": [
+        "No later fret or closing boundary is visible."
+      ],
+      "events": [
+        {
+          "index": 1,
+          "duration": null,
+          "dots": 0,
+          "tuplet": null,
+          "rest": false,
+          "notes": [
+            {
+              "string": 4,
+              "fret": 5,
+              "parenthesized": false,
+              "techniques": [],
+              "confidence": "high"
+            }
+          ],
+          "confidence": "medium",
+          "uncertainty": "Small fret 5 and part of an outgoing curve are visible at the right edge; rhythmic value and technique destination are clipped.",
+          "grace": true
+        }
+      ]
+    }
+  ],
+  "unresolved": [
+    {
+      "measure": null,
+      "event_index": 1,
+      "issue": "Incoming slide at the left edge has no visible source fret.",
+      "candidates": []
+    },
+    {
+      "measure": 19,
+      "event_index": 1,
+      "issue": "Small slide-source 1: grace rhythmic value unreadable.",
+      "candidates": []
+    },
+    {
+      "measure": 20,
+      "event_index": 2,
+      "issue": "Small slide-source 2: grace rhythmic value unreadable.",
+      "candidates": []
+    },
+    {
+      "measure": 20,
+      "event_index": 10,
+      "issue": "Quarter stem near x=1256 has no readable fret content between curved continuations.",
+      "candidates": []
+    },
+    {
+      "measure": 21,
+      "event_index": 1,
+      "issue": "Parenthesized chord has no readable duration; incoming tie relationship traverses an unreadable event.",
+      "candidates": []
+    },
+    {
+      "measure": 22,
+      "event_index": 1,
+      "issue": "Right-edge small fret 5: duration and outgoing technique/destination are clipped.",
+      "candidates": []
+    }
+  ]
+}
