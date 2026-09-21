@@ -11,7 +11,7 @@ Video reconstruction is an upstream convenience layer; video input is not requir
 - Single full-score image / PDF → measure preparation → core pipeline (extended input; preparation not implemented in this phase).
 - Overlapping screenshots → V1 → core pipeline.
 - Local video → V2 → core pipeline.
-- Video URL → acquisition convenience → V2 → core pipeline (acquisition remains deferred/unvalidated; does not block core completion).
+- Public video URL → backend acquisition → local video → V2 → core pipeline (provider-dependent; see hardening acceptance).
 
 ## V1 COMPLETE
 
@@ -49,21 +49,17 @@ this run used FFmpeg's input inventory and the same explicit extraction helper.
 The translucent Una Mattina fixture passed source-faithful reconstruction: 61
 inspected frames, 45 ordered units, 3 checked PDF pages. Whitening did not pass
 and is no longer required. Broader robustness still needs more evidence.
-Bilibili acquisition returned HTTP 412; Xiazaitool is the authorized
-normal-interface fallback but has not passed an acquisition test. Do not equate
-local-file success with proven website compatibility.
+Historical Bilibili HTTP 412 did not validate website compatibility.
 
-For future URL runs: try direct acquisition, then https://www.xiazaitool.com/,
-then request local input if tools/access prevent acquisition. After final QA,
-remove only exact run-owned temporary video/partial-download files. Preserve
-user originals, outputs and provenance; record cleanup status.
+Backend acquisition only: local file → direct public HTTP media → yt-dlp public-page extraction → structured failure and local-file request. Do not navigate video sites in a browser or use third-party download websites. Do not bypass authentication, DRM or paywalls. See `tools/acquisition/README.md` (repository root) for commands and tested compatibility.
+After final QA, remove only recorded run-owned downloads; preserve user originals and provenance.
 
 ## V3 STRUCTURED SCORE COMPLETE
 
 Source-faithful ordered measures → structured music → Guitar Pro. The multimodal
 model consumes the actual source style directly, without monochrome preparation.
 V1 COMPLETE / V2 COMPLETE / V3 STRUCTURED SCORE COMPLETE. V3 GUITAR PRO EXPORT COMPLETE / CORE PIPELINE COMPLETE.
-URL acquisition remains unvalidated but does not block V3.
+Backend URL acquisition remains independent of V3; page-provider limitations do not block local conversion.
 
 ## Current V2 output policy
 
@@ -161,3 +157,11 @@ repeat endings are visible in source and must be preserved.
 See [pipeline](VERIFICATION_PIPELINE.md) and
 [analysis](../acceptance/V4_VERIFICATION_ANALYSIS.md). V4 analysis/design and
 verification tooling are implemented; this is not a universal accuracy claim.
+
+## Timing, delivery reporting and backend acquisition
+
+Every future run begins explicit monotonic timing before acquisition and brackets visual work as well as commands. Unexecuted/reused stages stay null; historical timings are never reconstructed. Finish timing after final QA and generate `result/final_report.json` and `.md` from existing V4 evidence. Reports include phase/total durations and the three slowest phases.
+
+Delivery statuses are `READY_FOR_DELIVERY`, `REVIEW_RECOMMENDED`, and `REVIEW_REQUIRED`. Detail every correction, unresolved item, known export limitation and unexpected mismatch with exact musical location, values, source/generated paths and correction history. Summarize verified groups; do not invent an accuracy percentage. A valid GP round-trip alone does not establish source accuracy.
+
+See [workflow commands](../tools/pipeline/README.md), [backend](../tools/acquisition/README.md), and [measured acceptance](../acceptance/HARDENING_ACCEPTANCE.md).

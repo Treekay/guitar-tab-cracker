@@ -11,7 +11,7 @@ Video reconstruction is an upstream convenience layer; video input is not requir
 - Single full-score image / PDF → measure preparation → core pipeline (extended input; preparation not implemented in this phase).
 - Overlapping screenshots → V1 → core pipeline.
 - Local video → V2 → core pipeline.
-- Video URL → acquisition convenience → V2 → core pipeline (acquisition remains deferred/unvalidated; does not block core completion).
+- Public video URL → backend acquisition → local video → V2 → core pipeline (provider-dependent; see hardening acceptance).
 
 **V1 COMPLETE · V2 COMPLETE · V3 STRUCTURED SCORE COMPLETE**
 
@@ -37,14 +37,7 @@ Input is only one local raw guitar-tab video or an accessible video URL.
 Users provide no screenshots, timestamps, sampling rate, ROI, crop coordinates,
 measure numbers, duplicate relationships, ordering or page breaks.
 
-Acquire with available tools; preserve supplied source information and keep
-video bytes unchanged during processing. If direct URL acquisition fails, use
-the user's chosen fallback https://www.xiazaitool.com/: paste the public video
-URL, parse it and download the available video through its normal interface.
-This is an acquisition fallback; visual reconstruction remains site-independent.
-Do not bypass login, DRM, paywalls or access restrictions. If the fallback is
-unavailable, fails or needs unavailable access, explain the specific blocker and
-request a local file. Never claim acquisition succeeded without a usable file.
+Backend acquisition only: local file → direct public HTTP media → yt-dlp public-page extraction → structured failure and local-file request. Do not navigate video sites in a browser or use third-party download websites. Do not bypass authentication, DRM or paywalls. See `tools/acquisition/README.md` (repository root) for commands and tested compatibility.
 
 Use a run-specific temporary download directory and record exact downloaded
 paths, acquisition method, source URL and file hash. After output generation and
@@ -142,8 +135,7 @@ Raw-video acceptance passed on the local Yukinohana video: 209.95 seconds,
 69 inspected frames, 57 complete logical measures and 3 A4 landscape pages.
 See [acceptance](../acceptance/V2_ACCEPTANCE.md). The translucent Una Mattina
 fixture also passed source-faithful reconstruction (45 units, 3 pages); see its
-[test record](../acceptance/V2_UNA_MATTINA.md). URL/Xiazaitool acquisition remains
-unvalidated, and these two fixtures do not establish universal robustness.
+[test record](../acceptance/V2_UNA_MATTINA.md). Backend URL acceptance is documented separately; these fixtures do not establish universal robustness.
 
 V2 passes only after autonomous evidence collection and gap revisits, no user
 screenshot/timestamp/crop instructions, complete occurrence coverage confirmed by
@@ -163,8 +155,7 @@ Source-faithful ordered measure images → structured music → Guitar Pro.
 V3 consumes measures/ directly; the multimodal model must handle the actual
 visual source style. There is no monochrome normalization prerequisite.
 V3 phase 1 produces canonical score.json; phase 2 exports and validates editable Guitar Pro. Local-video V2
-is validated on the tested fixtures; URL acquisition is supported in the workflow
-but unvalidated. A future hosted runtime may use a multimodal API agent with
+is validated on the tested fixtures; backend URL acquisition has direct-media evidence and structured public-page failures. A future hosted runtime may use a multimodal API agent with
 controlled tools; no hosting or application framework is required for V2.
 
 ### V3 phase 1 contract
@@ -229,3 +220,11 @@ repeat endings are visible in source and must be preserved.
 See [pipeline](VERIFICATION_PIPELINE.md) and
 [analysis](../acceptance/V4_VERIFICATION_ANALYSIS.md). V4 analysis/design and
 verification tooling are implemented; this is not a universal accuracy claim.
+
+## Timing, delivery reporting and backend acquisition
+
+Every future run begins explicit monotonic timing before acquisition and brackets visual work as well as commands. Unexecuted/reused stages stay null; historical timings are never reconstructed. Finish timing after final QA and generate `result/final_report.json` and `.md` from existing V4 evidence. Reports include phase/total durations and the three slowest phases.
+
+Delivery statuses are `READY_FOR_DELIVERY`, `REVIEW_RECOMMENDED`, and `REVIEW_REQUIRED`. Detail every correction, unresolved item, known export limitation and unexpected mismatch with exact musical location, values, source/generated paths and correction history. Summarize verified groups; do not invent an accuracy percentage. A valid GP round-trip alone does not establish source accuracy.
+
+See [workflow commands](../tools/pipeline/README.md), [backend](../tools/acquisition/README.md), and [measured acceptance](../acceptance/HARDENING_ACCEPTANCE.md).

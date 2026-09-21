@@ -1,0 +1,2 @@
+# Public-page provider, tested release. Python >= 3.11; ffmpeg/ffprobe installed separately.
+yt-dlp==2026.8.19

@@ -35,17 +35,8 @@ duplicate relationships, order or page breaks.
 
 ### Phase 1 — Acquire video
 
-Inspect local input directly. For URLs determine whether available tools can
-access/download without bypassing login, DRM, paywalls or access restrictions.
-If direct acquisition fails, use the user-selected fallback
-https://www.xiazaitool.com/: paste the public video URL into its input, select
-解析链接, then download the available video using the normal interface. Use
-available browser tools; do not claim to submit a form if only page reading is
-available. This fallback is authorized for future video conversions in this
-project without asking again. Reconstruction remains website-independent.
-If the service fails, cannot be operated with available tools or requires
-unavailable access, state the concrete blocker and ask for a local file. Do not
-bypass login, DRM, paywalls or access restrictions via the fallback.
+Backend acquisition only: local file → direct public HTTP media → yt-dlp public-page extraction → structured failure and local-file request. Do not navigate video sites in a browser or use third-party download websites. Do not bypass authentication, DRM or paywalls. See `tools/acquisition/README.md` (repository root) for commands and tested compatibility.
+Use tools/acquisition/acquire.py; only pass a successfully validated local path to V2. Capture structured failures and request a local original if acquisition fails.
 
 Keep downloaded bytes unchanged throughout processing. Put downloads in a
 run-specific temporary directory; record source URL, acquisition method, local
@@ -297,9 +288,8 @@ Structured-score phase 1 and Guitar Pro export phase 2 both pass on the document
 Ordered complete score measures → canonical structured score → editable Guitar Pro.
 Video is not required. Single full-score image/PDF → measure preparation → core
 (preparation is an extended input, not implemented by this phase). Overlapping
-screenshots → V1 → core. Local video → V2 → core. Video URL → acquisition
-convenience → V2 → core. URL acquisition remains deferred/unvalidated and must
-not block core completion. Do not implement unrelated input layers during export.
+screenshots → V1 → core. Local video → V2 → core. Video URL → backend acquisition → local video → V2 → core. Provider limitations must
+not block local core completion. Do not implement unrelated input layers during export.
 
 ## V3 Guitar Pro export — complete
 
@@ -388,3 +378,11 @@ and review packets. Hashes bind artifacts, not the truth of a visual observation
 Current V4 evidence: acceptance/V4_VERIFICATION_ANALYSIS.md. No canonical fix was
 justified in this case; source/reference differences and target defaults were
 separated. Analysis/tooling completion is distinct from unresolved score issues.
+
+## Mandatory run timing and final delivery
+
+Before any conversion work begin tools/pipeline/timing.py RUN begin. Bracket acquisition, V2, V3, guitar_pro and V4 and their executed substeps using start/stop or exec; include agent visual review wall time. Read tools/pipeline/README.md for the exact keys. Import GP exporter metrics only from the current timed run. Never estimate previous durations; reused stages remain null with provenance. Finish after final verification, then run tools/pipeline/final_report.py RUN/result.
+
+Deliver result/timing.json and final_report.json/.md for every run. Summarize VERIFIED groups and detail every AUTO_CORRECTED, USER_REVIEW_REQUIRED, KNOWN_EXPORT_LIMITATION and UNEXPECTED_EXPORT_MISMATCH with exact locations, current/candidate values, source/generated evidence and correction before/after. Use READY_FOR_DELIVERY only with current passing evidence and no meaningful unresolved issue; low-impact limitations mean REVIEW_RECOMMENDED; unresolved musical content or failed evidence means REVIEW_REQUIRED. Never equate confidence or round-trip equality with accuracy. Include total/phase time and top three slowest phases.
+
+After final QA/report use acquisition cleanup for remote downloads; never delete local originals. Regenerate the final report if cleanup metadata changes. URL providers are backend-only and return structured failure without browser/manual-download fallback.

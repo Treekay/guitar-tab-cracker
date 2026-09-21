@@ -3,6 +3,7 @@ import path from 'node:path';
 import crypto from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import { spawnSync } from 'node:child_process';
+import { performance } from 'node:perf_hooks';
 import { adapt,alphaTab } from './adapter.mjs';
 import { compare } from './compare.mjs';
 import { renderImported } from './render.mjs';
@@ -10,7 +11,7 @@ import { renderImported } from './render.mjs';
 const hash=bytes=>crypto.createHash('sha256').update(bytes).digest('hex');
 const writeJson=(p,data)=>fs.writeFileSync(p,JSON.stringify(data,null,2)+'\n');
 
-export function exportScore(input,output,{render=false,sample=[],python='python'}={}) {
+function exportImpl(input,output,{render=false,sample=[],python='python'}={},measure) {
     input=path.resolve(input);output=path.resolve(output);
     if(path.dirname(input)===output)throw new Error('Use a dedicated export directory');
     const before=fs.readFileSync(input),canonical=JSON.parse(before);
@@ -19,19 +20,25 @@ export function exportScore(input,output,{render=false,sample=[],python='python'
     const args=[validator,input,'--manifest',path.resolve(path.dirname(input),'../measures.json'),
         '--output',path.join(output,'canonical_validation.json')];
     if(sample.length)args.push('--selected-indices',...sample.map(String));
-    const check=spawnSync(python,args,{encoding:'utf8'});
+    const check=measure('preflight_validation_seconds',()=>spawnSync(python,args,{encoding:'utf8'}));
     if(check.status!==0)throw new Error(`Canonical validation failed: ${check.stderr}\n${check.stdout}`);
     const validation=JSON.parse(fs.readFileSync(path.join(output,'canonical_validation.json')));
     if(validation.warnings.length)throw new Error('Canonical has review warnings; export does not repair them');
-    const {score,settings,mapping}=adapt(canonical);
+    const {score,settings,mapping}=measure('gp_adapter_seconds',()=>adapt(canonical));
     mapping.canonical_sha256=hash(before);mapping.source_scope=sample.length?'sample':'complete';
     mapping.canonical_source=path.relative(output,input).replaceAll('\\','/');
     writeJson(path.join(output,'export_mapping.json'),mapping);
-    const bytes=new alphaTab.exporter.Gp7Exporter().export(score,settings);
-    const gp=path.join(output,'score.gp');fs.writeFileSync(gp,bytes);
-    const saved=fs.readFileSync(gp);
-    const imported=alphaTab.importer.ScoreLoader.loadScoreFromBytes(new Uint8Array(saved),new alphaTab.Settings());
-    const roundtrip=compare(canonical,imported,mapping);
+    const gp=path.join(output,'score.gp');
+    measure('gp_export_seconds',()=>{
+        const bytes=new alphaTab.exporter.Gp7Exporter().export(score,settings);
+        fs.writeFileSync(gp,bytes);
+    });
+    let saved,imported;
+    const roundtrip=measure('gp_roundtrip_validation_seconds',()=>{
+        saved=fs.readFileSync(gp);
+        imported=alphaTab.importer.ScoreLoader.loadScoreFromBytes(new Uint8Array(saved),new alphaTab.Settings());
+        return compare(canonical,imported,mapping);
+    });
     roundtrip.canonical_sha256=hash(before);roundtrip.gp_sha256=hash(saved);roundtrip.gp_bytes=saved.length;
     roundtrip.canonical_unchanged=hash(fs.readFileSync(input))===hash(before);
     if(!roundtrip.canonical_unchanged)roundtrip.valid=false;
@@ -39,7 +46,7 @@ export function exportScore(input,output,{render=false,sample=[],python='python'
     writeJson(path.join(output,'semantic_comparison.json'),comparison);
     writeJson(path.join(output,'roundtrip_validation.json'),summary);
     let renders=[];
-    if(roundtrip.valid&&render)renders=renderImported(imported,path.join(output,'rendered'));
+    if(roundtrip.valid&&render)renders=measure('gp_render_seconds',()=>renderImported(imported,path.join(output,'rendered')));
     const report=['# Guitar Pro export report','',
         `Exporter: alphaTab 1.8.4 Gp7Exporter. Scope: ${mapping.source_scope}.`,
         `Structural round trip: ${roundtrip.valid?'PASS':'FAIL'}. GP bytes: ${saved.length}.`,
@@ -60,6 +67,21 @@ export function exportScore(input,output,{render=false,sample=[],python='python'
     fs.writeFileSync(path.join(output,'export_report.md'),report.join('\n'));
     if(!roundtrip.valid)throw new Error('Unexpected semantic mismatch; see roundtrip_validation.json');
     return {gp,summary,renders};
+}
+
+export function exportScore(input,output,options={}) {
+    const start=performance.now();
+    const timing={started_at:new Date().toISOString(),clock:'performance.now (monotonic wall clock)',
+        gp_adapter_seconds:null,gp_export_seconds:null,gp_roundtrip_validation_seconds:null,gp_render_seconds:null};
+    const measure=(name,fn)=>{const t=performance.now();try{return fn();}finally{timing[name]=(performance.now()-t)/1000;}};
+    try {
+        const result=exportImpl(input,output,options,measure);timing.outcome='completed';return result;
+    } catch(error) {timing.outcome='failed';throw error;}
+    finally {
+        timing.finished_at=new Date().toISOString();timing.wall_seconds=(performance.now()-start)/1000;
+        if(fs.existsSync(input))timing.canonical_sha256=hash(fs.readFileSync(input));
+        fs.mkdirSync(output,{recursive:true});writeJson(path.join(output,'timing.json'),timing);
+    }
 }
 
 if(process.argv[1]&&path.resolve(process.argv[1])===fileURLToPath(import.meta.url)) {

@@ -1,0 +1,280 @@
+{
+  "scope": "Full local-video regression with reused accepted visual/transcription decisions; not from-scratch recognition latency",
+  "timing": {
+    "schema_version": 1,
+    "started_at": "2026-09-21T13:06:06.944609+00:00",
+    "finished_at": "2026-09-21T13:14:25.790147+00:00",
+    "status": "finished",
+    "scope": "Full local-video regression with reused accepted visual/transcription decisions; not from-scratch recognition latency",
+    "clock": "time.monotonic_ns; same host and boot; not CPU time",
+    "total_wall_seconds": 498.845535,
+    "phases": {
+      "acquisition": {
+        "wall_seconds": 0.159585,
+        "download_seconds": null
+      },
+      "v2": {
+        "wall_seconds": 105.501677,
+        "video_inventory_seconds": 0.248434,
+        "frame_survey_seconds": 30.288503,
+        "adaptive_frame_collection_seconds": 7.841232,
+        "coverage_recovery_seconds": null,
+        "measure_reconciliation_seconds": null,
+        "crop_export_seconds": 4.472499,
+        "final_qa_seconds": 26.352282
+      },
+      "v3": {
+        "wall_seconds": 18.896539,
+        "transcription_seconds": null,
+        "canonical_assembly_seconds": 1.180522,
+        "deterministic_validation_seconds": 0.604047
+      },
+      "guitar_pro": {
+        "wall_seconds": 4.899151,
+        "gp_adapter_seconds": 0.02038020000000006,
+        "gp_export_seconds": 0.0782944,
+        "gp_roundtrip_validation_seconds": 0.0828813,
+        "gp_render_seconds": 3.9469483
+      },
+      "v4": {
+        "wall_seconds": 367.456655,
+        "source_feature_sweep_seconds": 315.246992,
+        "targeted_review_seconds": 47.826401,
+        "auto_correction_seconds": null,
+        "final_verification_seconds": 3.554459
+      }
+    },
+    "active_spans": [],
+    "reused_stages": [
+      {
+        "stage": "v2.visual_decisions",
+        "source": "runs/v4-yuki-source-only/working/v2-plan.json",
+        "timing": "not backfilled"
+      },
+      {
+        "stage": "v3.transcription_seconds",
+        "source": "runs/v4-yuki-source-only/result/v3",
+        "timing": "not backfilled"
+      }
+    ],
+    "spans": [
+      {
+        "key": "acquisition",
+        "started_at": "2026-09-21T13:06:07.217588+00:00",
+        "finished_at": "2026-09-21T13:06:07.377157+00:00",
+        "seconds": 0.1595849,
+        "outcome": "completed"
+      },
+      {
+        "key": "v2.video_inventory_seconds",
+        "started_at": "2026-09-21T13:06:08.206139+00:00",
+        "finished_at": "2026-09-21T13:06:08.454558+00:00",
+        "seconds": 0.248434,
+        "outcome": "completed"
+      },
+      {
+        "key": "v2.frame_survey_seconds",
+        "started_at": "2026-09-21T13:06:17.850577+00:00",
+        "finished_at": "2026-09-21T13:06:48.139059+00:00",
+        "seconds": 30.2885028,
+        "outcome": "completed"
+      },
+      {
+        "key": "v2.adaptive_frame_collection_seconds",
+        "started_at": "2026-09-21T13:06:48.341818+00:00",
+        "finished_at": "2026-09-21T13:06:56.183029+00:00",
+        "seconds": 7.8412322,
+        "outcome": "completed"
+      },
+      {
+        "key": "v2.crop_export_seconds",
+        "started_at": "2026-09-21T13:07:22.268541+00:00",
+        "finished_at": "2026-09-21T13:07:26.741024+00:00",
+        "seconds": 4.4724989,
+        "outcome": "completed"
+      },
+      {
+        "key": "v2.final_qa_seconds",
+        "started_at": "2026-09-21T13:07:26.947523+00:00",
+        "finished_at": "2026-09-21T13:07:53.299786+00:00",
+        "seconds": 26.3522824,
+        "outcome": "completed"
+      },
+      {
+        "key": "v2",
+        "started_at": "2026-09-21T13:06:08.002911+00:00",
+        "finished_at": "2026-09-21T13:07:53.504568+00:00",
+        "seconds": 105.5016769,
+        "outcome": "completed"
+      },
+      {
+        "key": "v3.canonical_assembly_seconds",
+        "started_at": "2026-09-21T13:07:53.904184+00:00",
+        "finished_at": "2026-09-21T13:07:55.084684+00:00",
+        "seconds": 1.1805219,
+        "outcome": "completed"
+      },
+      {
+        "key": "v3.deterministic_validation_seconds",
+        "started_at": "2026-09-21T13:08:11.793027+00:00",
+        "finished_at": "2026-09-21T13:08:12.397059+00:00",
+        "seconds": 0.6040467,
+        "outcome": "completed"
+      },
+      {
+        "key": "v3",
+        "started_at": "2026-09-21T13:07:53.704071+00:00",
+        "finished_at": "2026-09-21T13:08:12.600589+00:00",
+        "seconds": 18.8965388,
+        "outcome": "completed"
+      },
+      {
+        "key": "guitar_pro",
+        "started_at": "2026-09-21T13:08:12.811219+00:00",
+        "finished_at": "2026-09-21T13:08:17.710354+00:00",
+        "seconds": 4.8991507,
+        "outcome": "completed"
+      },
+      {
+        "key": "v4.source_feature_sweep_seconds",
+        "started_at": "2026-09-21T13:08:18.328432+00:00",
+        "finished_at": "2026-09-21T13:13:33.575401+00:00",
+        "seconds": 315.2469923,
+        "outcome": "completed"
+      },
+      {
+        "key": "v4.targeted_review_seconds",
+        "started_at": "2026-09-21T13:13:33.784384+00:00",
+        "finished_at": "2026-09-21T13:14:21.610765+00:00",
+        "seconds": 47.826401,
+        "outcome": "completed"
+      },
+      {
+        "key": "v4.final_verification_seconds",
+        "started_at": "2026-09-21T13:14:21.820552+00:00",
+        "finished_at": "2026-09-21T13:14:25.374996+00:00",
+        "seconds": 3.554459,
+        "outcome": "completed"
+      },
+      {
+        "key": "v4",
+        "started_at": "2026-09-21T13:08:18.124088+00:00",
+        "finished_at": "2026-09-21T13:14:25.580723+00:00",
+        "seconds": 367.456655,
+        "outcome": "completed"
+      }
+    ],
+    "note": "Total includes orchestration/agent/wait time; phase spans may be revisited. Unexecuted substeps are null; totals are not sums of nested spans."
+  },
+  "counts": {
+    "measures": 57,
+    "events": 610,
+    "notes": 794
+  },
+  "status": "REVIEW_REQUIRED",
+  "issue_counts": {
+    "VERIFIED": 57,
+    "AUTO_CORRECTED": 0,
+    "USER_REVIEW_REQUIRED": 1,
+    "KNOWN_EXPORT_LIMITATION": 18,
+    "UNEXPECTED_EXPORT_MISMATCH": 0
+  },
+  "checks": {
+    "acquisition": true,
+    "canonical_validation": true,
+    "gp_roundtrip": true,
+    "v4_completed": true
+  },
+  "evidence_hashes": {
+    "v3/score.json": "41860c0a2023c27b4a49a8fde89c4eb8c0c1d7c62b496c88623e535ab21cb713",
+    "v3/export/score.gp": "b5c91db6df391ad8d937a70f7564b4f131681eba9d611919560c4943a93484b9",
+    "v3/verification/verification.json": "8f221f9518f6e88cc0ccdcce9af0ec4967d6936c01b57f08f9fe2ca98c94bfa4",
+    "timing.json": "c2d563091292caafec3cddf04fad82c17e98d64b88931ce7e0a6b9f3a3a1b016"
+  },
+  "evidence_reuse": {
+    "source": "runs\\v4-yuki-source-only\\result\\v3\\verification\\observations.json",
+    "sha256": "5f01c49e1e88866c4e8fa1b01be5e8c2307b14f2e30961bf5f9fce735f07bad3",
+    "scope": "Prior detailed field observations reused after all bound artifact hashes matched. Fresh regression feature sweep of all 14 source rows (57 measures); targeted GP chunks 008,012,016,020 viewed. Not a new independent transcription."
+  },
+  "url_tests": {
+    "direct": {
+      "source_type": "url",
+      "source_url": "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4",
+      "supplied_local_path": null,
+      "status": "success",
+      "provider": "direct-http",
+      "local_path": "F:\\code\\guitar-tab-cracker\\runs\\hardening-url-direct\\working\\acquisition\\3d20ffb8d84d4bba8f502eaffb5a223e\\video.download",
+      "metadata": {},
+      "download_seconds": 0.4583485000039218,
+      "downloaded_size": 1128375,
+      "content_type": "video/mp4",
+      "resolved_url": "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4",
+      "provider_wall_seconds": 0.8399910000007367,
+      "sha256": "0cd83d944a6ca7822b4a8306cecc60a36e859b041f6702c6a1ad9ead78924451",
+      "duration": 5.055,
+      "duration_seconds": 5.055,
+      "width": 960,
+      "height": 540,
+      "frame_rate": "30000/1001",
+      "size_bytes": 1128375,
+      "media_validation": "ffprobe video/duration/dimensions + ffmpeg first frame decode; local protocols only",
+      "acquisition_wall_seconds": 1.174535599995579,
+      "remote_download_files": [
+        "F:\\code\\guitar-tab-cracker\\runs\\hardening-url-direct\\working\\acquisition\\3d20ffb8d84d4bba8f502eaffb5a223e\\video.download"
+      ],
+      "temporary_directory": "F:\\code\\guitar-tab-cracker\\runs\\hardening-url-direct\\working\\acquisition\\3d20ffb8d84d4bba8f502eaffb5a223e",
+      "cleanup": {
+        "status": "removed",
+        "removed_paths": [
+          "F:\\code\\guitar-tab-cracker\\runs\\hardening-url-direct\\working\\acquisition\\3d20ffb8d84d4bba8f502eaffb5a223e\\video.download"
+        ],
+        "reason": "abandoned/test run"
+      }
+    },
+    "page": {
+      "source_type": "url",
+      "source_url": "https://vimeo.com/76979871",
+      "supplied_local_path": null,
+      "status": "failed",
+      "provider": "yt-dlp",
+      "reason": "authentication_required",
+      "detail": "ERROR: [vimeo] 76979871: The web client only works when logged-in. Use --cookies, --cookies-from-browser, --username and --password, --netrc-cmd, or --netrc (vimeo) to provide account credentials. See  https://github.com/yt-dlp/yt-dlp/wiki/FAQ#how-do-i-pass-cookies-to-yt-dlp  for how to manually pass cookies",
+      "provider_wall_seconds": 2.1678628000008757,
+      "message": "Cannot acquire a validated public video. Provide the local video file. No browser, login or protection bypass will be attempted.",
+      "acquisition_wall_seconds": 2.4019826000003377,
+      "download_seconds": null,
+      "remote_download_files": [],
+      "temporary_directory": "F:\\code\\guitar-tab-cracker\\runs\\hardening-url-page\\working\\acquisition\\cfba752865984466bed334ab02ca4a22",
+      "cleanup": {
+        "status": "removed",
+        "removed_paths": [],
+        "reason": "abandoned/test run"
+      },
+      "classification_correction": {
+        "original_reason": "download_failed",
+        "basis": "Recorded downloader diagnostic contains logged-in; corrected classifier offline, no retry."
+      }
+    },
+    "youtube": {
+      "source_type": "url",
+      "source_url": "https://www.youtube.com/watch?v=BaW_jenozKc",
+      "supplied_local_path": null,
+      "status": "failed",
+      "provider": "yt-dlp",
+      "reason": "download_failed",
+      "detail": "ERROR: [youtube] BaW_jenozKc: This video is unavailable",
+      "provider_wall_seconds": 1.987742299999809,
+      "message": "Cannot acquire a validated public video. Provide the local video file. No browser, login or protection bypass will be attempted.",
+      "acquisition_wall_seconds": 2.2623186000055284,
+      "download_seconds": null,
+      "remote_download_files": [],
+      "temporary_directory": "F:\\code\\guitar-tab-cracker\\runs\\hardening-url-youtube\\working\\acquisition\\682f426facfe481882ec1c3944c94fe5",
+      "cleanup": {
+        "status": "removed",
+        "removed_paths": [],
+        "reason": "abandoned/test run"
+      }
+    }
+  },
+  "regression_run": "runs/hardening-yuki-timed"
+}

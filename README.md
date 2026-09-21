@@ -17,7 +17,7 @@ Video reconstruction is an upstream convenience layer; video input is not requir
 - Single full-score image / PDF → measure preparation → core pipeline (extended input; preparation not implemented in this phase).
 - Overlapping screenshots → V1 → core pipeline.
 - Local video → V2 → core pipeline.
-- Video URL → acquisition convenience → V2 → core pipeline (acquisition remains deferred/unvalidated; does not block core completion).
+- Public video URL → backend acquisition → local video → V2 → core pipeline (provider-dependent; see hardening acceptance).
 
 For upstream video reconstruction, provide a local video and ask **Convert this guitar-tab
 video.** Codex chooses inspection timestamps, extracts frames, revisits gaps,
@@ -48,17 +48,14 @@ remain in this run. The user-owned original video is unchanged.
 
 Local-video reconstruction is validated on the original light-background video
 and the translucent Una Mattina fixture. This is not a universal robustness claim.
-URL/Xiazaitool acquisition remains unvalidated. V1 COMPLETE; V2 COMPLETE;
+Backend direct-media acquisition is tested; public-page compatibility remains limited. V1 COMPLETE; V2 COMPLETE;
 V3 STRUCTURED SCORE COMPLETE. Structured-score and Guitar Pro export acceptance both pass.
 
 Codex makes every visual decision. Helpers execute explicit timestamps, crops,
 order, scales and placements; they never detect notation or infer layout.
 No CV/OMR application, ROI configuration or fixed-sampling product is involved.
 URLs must be accessible without bypassing login, DRM, paywalls or restrictions.
-If direct access fails, use the user-selected fallback
-[下载狗 / Xiazaitool](https://www.xiazaitool.com/): paste the public video URL,
-parse it and download the available video. If that also fails or requires
-unavailable access, request a local file. Genuine gaps stay explicit.
+Backend acquisition only: local file → direct public HTTP media → yt-dlp public-page extraction → structured failure and local-file request. Do not navigate video sites in a browser or use third-party download websites. Do not bypass authentication, DRM or paywalls. See `tools/acquisition/README.md` (repository root) for commands and tested compatibility.
 After reconstruction and final QA, delete only video copies downloaded for this
 run (including partial downloads); retain measure images, score/PDF and source
 metadata. Never delete a user-supplied local original.
@@ -164,3 +161,11 @@ blind benchmark.
 - [Full Yuki no Hana GP](runs/v4-yuki-source-only/result/v3/export/score.gp)
 - [Source-only verification report](runs/v4-yuki-source-only/result/v3/verification/verification_report.md)
 - [Run evidence and limitations](acceptance/V4_YUKI_SOURCE_ONLY.md)
+
+## Timing, delivery reporting and backend acquisition
+
+Every future run begins explicit monotonic timing before acquisition and brackets visual work as well as commands. Unexecuted/reused stages stay null; historical timings are never reconstructed. Finish timing after final QA and generate `result/final_report.json` and `.md` from existing V4 evidence. Reports include phase/total durations and the three slowest phases.
+
+Delivery statuses are `READY_FOR_DELIVERY`, `REVIEW_RECOMMENDED`, and `REVIEW_REQUIRED`. Detail every correction, unresolved item, known export limitation and unexpected mismatch with exact musical location, values, source/generated paths and correction history. Summarize verified groups; do not invent an accuracy percentage. A valid GP round-trip alone does not establish source accuracy.
+
+See [workflow commands](tools/pipeline/README.md), [backend](tools/acquisition/README.md), and [measured acceptance](acceptance/HARDENING_ACCEPTANCE.md).
