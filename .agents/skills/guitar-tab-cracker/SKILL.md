@@ -35,7 +35,8 @@ duplicate relationships, order or page breaks.
 
 ### Phase 1 — Acquire video
 
-Backend acquisition only: local file → direct public HTTP media → yt-dlp public-page extraction → structured failure and local-file request. Do not navigate video sites in a browser or use third-party download websites. Do not bypass authentication, DRM or paywalls. See `tools/acquisition/README.md` (repository root) for commands and tested compatibility.
+Backend acquisition only: local file → direct public HTTP media → anonymous yt-dlp → opt-in authorized browser-session fallback → structured failure and local-file request. Do not navigate video sites in a browser or use third-party download websites. Do not bypass authentication, DRM or paywalls. See `tools/acquisition/README.md` (repository root) for commands and tested compatibility.
+For user-authorized existing sessions, use --cookies-from-browser edge|chrome|firefox or --auto-browser-cookies with GTC_BROWSER_COOKIE_SOURCES. Ask which browser is logged in when necessary; do not read unspecified profiles implicitly. Automatic fallback only follows authentication/session/access challenges, not general network errors. Use yt-dlp native integration, never manually parse browser databases, bypass encryption, kill browsers, log cookie values, or persist cookie exports. This is a local desktop/development capability.
 Use tools/acquisition/acquire.py; only pass a successfully validated local path to V2. Capture structured failures and request a local original if acquisition fails.
 
 Keep downloaded bytes unchanged throughout processing. Put downloads in a

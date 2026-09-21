@@ -9,3 +9,9 @@ dist/
 runs/
 tmp/
 benchmark/result/inspection/
+
+# Never commit local browser/session exports
+**/cookies*.txt
+**/cookies*.json
+**/Cookies
+**/cookies.sqlite*

@@ -55,7 +55,7 @@ Codex makes every visual decision. Helpers execute explicit timestamps, crops,
 order, scales and placements; they never detect notation or infer layout.
 No CV/OMR application, ROI configuration or fixed-sampling product is involved.
 URLs must be accessible without bypassing login, DRM, paywalls or restrictions.
-Backend acquisition only: local file → direct public HTTP media → yt-dlp public-page extraction → structured failure and local-file request. Do not navigate video sites in a browser or use third-party download websites. Do not bypass authentication, DRM or paywalls. See `tools/acquisition/README.md` (repository root) for commands and tested compatibility.
+Backend acquisition only: local file → direct public HTTP media → anonymous yt-dlp → opt-in authorized browser-session fallback → structured failure and local-file request. Do not navigate video sites in a browser or use third-party download websites. Do not bypass authentication, DRM or paywalls. See `tools/acquisition/README.md` (repository root) for commands and tested compatibility.
 After reconstruction and final QA, delete only video copies downloaded for this
 run (including partial downloads); retain measure images, score/PDF and source
 metadata. Never delete a user-supplied local original.
@@ -169,3 +169,5 @@ Every future run begins explicit monotonic timing before acquisition and bracket
 Delivery statuses are `READY_FOR_DELIVERY`, `REVIEW_RECOMMENDED`, and `REVIEW_REQUIRED`. Detail every correction, unresolved item, known export limitation and unexpected mismatch with exact musical location, values, source/generated paths and correction history. Summarize verified groups; do not invent an accuracy percentage. A valid GP round-trip alone does not establish source accuracy.
 
 See [workflow commands](tools/pipeline/README.md), [backend](tools/acquisition/README.md), and [measured acceptance](acceptance/HARDENING_ACCEPTANCE.md).
+
+Browser-session acquisition is an opt-in local development/desktop capability: `--cookies-from-browser edge|chrome|firefox`, or `--auto-browser-cookies` with `GTC_BROWSER_COOKIE_SOURCES`. Automatic cookies are limited to authentication/session challenges, never arbitrary network errors. Existing accessible sessions do not authorize bypassing DRM, paywalls or private permissions. Raw cookies/headers are never persisted; safe attempt diagnostics and media validation remain mandatory. Remote web-server profile access is not an intended product interface. See `tools/acquisition/README.md` and `acceptance/BROWSER_COOKIE_ACQUISITION.md` from the repository root.

@@ -12,16 +12,18 @@ import subprocess
 import sys
 import time
 import uuid
+import tempfile
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
 from pipeline.timing import Timer,atomic
 from acquisition.security import AcquisitionError,validate_url
+from acquisition.auth import add_arguments,browser_sources,message
 
 class LocalFileProvider:
     name='local-file'
     def acquire(self,source):
         p=Path(source).expanduser().resolve()
         if not p.is_file():raise AcquisitionError('invalid_media','Local video file does not exist')
-        return {'status':'success','provider':self.name,'local_path':str(p),'download_seconds':0.0,'downloaded_size':0,'metadata':{}}
+        return {'status':'success','provider':self.name,'authentication_mode':None,'browser_source':None,'local_path':str(p),'download_seconds':0.0,'downloaded_size':0,'metadata':{}}
 
 def validate_media(path,ffprobe,ffmpeg):
     path=Path(path).resolve()
@@ -42,14 +44,14 @@ def validate_media(path,ffprobe,ffmpeg):
     return {'sha256':digest,'duration':duration,'duration_seconds':duration,'width':stream['width'],'height':stream['height'],'frame_rate':stream.get('avg_frame_rate'),'size_bytes':path.stat().st_size,'media_validation':'ffprobe video/duration/dimensions + ffmpeg first frame decode; local protocols only'}
 
 
-def acquire_video(source,run_directory,ffprobe='ffprobe',ffmpeg='ffmpeg',max_bytes=2*1024**3):
+def acquire_video(source,run_directory,ffprobe='ffprobe',ffmpeg='ffmpeg',max_bytes=2*1024**3,cookies_from_browser=None,auto_browser_cookies=False):
+    browser_sources(cookies_from_browser,auto_browser_cookies)
     root=Path(run_directory).resolve();record=root/'result/source/source.json'
     if record.exists():raise ValueError('Source record exists; use a fresh run to preserve provenance')
     timer=Timer(root)
     if not timer.state.exists():timer.begin()
-    local=Path(source).is_file()
-    source_type='local' if local or '://' not in source else 'url'
-    result={'source_type':source_type,'source_url':source if source_type=='url' else None,'supplied_local_path':source if source_type=='local' else None}
+    source_type='url' if '://' in source else 'local'
+    result={'authentication_mode':None if source_type=='local' else 'anonymous','browser_source':None,'source_type':source_type,'source_url':source if source_type=='url' else None,'supplied_local_path':source if source_type=='local' else None}
     started=time.monotonic();owned=[];attempt=None
     with timer.span('acquisition'):
         try:
@@ -58,22 +60,31 @@ def acquire_video(source,run_directory,ffprobe='ffprobe',ffmpeg='ffmpeg',max_byt
                 validate_url(source,resolve=False)
                 attempt=root/'working/acquisition'/uuid.uuid4().hex;attempt.mkdir(parents=True)
                 log=attempt/'downloader.log'
-                with log.open('w',encoding='utf8') as output:
+                # Cookie databases copied by native yt-dlp live outside result/run
+                # artifacts. Parent cleanup also runs after a killed worker.
+                timed_out=False
+                with tempfile.TemporaryDirectory(prefix='gtc-session-') as cookie_temp:
+                    command=[sys.executable,str(Path(__file__).with_name('worker.py')),source,str(attempt),'--max-bytes',str(max_bytes),'--cookie-temp',cookie_temp]
+                    if cookies_from_browser:command+=['--cookies-from-browser',cookies_from_browser]
+                    if auto_browser_cookies:command+=['--auto-browser-cookies']
                     try:
-                        completed=subprocess.run([sys.executable,str(Path(__file__).with_name('worker.py')),source,str(attempt),'--max-bytes',str(max_bytes)],stdout=output,stderr=subprocess.STDOUT,timeout=650,shell=False)
-                    except subprocess.TimeoutExpired as e:raise AcquisitionError('network_error','Public download deadline exceeded') from e
+                        completed=subprocess.run(command,stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL,timeout=650,shell=False)
+                    except subprocess.TimeoutExpired:timed_out=True
+                result['cookie_temporary_cleanup']='completed'
+                if timed_out:raise AcquisitionError('network_error','Download deadline exceeded')
                 worker=attempt/'worker_result.json'
                 if not worker.exists():raise AcquisitionError('download_failed','Acquisition worker failed; inspect '+str(log))
                 result.update(json.loads(worker.read_text(encoding='utf8')))
+                log.write_text(json.dumps({'status':result['status'],'reason':result.get('reason'),'attempts':result.get('attempts',[])},indent=2),encoding='utf8')
                 if completed.returncode or result['status']!='success':raise AcquisitionError(result.get('reason','download_failed'),result.get('detail','Downloader failed'))
                 path=Path(result['local_path']).resolve()
                 if not path.is_relative_to(attempt.resolve()):raise AcquisitionError('invalid_media','Downloaded path escaped run storage')
             result.update(validate_media(result['local_path'],ffprobe,ffmpeg))
             result['status']='success'
         except AcquisitionError as e:
-            result.update(status='failed',reason=e.reason,detail=str(e),message='Cannot acquire a validated public video. Provide the local video file. No browser, login or protection bypass will be attempted.')
+            result.update(status='failed',reason=e.reason,detail=message(e.reason),message=result.get('message',message(e.reason)))
         except (OSError,ValueError) as e:
-            result.update(status='failed',reason='download_failed',detail=str(e),message='Acquisition failed; inspect diagnostics or provide a local video file.')
+            result.update(status='failed',reason='download_failed',detail=message('download_failed'),message=message('download_failed'))
         finally:
             if attempt:
                 owned=[str(p.resolve()) for p in attempt.iterdir() if p.is_file() and p.name not in ('worker_result.json','downloader.log')]
@@ -97,6 +108,6 @@ def cleanup(run,abandoned=False):
     atomic(record,s);return s
 
 if __name__=='__main__':
-    p=argparse.ArgumentParser(description=__doc__);p.add_argument('source');p.add_argument('run');p.add_argument('--ffprobe',default='ffprobe');p.add_argument('--ffmpeg',default='ffmpeg');p.add_argument('--max-bytes',type=int,default=2*1024**3);p.add_argument('--cleanup',action='store_true');p.add_argument('--abandoned',action='store_true');a=p.parse_args()
-    r=cleanup(a.run,a.abandoned) if a.cleanup else acquire_video(a.source,a.run,a.ffprobe,a.ffmpeg,a.max_bytes)
+    p=argparse.ArgumentParser(description=__doc__);p.add_argument('source');p.add_argument('run');p.add_argument('--ffprobe',default='ffprobe');p.add_argument('--ffmpeg',default='ffmpeg');p.add_argument('--max-bytes',type=int,default=2*1024**3);p.add_argument('--cleanup',action='store_true');p.add_argument('--abandoned',action='store_true');add_arguments(p);a=p.parse_args()
+    r=cleanup(a.run,a.abandoned) if a.cleanup else acquire_video(a.source,a.run,a.ffprobe,a.ffmpeg,a.max_bytes,a.cookies_from_browser,a.auto_browser_cookies)
     print(json.dumps(r,ensure_ascii=True));raise SystemExit(0 if r.get('status')=='success' else 1)

@@ -1,0 +1,115 @@
+{
+  "bilibili-BV16BJL6cE6o": {
+    "source_url": "https://www.bilibili.com/video/BV16BJL6cE6o",
+    "status": "failed",
+    "provider": "yt-dlp",
+    "reason": "network_error",
+    "acquisition_wall_seconds": 47.947891299998446,
+    "download_seconds": null,
+    "cleanup": {
+      "status": "not_applicable",
+      "removed_paths": []
+    }
+  },
+  "cookie-bilibili-anonymous": {
+    "authentication_mode": "anonymous",
+    "browser_source": null,
+    "source_url": "https://www.bilibili.com/video/BV16BJL6cE6o",
+    "cookie_temporary_cleanup": "completed",
+    "provider": "yt-dlp",
+    "status": "failed",
+    "reason": "unsupported_url",
+    "acquisition_wall_seconds": 23.600572499999544,
+    "download_seconds": null,
+    "cleanup": {
+      "status": "not_applicable",
+      "removed_paths": []
+    }
+  },
+  "cookie-bilibili-anonymous-stage": {
+    "authentication_mode": "anonymous",
+    "browser_source": null,
+    "source_url": "https://www.bilibili.com/video/BV16BJL6cE6o",
+    "cookie_temporary_cleanup": "completed",
+    "provider": "yt-dlp",
+    "status": "failed",
+    "reason": "unsupported_url",
+    "failure_stage": "metadata_extraction",
+    "acquisition_wall_seconds": 21.534709299994574,
+    "download_seconds": null,
+    "cleanup": {
+      "status": "not_applicable",
+      "removed_paths": []
+    }
+  },
+  "cookie-bilibili-edge": {
+    "authentication_mode": "browser_cookies",
+    "browser_source": "edge",
+    "source_url": "https://www.bilibili.com/video/BV16BJL6cE6o",
+    "cookie_temporary_cleanup": "completed",
+    "provider": "yt-dlp",
+    "status": "failed",
+    "reason": "cookies_unavailable",
+    "acquisition_wall_seconds": 1.590508300003421,
+    "download_seconds": null,
+    "cleanup": {
+      "status": "not_applicable",
+      "removed_paths": []
+    }
+  },
+  "cookie-bilibili-chrome": {
+    "authentication_mode": "browser_cookies",
+    "browser_source": "chrome",
+    "source_url": "https://www.bilibili.com/video/BV16BJL6cE6o",
+    "cookie_temporary_cleanup": "completed",
+    "provider": "yt-dlp",
+    "status": "failed",
+    "reason": "browser_profile_locked",
+    "acquisition_wall_seconds": 1.4880660000053467,
+    "download_seconds": null,
+    "cleanup": {
+      "status": "not_applicable",
+      "removed_paths": []
+    }
+  },
+  "cookie-direct-regression": {
+    "authentication_mode": "anonymous",
+    "browser_source": null,
+    "source_url": "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4",
+    "cookie_temporary_cleanup": "completed",
+    "provider": "direct-http",
+    "status": "success",
+    "download_seconds": 0.42784100000426406,
+    "sha256": "0cd83d944a6ca7822b4a8306cecc60a36e859b041f6702c6a1ad9ead78924451",
+    "duration_seconds": 5.055,
+    "width": 960,
+    "height": 540,
+    "size_bytes": 1128375,
+    "acquisition_wall_seconds": 0.9980240000004414,
+    "cleanup": {
+      "status": "removed",
+      "removed_paths": [
+        "F:\\code\\guitar-tab-cracker\\runs\\cookie-direct-regression\\working\\acquisition\\218732a2affd448c93765b1df1884a4d\\video_00.download"
+      ],
+      "reason": "abandoned/test run"
+    }
+  },
+  "cookie-local-regression": {
+    "authentication_mode": null,
+    "browser_source": null,
+    "source_url": null,
+    "status": "success",
+    "provider": "local-file",
+    "download_seconds": 0.0,
+    "sha256": "88f8a94fb8e51d5b787636101f55997131d8ef9828426808ea1ba6d18d261cfa",
+    "duration_seconds": 209.955,
+    "width": 986,
+    "height": 720,
+    "size_bytes": 22737418,
+    "acquisition_wall_seconds": 0.1675628000011784,
+    "cleanup": {
+      "status": "not_applicable",
+      "removed_paths": []
+    }
+  }
+}
