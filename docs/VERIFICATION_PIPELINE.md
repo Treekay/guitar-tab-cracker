@@ -156,3 +156,26 @@ separately. Tied-note segmentation or different voices may prevent exact event
 comparison: report mismatches, do not silently normalize them away. Reference
 values never enter generic rules. See [tool usage](../tools/verification/README.md)
 and [current analysis](../acceptance/V4_VERIFICATION_ANALYSIS.md).
+
+## Source-only full-video reruns
+
+A dossier may include `source_sweep`: ordered entries for every written measure,
+with independently authored event tokens, feature observations, the reread method
+and source-image hashes. Coverage validation checks every measure once, in order,
+and rejects missing or stale evidence. This authenticates recorded judgments;
+it cannot establish that the visual judgments themselves are correct. Keep the
+separate field observations and rendered review, including features absent from
+canonical data. A same-agent second pass is not an independent human benchmark.
+
+Canonical root `unresolved` items must have an exact measure/event/field issue
+classified for review or as a known representation limitation. Otherwise the
+verifier automatically adds an untriaged review item; a passing GP round-trip
+cannot silently dispose of it. Export provenance and round-trip reports also
+retain root source uncertainty, separately from target mapping losses.
+
+`delivery_status` is `READY_FOR_DELIVERY` only with a recorded complete source
+sweep and passing verification; otherwise it is `REVIEW_REQUIRED`. Core musical
+uncertainty must remain a review item even when the metered notes export safely.
+Freeze the report and artifact hashes before an optional reference benchmark.
+Previously exposed material must be labeled as such, not counted as unseen-video
+acceptance. See [Yuki rerun](../acceptance/V4_YUKI_SOURCE_ONLY.md).

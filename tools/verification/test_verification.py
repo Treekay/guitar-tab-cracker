@@ -3,7 +3,7 @@ import tempfile
 import unittest
 from pathlib import Path
 from compare_transcriptions import compare_observation, propose_patch, sha
-from verify_score import risks
+from verify_score import risks, check_source_sweep, untriaged_source_items
 
 
 class VerificationTests(unittest.TestCase):
@@ -15,6 +15,25 @@ class VerificationTests(unittest.TestCase):
           'clear':True,'method':'independent_source_reread',
           'evidence':[{'path':'source.txt','sha256':sha(self.base/'source.txt')}]}
     def tearDown(self): self.temp.cleanup()
+    def test_source_sweep_requires_complete_current_evidence(self):
+        score={'measures':[{'sequence_index':1},{'sequence_index':2}]}
+        entries=[{'measure':i,'method':'independent_source_reread','all_events_reread':True,
+                  'events':'4:1=7','features':'Explicit source observation',
+                  'source_evidence':self.observation['evidence']} for i in (1,2)]
+        self.assertTrue(check_source_sweep(score,entries,self.base)['complete'])
+        self.assertFalse(check_source_sweep(score,entries[:1],self.base)['complete'])
+        self.assertFalse(check_source_sweep(score,entries[::-1],self.base)['complete'])
+        (self.base/'source.txt').write_text('changed')
+        self.assertFalse(check_source_sweep(score,entries,self.base)['complete'])
+    def test_unresolved_cannot_be_hidden_by_unrelated_or_verified_issue(self):
+        u={'measure':1,'event':2,'field':'grace_slide','issue':'Unknown onset'}
+        score={'unresolved':[u]}
+        issue={'location':{'measure':1,'event':2,'field':'other'},'status':'KNOWN_EXPORT_LIMITATION'}
+        self.assertEqual(untriaged_source_items(score,[issue]),[u])
+        issue['location']['field']='grace_slide';issue['status']='VERIFIED'
+        self.assertEqual(untriaged_source_items(score,[issue]),[u])
+        issue['status']='USER_REVIEW_REQUIRED'
+        self.assertEqual(untriaged_source_items(score,[issue]),[])
     def test_repeat_only_vs_false_ending_is_flagged(self):
         r=compare_observation(self.score,self.observation,self.base)
         self.assertTrue(r['discrepancy']);self.assertTrue(r['correctable_automatically'])

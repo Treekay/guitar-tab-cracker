@@ -25,6 +25,16 @@ function roundtrip(c) {
 }
 const beats=r=>r.imported.tracks[0].staves[0].bars[0].voices[0].beats;
 
+test('root source uncertainty survives export provenance without invented notes',()=>{
+    const c=fixture();c.unresolved=[{measure:1,event:1,field:'grace_slide',
+        issue:'Small unmetered onset cannot be encoded in schema v1',candidates:[],confidence:'medium'}];
+    const r=roundtrip(c);
+    assert.deepEqual(r.validation.source_unresolved,c.unresolved);
+    assert.equal(beats(r).length,1);assert.equal(beats(r)[0].notes.length,1);
+    r.mapping.canonical_unresolved[0].candidates.push('changed');
+    assert.deepEqual(c.unresolved[0].candidates,[]);
+});
+
 test('first written measure tempo overrides metadata for initial playback',()=>{
     const c=fixture();c.metadata.tempo_bpm=80;c.measures[0].tempo_bpm=100;
     assert.equal(roundtrip(c).imported.tempo,100);

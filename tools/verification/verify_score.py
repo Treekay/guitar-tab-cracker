@@ -47,6 +47,37 @@ def risks(score):
     return found
 
 
+def check_source_sweep(score, entries, base):
+    """Validate provenance/coverage of authored rereads, never infer from pixels."""
+    if entries is None:
+        return {'recorded':False,'complete':False,'measures':0}
+    expected=[m['sequence_index'] for m in score['measures']]
+    errors=[]
+    if [e.get('measure') for e in entries] != expected:
+        errors.append('Source sweep must cover each written measure once, in order')
+    for entry in entries:
+        evidence=entry.get('source_evidence',[])
+        if (entry.get('method')!='independent_source_reread' or
+            entry.get('all_events_reread') is not True or not entry.get('features') or
+            not entry.get('events') or not evidence):
+            errors.append(f"Incomplete authored reread: {entry.get('measure')}")
+        for e in evidence:
+            p=Path(base)/e['path']
+            if not p.is_file() or sha(p)!=e['sha256']:
+                errors.append(f"Stale source sweep evidence: {entry.get('measure')}")
+    return {'recorded':True,'complete':not errors,'measures':len(entries),'errors':errors,
+            'limit':'Coverage and evidence checks authenticate recorded agent judgments, not their musical correctness.'}
+
+
+def untriaged_source_items(score, issues):
+    """Do not let a passing GP round-trip conceal canonical unresolved data."""
+    def location(item):
+        return tuple(item.get(k) for k in ('measure','event','field'))
+    covered={location(i.get('location',{})) for i in issues
+             if i.get('status') in ('USER_REVIEW_REQUIRED','KNOWN_EXPORT_LIMITATION')}
+    return [u for u in score.get('unresolved',[]) if location(u) not in covered]
+
+
 def run(score_path, dossier_path, output):
     score_path=Path(score_path).resolve(); base=score_path.parent
     output=Path(output).resolve();output.mkdir(parents=True,exist_ok=True)
@@ -68,7 +99,15 @@ def run(score_path, dossier_path, output):
     roundtrip=read(output/'fresh_roundtrip.json')
     if completed.returncode and roundtrip['valid']: raise ValueError('Importer failed without a mismatch report')
     observations=[compare_observation(score,o,base) for o in dossier['observations']]
+    sweep=check_source_sweep(score,dossier.get('source_sweep'),base)
     issues=list(dossier['issues'])
+    for index,u in enumerate(untriaged_source_items(score,issues),1):
+        issues.append({'issue_id':f'untriaged-source-{index:03}',
+          'location':{k:u.get(k) for k in ('measure','event','field')},
+          'status':'USER_REVIEW_REQUIRED','earliest_fault_stage':'canonical unresolved inventory',
+          'classification':'untriaged source uncertainty','correctable_automatically':False,
+          'canonical_value':u,'exported_value':None,'manual_reference_value':None,
+          'candidates':u.get('candidates',[]),'notes':u['issue']})
     for index,observation in enumerate(observations,1):
         if observation['status']=='VERIFIED': continue
         parts=observation['path'].strip('/').split('/')
@@ -93,8 +132,9 @@ def run(score_path, dossier_path, output):
     status_counts=Counter(i['status'] for i in issues)
     mechanical=canonical_validation['valid'] and not canonical_validation['warnings'] and assembly_matches and roundtrip['valid']
     result={'schema_version':1,'canonical_sha256':sha(score_path),'gp_sha256':sha(gp),
-      'scope':'Targeted forensic verification plus full deterministic checks; not a fresh all-note visual audit',
-      'status':'VERIFIED' if mechanical and not status_counts['USER_REVIEW_REQUIRED'] and all(o['status']=='VERIFIED' for o in observations) else 'USER_REVIEW_REQUIRED',
+      'scope':('Recorded all-measure source reread plus field comparison and deterministic checks' if sweep['complete'] else 'Targeted forensic verification plus full deterministic checks; not a fresh all-note visual audit'),
+      'source_sweep':sweep,
+      'status':'VERIFIED' if mechanical and not status_counts['USER_REVIEW_REQUIRED'] and all(o['status']=='VERIFIED' for o in observations) and (not sweep['recorded'] or sweep['complete']) else 'USER_REVIEW_REQUIRED',
       'mechanical_valid':mechanical,'assembly_matches':assembly_matches,
       'totals':{'measures':len(score['measures']),'events':sum(len(m['events']) for m in score['measures']),
                 'notes':sum(len(e['notes']) for m in score['measures'] for e in m['events'])},
@@ -103,10 +143,12 @@ def run(score_path, dossier_path, output):
       'observations':observations,'issues':issues,'risk_inventory':risks(score),
       'risk_inventory_limit':'Canonical-derived flags cannot find omitted marks; mandatory independent source feature sweep remains required.',
       'benchmark':dossier.get('benchmark'), 'auto_corrections':[]}
+    result['delivery_status']='READY_FOR_DELIVERY' if result['status']=='VERIFIED' and sweep['complete'] else 'REVIEW_REQUIRED'
     rows=['# Verification report', '', 'Status: '+result['status'],
           'Scope: '+result['scope'], 'Mechanical checks: '+('PASS' if mechanical else 'FAIL'),
           'Totals: '+str(result['totals']), 'Item counts: '+str(result['item_counts']),
-          'No canonical fields were changed. Original accepted GP is preserved.', '',
+          'Delivery status: '+result['delivery_status'],
+          'This verifier is read-only; it has not changed canonical data.', '',
           '## Items requiring user review', '']
     for issue in issues:
         item=output/'review'/issue['issue_id'];item.mkdir(parents=True,exist_ok=True)

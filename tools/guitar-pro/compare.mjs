@@ -105,5 +105,6 @@ export function compare(canonical, imported, mapping) {
         exact_matches:[{classification:'EXACT',checks:'All projected metadata, written measure/voice/event order, string/fret chords, durations/dots/tuplets/rests, repeats/endings, final bar, techniques and relation endpoints',passed:mismatches.length===0,matching_subtrees:exact}],
         expected_defaults:mapping.technical_defaults.map(d=>({classification:'EXPECTED_EXPORT_DEFAULT',...d})),
         known_losses:[...mapping.unsupported_or_partial,...mapping.unresolved_skipped].map(d=>({classification:'KNOWN_UNSUPPORTED_MAPPING',...d})),
+        source_unresolved:mapping.canonical_unresolved??[],
         unexpected_mismatches:mismatches,comparison:{expected,actual}};
 }

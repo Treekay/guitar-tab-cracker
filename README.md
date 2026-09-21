@@ -153,3 +153,14 @@ user review; matching GP round-trip does not prove transcription accuracy.
 - [Forensic analysis and reference metrics](acceptance/V4_VERIFICATION_ANALYSIS.md)
 - [Current review report](runs/v2-una-mattina/result/v3/verification/verification_report.md)
 - [Tool usage](tools/verification/README.md)
+
+Yuki no Hana also has a complete local-video rerun (57 measures), superseding the
+four-measure export sample for this input. Its GP round-trip passes; delivery is
+`REVIEW_REQUIRED` because an unmetered slide onset is outside schema v1. The
+source-only verification records all-measure rereads and localized limitations.
+The user selected previously exposed material, so this is not an unseen-video
+blind benchmark.
+
+- [Full Yuki no Hana GP](runs/v4-yuki-source-only/result/v3/export/score.gp)
+- [Source-only verification report](runs/v4-yuki-source-only/result/v3/verification/verification_report.md)
+- [Run evidence and limitations](acceptance/V4_YUKI_SOURCE_ONLY.md)

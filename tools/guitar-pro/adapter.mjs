@@ -20,6 +20,9 @@ export function adapt(canonical) {
         string_mapping:Object.fromEntries([1,2,3,4,5,6].map(s=>[s,canonicalStringToAlphaTab(s)])),
         note_display_policy:'Keep ghost articulation separate; tie-continuation/parenthesis engraving is target-controlled.',
         preserved_annotations:[],
+        // Source uncertainties can describe marks outside schema v1, not only
+        // relations with null endpoints. Carry them through without guessing.
+        canonical_unresolved:structuredClone(canonical.unresolved ?? []),
         source_measure_order:canonical.measures.map(m=>({sequence_index:m.sequence_index,printed_measure_number:m.printed_measure_number})),
         measure_numbering:'GP numbers written units sequentially; original printed labels are retained here, not in GP bar numbers.'};
     const defaultValue = (field, value, fallback, reason='required technical default') => {
