@@ -136,3 +136,20 @@ never guessed; export defaults never change canonical metadata.
 
 Run artifacts remain local under ignored `runs/`; reusable code and acceptance
 records are versioned. No Guitar Pro desktop application was used for acceptance.
+
+## V4 verification and error localization
+
+A separate verification layer compares independent source observations, checks
+assembly and fresh GP round-trip, benchmarks an explicitly aligned human GP, and
+builds localized source/generated/reference review packets. It preserves accepted
+canonical data unless source evidence supports a minimal revalidated correction.
+
+Una Mattina's reported first-ending error was not confirmed: its source images
+contain those endings. The human GP also has one string-position discrepancy
+where the source supports generated output. Slide articulation remains explicit
+user review; matching GP round-trip does not prove transcription accuracy.
+
+- [Verification policy](docs/VERIFICATION_PIPELINE.md)
+- [Forensic analysis and reference metrics](acceptance/V4_VERIFICATION_ANALYSIS.md)
+- [Current review report](runs/v2-una-mattina/result/v3/verification/verification_report.md)
+- [Tool usage](tools/verification/README.md)

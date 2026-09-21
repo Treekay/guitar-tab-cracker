@@ -1,0 +1,10 @@
+import fs from 'node:fs';
+import {alphaTab} from '../guitar-pro/adapter.mjs';
+import {compare,importedSemantics} from '../guitar-pro/compare.mjs';
+const [canonical,gp,mapping,output]=process.argv.slice(2);
+if(!output)throw new Error('Usage: node inspect_gp.mjs SCORE GP MAPPING OUTPUT');
+const c=JSON.parse(fs.readFileSync(canonical)),m=JSON.parse(fs.readFileSync(mapping));
+const s=alphaTab.importer.ScoreLoader.loadScoreFromBytes(new Uint8Array(fs.readFileSync(gp)),new alphaTab.Settings());
+const result=compare(c,s,m);result.imported_semantics=importedSemantics(s);
+fs.writeFileSync(output,JSON.stringify(result,null,2)+'\n');
+if(!result.valid)process.exitCode=1;

@@ -1,6 +1,6 @@
 ---
 name: guitar-tab-cracker
-description: Autonomously reconstruct guitar-tab videos, accessible video URLs, or overlapping screenshots into ordered source-faithful measure images and a source-faithful visual score with A4 PNG/PDF. Core ordered score images become canonical structured music and editable Guitar Pro through alphaTab with round-trip and visual validation; no OCR/OMR.
+description: Autonomously reconstruct guitar-tab videos, accessible video URLs, or overlapping screenshots into ordered source-faithful measure images and a source-faithful visual score with A4 PNG/PDF. Core ordered score images become canonical structured music and editable Guitar Pro through alphaTab, with source-based verification, error localization and round-trip validation; no OCR/OMR.
 ---
 
 # Guitar Tab Cracker
@@ -262,9 +262,13 @@ For every measure, open the image at readable resolution and explicitly record
 written structure, chronological events, durations, dots/tuplets/rests,
 simultaneous notes, strings/frets, parentheses, techniques and boundary context.
 String 1 is top/highest, 6 bottom/lowest. Use stems/flags/beams, never spacing
-alone. Write v3/measures/NNN.json. Independently reopen every image and audit
-every event for omissions/duplicates, wrong strings/digits, merged/split chords,
-rhythms, technique relations, repeats and endings before marking pass2 inspected.
+alone. Write v3/measures/NNN.json. For V4 runs, use the independent source feature
+sweep and field-level rereading policy in docs/VERIFICATION_PIPELINE.md.
+Reopen every source to find omitted/suspicious features, then independently audit
+high-risk fields and cross-boundary relations. On uncalibrated styles or repeated
+errors, retain full event rereading. Mark pass2 inspected only for actually reopened
+images; the verification ledger must state exact reviewed fields/scope rather
+than imply all notes were re-transcribed.
 
 Represent written order, not repeat playback. Preserve endings; unknown repeat
 counts stay null. Use explicit cross-measure references. Context outside the core
@@ -336,3 +340,51 @@ mechanics, not transcription. Report primary and sample scope separately.
 
 Current evidence: acceptance/V3_GUITAR_PRO.md. V1 COMPLETE; V2 COMPLETE;
 V3 STRUCTURED SCORE COMPLETE; V3 GUITAR PRO EXPORT COMPLETE; CORE PIPELINE COMPLETE.
+
+
+## V4 verification and correction layer
+
+Read docs/VERIFICATION_PIPELINE.md and tools/verification/README.md. Preserve
+V1/V2/V3 architecture; add explicit independent observations and field-level
+verification around it. Do not rerun accepted V2 reconstruction during V3 QA.
+A manual GP is read-only reference evidence, not unconditional ground truth.
+Align written measures independently and bind the reference and generated hashes
+before benchmarking. Never put song-specific values into reusable logic.
+
+Trace each discrepancy backwards: rendered score → actual re-imported GP →
+adapter → canonical → per-measure/header → source crop → original frame if needed.
+Assign one actual fault class: V2 source preparation error, V3 visual recognition
+error, V3 canonical assembly/modeling error, exporter mapping error,
+target-format/rendering artifact, or manual/reference ambiguity. Matches can have
+no observed fault. Do not presume the requested diagnosis is proven.
+
+Always run deterministic schema/rhythm/reference/coverage validation, exact
+assembly equality and full canonical-to-GP-reimport comparison. These checks do
+not establish source truth or external Guitar Pro desktop compatibility. Avoid
+full AI rereading of exported notes when semantic checks pass; audit changed,
+high-risk and target-limited render features. Library/mapping changes require
+targeted regression and rendering checks.
+
+Independent source sweeping must catch missing features absent from canonical
+risk flags. Stronger rereading covers repeats/ending extents, string-line placement,
+multidigit frets, dense chords, dots/tuplets, ties/ghosts/parentheses, slide
+endpoints/articulation, harmonics and faint/cropped/overlaid marks. Consult neighbor
+images for cross-bar relations. Do not trust audit flags without evidence scope.
+
+Correct only clear source-supported fields. Log old/new values and source hashes,
+patch dependent per-measure/header fields minimally, validate a candidate, export
+and re-import it, inspect affected rendering, then promote and record correction.
+Never replace whole measures or force rhythmic totals. A proposal is not a
+completed correction; preserve prior accepted artifacts. Do not guess unclear
+slide targets or infer legato attack solely from a directional stroke.
+
+Use item-level VERIFIED, AUTO_CORRECTED, USER_REVIEW_REQUIRED and
+KNOWN_EXPORT_LIMITATION. Export defaults remain explicit and may affect playback.
+Report exact sequence/printed measure/event, current values, candidate meanings,
+source/generated/reference images and all affected locations for unresolved
+items. Generate result/v3/verification/verification.json, verification_report.md
+and review packets. Hashes bind artifacts, not the truth of a visual observation.
+
+Current V4 evidence: acceptance/V4_VERIFICATION_ANALYSIS.md. No canonical fix was
+justified in this case; source/reference differences and target defaults were
+separated. Analysis/tooling completion is distinct from unresolved score issues.

@@ -143,3 +143,21 @@ V1/V2 assets are unchanged. 25 adapter tests and 16 existing validator tests pas
 See [mapping](GUITAR_PRO_MAPPING.md), [commands](../tools/guitar-pro/README.md)
 and [acceptance](../acceptance/V3_GUITAR_PRO.md). Optional standardized PDF is
 not required; re-imported SVG/PNG previews provide visual review evidence.
+
+## V4 verification layer
+
+Verification now separates source/reference disagreement from transcription,
+assembly, adapter and target-rendering faults. Keep full deterministic assembly,
+validator and GP round-trip checks; focus independent visual effort on source
+feature sweeping, high-risk fields and target-limited rendering. Do not rerun
+accepted V2 reconstruction or copy manual-GP values into canonical automatically.
+
+Record VERIFIED, AUTO_CORRECTED, USER_REVIEW_REQUIRED and KNOWN_EXPORT_LIMITATION
+at item/field level with hashes and exact review locations. Corrections require
+clear source rereading, minimal field patches and fresh downstream validation.
+Una Mattina has no justified canonical correction from the current reference
+comparison; two slide-interpretation issue groups remain user review. The first
+repeat endings are visible in source and must be preserved.
+See [pipeline](VERIFICATION_PIPELINE.md) and
+[analysis](../acceptance/V4_VERIFICATION_ANALYSIS.md). V4 analysis/design and
+verification tooling are implemented; this is not a universal accuracy claim.
