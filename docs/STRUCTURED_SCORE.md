@@ -3,7 +3,9 @@
 The schema is exporter independent: [score.schema.json](../schema/score.schema.json).
 Codex visually transcribes source images. No code recognizes notation, reads
 digits, chooses rhythms, or fills content to satisfy arithmetic. No image
-normalization, OMR, notation renderer, or Guitar Pro exporter is involved.
+normalization or OMR is involved in recognition. After canonical acceptance,
+the separate [Guitar Pro adapter](GUITAR_PRO_MAPPING.md) exports and validates
+editable notation without revisiting recognition.
 
 ## Semantics
 
@@ -93,5 +95,6 @@ from printed 30 into unsampled 31 are explicit open relations. Original V2
 sample images already had a historical tonal transform; V3 adds none.
 
 See [acceptance](../acceptance/V3_STRUCTURED_SCORE.md). V1 COMPLETE / V2 COMPLETE /
-V3 STRUCTURED SCORE PASS / V3 GUITAR PRO EXPORT NEXT. This is phase 1 acceptance,
-not all of V3 complete or a general accuracy guarantee for unseen music.
+V1 COMPLETE / V2 COMPLETE / V3 STRUCTURED SCORE COMPLETE / V3 GUITAR PRO EXPORT COMPLETE / CORE PIPELINE COMPLETE.
+Phase 1 evidence above remains separate from [export acceptance](../acceptance/V3_GUITAR_PRO.md).
+Neither establishes general accuracy for unseen music.

@@ -1,0 +1,14 @@
+{
+  "name": "guitar-tab-cracker-export",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test tools/guitar-pro/*.test.mjs",
+    "export:gp": "node tools/guitar-pro/export.mjs"
+  },
+  "dependencies": {
+    "@coderline/alphatab": "1.8.4",
+    "@resvg/resvg-js": "2.6.2"
+  }
+}

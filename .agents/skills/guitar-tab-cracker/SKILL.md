@@ -1,12 +1,13 @@
 ---
 name: guitar-tab-cracker
-description: Autonomously reconstruct guitar-tab videos, accessible video URLs, or overlapping screenshots into ordered source-faithful measure images and a source-faithful visual score with A4 PNG/PDF. V3 visually transcribes accepted V2 measures into canonical structured music; no OCR/OMR or Guitar Pro export yet.
+description: Autonomously reconstruct guitar-tab videos, accessible video URLs, or overlapping screenshots into ordered source-faithful measure images and a source-faithful visual score with A4 PNG/PDF. Core ordered score images become canonical structured music and editable Guitar Pro through alphaTab with round-trip and visual validation; no OCR/OMR.
 ---
 
 # Guitar Tab Cracker
 
-Codex is the visual agent and workflow executor. Users provide only a video,
-accessible URL or screenshots. Codex decides timestamps, score regions,
+Codex is the visual agent and workflow executor. Core input is complete guitar-tab
+images or ordered measures; video, accessible URLs and overlapping screenshots
+are upstream convenience inputs. Codex decides timestamps, score regions,
 boundaries, identities, duplicates, order, source selection and page breaks.
 Tools execute explicit decisions. Never use CV/OCR, projection or matching/ordering
 algorithms to decide measure identity, boundaries, source selection or layout.
@@ -15,9 +16,10 @@ order and presentation decisions.
 No string/fret, rhythm, technique, chord or other musical transcription in V2.
 
 Read docs/PRODUCT_REQUIREMENTS.md and docs/EXECUTION_PLAN.md before scope or
-architecture changes. **V1 COMPLETE; V2 COMPLETE; V3 STRUCTURED SCORE PASS.** Preserve V1 without
+architecture changes. **V1 COMPLETE; V2 COMPLETE; V3 STRUCTURED SCORE COMPLETE.** Preserve V1 without
 further polish. V2 exports selected source crops directly. V3 phase 1 ends at
-canonical structured JSON; Guitar Pro export is next. Keep evidence private.
+canonical structured JSON; phase 2 exports editable GP with round-trip validation.
+**V3 GUITAR PRO EXPORT COMPLETE; CORE PIPELINE COMPLETE.** Keep evidence private.
 Local-video reconstruction is validated on the light-background and translucent
 fixtures. URL acquisition is supported but unvalidated; no universal robustness
 claim. Normalization is only an optional future presentation enhancement, never
@@ -207,7 +209,7 @@ readable score/PDF and a clean ordered set suitable for V3. Prefer two video
 styles before claiming public robustness. For mechanical export changes, reuse
 the accepted selections and frames; do not repeat video reconstruction unless
 changed mechanics or evidence require it. Review affected crops and regenerated
-artifact against source evidence. Preserve accepted runs unchanged. Core acceptance and final hardening are complete; current status is V2 COMPLETE / V3 STRUCTURED SCORE PASS. Further visual
+artifact against source evidence. Preserve accepted runs unchanged. Core acceptance and final hardening are complete; current status is V2 COMPLETE / V3 STRUCTURED SCORE COMPLETE. Further visual
 beautification is not a prerequisite to the structured-music stage.
 
 On failure classify insufficient survey, fast transition, incomplete gap audit,
@@ -243,10 +245,10 @@ Never embed fixture timestamps/answers in this skill or redesign as CV/OMR.
    Recheck changed inputs before declaring gaps. Ask for more source only when
    genuinely necessary, not for routine coordinates or ordering.
 
-## V3 structured written score — Guitar Pro export next
+## V3 structured written score — complete
 
 Source-faithful ordered measure images → visual transcription → structured music →
-independent alphaTab/MusicXML/Guitar Pro export tools. A future hosted runtime
+independent canonical-to-alphaTab adapter and Gp7Exporter. A future hosted runtime
 may use a multimodal API agent with controlled tools. V3 handles the actual source
 style without normalization. These stages are outside V2.
 
@@ -283,4 +285,54 @@ coverage/order, opening metadata, final bar and cross-boundary notation after
 assembly. Test validation separately; synthetic tests do not prove visual accuracy.
 Preserve V1/V2 artifacts. Label limited second-style samples explicitly and record
 relations into unsampled measures. Never embed fixture answers in this skill.
-Structured-score phase 1 passes; Guitar Pro export is next, not all of V3 complete.
+Structured-score phase 1 and Guitar Pro export phase 2 both pass on the documented acceptance inputs.
+
+
+## Core input hierarchy
+
+Ordered complete score measures → canonical structured score → editable Guitar Pro.
+Video is not required. Single full-score image/PDF → measure preparation → core
+(preparation is an extended input, not implemented by this phase). Overlapping
+screenshots → V1 → core. Local video → V2 → core. Video URL → acquisition
+convenience → V2 → core. URL acquisition remains deferred/unvalidated and must
+not block core completion. Do not implement unrelated input layers during export.
+
+## V3 Guitar Pro export — complete
+
+Read docs/GUITAR_PRO_MAPPING.md and tools/guitar-pro/README.md. Use accepted
+score.json directly; do not retranscribe, change canonical schema to fit the
+library, infer missing music or return to video/normalization during export.
+Keep Python recognition/validation, deterministic Node adapter and alphaTab
+separate. No AI decisions inside export code; no manual GP archive implementation.
+
+Run npm ci, then node tools/guitar-pro/export.mjs PATH/score.json --render.
+Use --sample with the exact selected V2 indices for an accepted sample, and
+--python when the validator requires a different interpreter. The existing
+measure manifest is required to validate coverage. Primary output is the sibling
+export/score.gp, produced by alphaTab Gp7Exporter and reloaded from disk by
+ScoreLoader. Never call a renamed image/PDF an editable Guitar Pro score.
+
+Canonical strings 1..6 map to alphaTab note strings 6..1; tuning arrays remain
+top-first. Map duration denominators explicitly, preserving dots, tuplets,
+voices, rests/chords and ties without re-attacking continuations. Preserve
+written repeats/endings without duplication. Unknown repeat count may use the
+recorded target default 2; unknown metadata stays null in canonical JSON.
+Record every technical/default mapping, partial feature and skipped unresolved
+endpoint in export_mapping.json and export_report.md. Do not guess endpoints.
+
+Require roundtrip_validation.json with actual counts, semantic comparisons and
+no UNEXPECTED_MISMATCH. Compare against canonical semantics, not object IDs or
+only the pre-export target model. Distinguish EXACT, EXPECTED_EXPORT_DEFAULT,
+KNOWN_UNSUPPORTED_MAPPING and UNEXPECTED_MISMATCH. Investigate adapter/API/model/
+exporter limitations before considering MusicXML, MCP or GP5 fallback.
+
+Open re-imported render PNGs and compare difficult source measures: harmonics,
+parenthesized/tied notes, chords, slides, repeat bars, first/second endings,
+multidigit frets and final bar. Record a hash-bound visual_review.md. Rendering
+alone is not acceptance. Document target-controlled tie engraving and other
+known differences; do not equate parenthesized notation with ghost playback.
+Optional PDF must not delay correct GP, round trip and visual QA. Tests validate
+mechanics, not transcription. Report primary and sample scope separately.
+
+Current evidence: acceptance/V3_GUITAR_PRO.md. V1 COMPLETE; V2 COMPLETE;
+V3 STRUCTURED SCORE COMPLETE; V3 GUITAR PRO EXPORT COMPLETE; CORE PIPELINE COMPLETE.

@@ -3,11 +3,23 @@
 Private Codex-first workflow. Invoke [$guitar-tab-cracker](.agents/skills/guitar-tab-cracker/SKILL.md).
 
 - **V1 COMPLETE:** screenshots → ordered measures → reconstructed visual score.
-- **V2 COMPLETE:** video / accessible URL → ordered clean measure set → visual score.
-- **V3 STRUCTURED SCORE PASS:** ordered measures → canonical written score JSON.
-- **V3 GUITAR PRO EXPORT NEXT:** export is not implemented in this phase.
+- **V2 COMPLETE:** local video → ordered clean measure set → visual score.
+- **V3 STRUCTURED SCORE COMPLETE:** ordered measures → canonical written score JSON.
+- **V3 GUITAR PRO EXPORT COMPLETE:** canonical JSON → editable `.gp` → re-import and visual validation.
+- **CORE PIPELINE COMPLETE.**
 
-Provide one local video or accessible URL and ask **Convert this guitar-tab
+## Core capability and input hierarchy
+
+**Core: complete guitar-tab images / ordered score measures → canonical structured score → editable Guitar Pro.**
+Video reconstruction is an upstream convenience layer; video input is not required.
+
+- Prepared ordered measure images → core pipeline (implemented).
+- Single full-score image / PDF → measure preparation → core pipeline (extended input; preparation not implemented in this phase).
+- Overlapping screenshots → V1 → core pipeline.
+- Local video → V2 → core pipeline.
+- Video URL → acquisition convenience → V2 → core pipeline (acquisition remains deferred/unvalidated; does not block core completion).
+
+For upstream video reconstruction, provide a local video and ask **Convert this guitar-tab
 video.** Codex chooses inspection timestamps, extracts frames, revisits gaps,
 reconciles observations, selects clean sources and visually verifies the output.
 Users supply no screenshots, sampling rate, ROI, coordinates, numbering,
@@ -37,7 +49,7 @@ remain in this run. The user-owned original video is unchanged.
 Local-video reconstruction is validated on the original light-background video
 and the translucent Una Mattina fixture. This is not a universal robustness claim.
 URL/Xiazaitool acquisition remains unvalidated. V1 COMPLETE; V2 COMPLETE;
-V3 STRUCTURED SCORE PASS. Structured-score phase 1 passes; Guitar Pro export is next.
+V3 STRUCTURED SCORE COMPLETE. Structured-score and Guitar Pro export acceptance both pass.
 
 Codex makes every visual decision. Helpers execute explicit timestamps, crops,
 order, scales and placements; they never detect notation or infer layout.
@@ -104,4 +116,23 @@ Four difficult Yuki no Hana measures are a separate limited sample.
 - [Schema and tool usage](docs/STRUCTURED_SCORE.md)
 - [Phase 1 acceptance](acceptance/V3_STRUCTURED_SCORE.md)
 
-No OCR/OMR, normalization, metadata web search or Guitar Pro export is involved.
+The transcription stage uses no OCR/OMR or normalization. Export consumes the accepted canonical JSON without re-transcription.
+
+## Editable Guitar Pro export
+
+Una Mattina: **45 written measures, 628 events, 692 notes** survive export and
+re-import with zero unexpected mismatches. Yuki no Hana: **4 sample measures,
+42 events, 54 notes**, also passes. Selected difficult renderings were compared
+against the accepted source images. Unknown endpoints are omitted and reported,
+never guessed; export defaults never change canonical metadata.
+
+- [Una Mattina score.gp](runs/v2-una-mattina/result/v3/export/score.gp)
+- [Export report](runs/v2-una-mattina/result/v3/export/export_report.md)
+- [Round-trip validation](runs/v2-una-mattina/result/v3/export/roundtrip_validation.json)
+- [Yuki no Hana sample.gp](runs/v2-yukinohana/result/v3/export/score.gp)
+- [Commands and architecture](tools/guitar-pro/README.md)
+- [Mapping and limits](docs/GUITAR_PRO_MAPPING.md)
+- [Phase 2 acceptance](acceptance/V3_GUITAR_PRO.md)
+
+Run artifacts remain local under ignored `runs/`; reusable code and acceptance
+records are versioned. No Guitar Pro desktop application was used for acceptance.

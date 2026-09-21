@@ -1,5 +1,18 @@
 # Execution Plan
 
+**V1 COMPLETE / V2 COMPLETE / V3 STRUCTURED SCORE COMPLETE / V3 GUITAR PRO EXPORT COMPLETE / CORE PIPELINE COMPLETE**
+
+## Core capability and input hierarchy
+
+**Core: complete guitar-tab images / ordered score measures → canonical structured score → editable Guitar Pro.**
+Video reconstruction is an upstream convenience layer; video input is not required.
+
+- Prepared ordered measure images → core pipeline (implemented).
+- Single full-score image / PDF → measure preparation → core pipeline (extended input; preparation not implemented in this phase).
+- Overlapping screenshots → V1 → core pipeline.
+- Local video → V2 → core pipeline.
+- Video URL → acquisition convenience → V2 → core pipeline (acquisition remains deferred/unvalidated; does not block core completion).
+
 ## V1 COMPLETE
 
 Preserve the accepted 10-screenshot / 26-measure / 2-page result. No V1 polish.
@@ -45,11 +58,11 @@ then request local input if tools/access prevent acquisition. After final QA,
 remove only exact run-owned temporary video/partial-download files. Preserve
 user originals, outputs and provenance; record cleanup status.
 
-## V3 STRUCTURED SCORE PASS
+## V3 STRUCTURED SCORE COMPLETE
 
 Source-faithful ordered measures → structured music → Guitar Pro. The multimodal
 model consumes the actual source style directly, without monochrome preparation.
-V1 COMPLETE / V2 COMPLETE / V3 STRUCTURED SCORE PASS. V3 GUITAR PRO EXPORT NEXT; do not mark all of V3 complete.
+V1 COMPLETE / V2 COMPLETE / V3 STRUCTURED SCORE COMPLETE. V3 GUITAR PRO EXPORT COMPLETE / CORE PIPELINE COMPLETE.
 URL acquisition remains unvalidated but does not block V3.
 
 ## Current V2 output policy
@@ -99,10 +112,34 @@ normalization. The historical cleanup is complete; V3 phase 1 is described above
   reopened: 628 events, 692 note records, two repeat regions, two pairs of
   alternate endings, 14 ties, seven descending slides and the opening harmonic.
 - Canonical schema, assembler, exact-fraction validator and readable QA report
-  implemented. No recognition code, normalization or Guitar Pro output.
+  implemented in phase 1 without recognition code or normalization. Guitar Pro
+  output is provided by the separate completed phase 2 adapter below.
 - Zero rhythmic warnings. One first-ending slide destination remains unknown.
   All three full-score sections were globally rechecked after assembly.
 - Yuki no Hana printed 1, 16, 29, 30 are a limited second-style sample covering
   chords, H/P, triplets, slides/slurs and outgoing sample-boundary ties.
 - V1/V2 artifacts are unchanged. Deterministic tests are separate from visual
   acceptance; see [acceptance](../acceptance/V3_STRUCTURED_SCORE.md).
+
+## V3 Guitar Pro export acceptance complete
+
+The canonical recognition model, deterministic alphaTab adapter and target-format
+library are separate. Python validation remains authoritative; Node.js builds the
+alphaTab Score, calls Gp7Exporter and reloads the saved `.gp` with ScoreLoader.
+No alphaTab fields or technical defaults enter canonical JSON.
+
+Acceptance requires actual re-import, canonical-to-import semantic comparison
+(strings/frets, durations/dots/tuplets, rests/chords/voices, ties/techniques,
+written order, meters, repeat counts/endings and final bar), no unexplained
+mismatch, and selected difficult measures visually checked against source images.
+Differences are EXACT, EXPECTED_EXPORT_DEFAULT, KNOWN_UNSUPPORTED_MAPPING or
+UNEXPECTED_MISMATCH. Generated IDs are excluded. Rendering alone cannot pass QA.
+
+Una Mattina passes 45/628/692 measures/events/notes; Yuki no Hana passes 4/42/54
+as a sample. One Una slide target and three outgoing sample ties remain unknown
+and are omitted with exact provenance. Default metadata, playback settings and
+repeat counts are exporter assumptions, not recognized data. Source JSON and
+V1/V2 assets are unchanged. 25 adapter tests and 16 existing validator tests pass.
+See [mapping](GUITAR_PRO_MAPPING.md), [commands](../tools/guitar-pro/README.md)
+and [acceptance](../acceptance/V3_GUITAR_PRO.md). Optional standardized PDF is
+not required; re-imported SVG/PNG previews provide visual review evidence.

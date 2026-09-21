@@ -1,6 +1,19 @@
 # Guitar Tab Cracker — Product Requirements
 
-**V1 COMPLETE · V2 COMPLETE · V3 STRUCTURED SCORE PASS**
+**V1 COMPLETE / V2 COMPLETE / V3 STRUCTURED SCORE COMPLETE / V3 GUITAR PRO EXPORT COMPLETE / CORE PIPELINE COMPLETE**
+
+## Core capability and input hierarchy
+
+**Core: complete guitar-tab images / ordered score measures → canonical structured score → editable Guitar Pro.**
+Video reconstruction is an upstream convenience layer; video input is not required.
+
+- Prepared ordered measure images → core pipeline (implemented).
+- Single full-score image / PDF → measure preparation → core pipeline (extended input; preparation not implemented in this phase).
+- Overlapping screenshots → V1 → core pipeline.
+- Local video → V2 → core pipeline.
+- Video URL → acquisition convenience → V2 → core pipeline (acquisition remains deferred/unvalidated; does not block core completion).
+
+**V1 COMPLETE · V2 COMPLETE · V3 STRUCTURED SCORE COMPLETE**
 
 ## Core model
 
@@ -144,12 +157,12 @@ dirty source selection, access failure or helper failure. Improve general skill
 or mechanical tools and repeat; never embed fixture timestamps/answers in the
 skill or replace visual reasoning with CV.
 
-## V3 STRUCTURED SCORE PASS
+## V3 STRUCTURED SCORE COMPLETE
 
 Source-faithful ordered measure images → structured music → Guitar Pro.
 V3 consumes measures/ directly; the multimodal model must handle the actual
 visual source style. There is no monochrome normalization prerequisite.
-V3 phase 1 ends at canonical score.json; Guitar Pro export is next. Local-video V2
+V3 phase 1 produces canonical score.json; phase 2 exports and validates editable Guitar Pro. Local-video V2
 is validated on the tested fixtures; URL acquisition is supported in the workflow
 but unvalidated. A future hosted runtime may use a multimodal API agent with
 controlled tools; no hosting or application framework is required for V2.
@@ -174,4 +187,27 @@ global visual audit, coherent repeats/endings and cross-boundary relations,
 deterministic validation and explicit ambiguity. Una Mattina passes with 45 units
 and one unknown slide target. Four difficult Yuki no Hana units test another
 style; they do not claim full-song coverage. See [schema](STRUCTURED_SCORE.md)
-and [acceptance](../acceptance/V3_STRUCTURED_SCORE.md). Guitar Pro export is next.
+and [acceptance](../acceptance/V3_STRUCTURED_SCORE.md). Guitar Pro export now passes; see [phase 2 acceptance](../acceptance/V3_GUITAR_PRO.md).
+
+## V3 Guitar Pro export acceptance complete
+
+The canonical recognition model, deterministic alphaTab adapter and target-format
+library are separate. Python validation remains authoritative; Node.js builds the
+alphaTab Score, calls Gp7Exporter and reloads the saved `.gp` with ScoreLoader.
+No alphaTab fields or technical defaults enter canonical JSON.
+
+Acceptance requires actual re-import, canonical-to-import semantic comparison
+(strings/frets, durations/dots/tuplets, rests/chords/voices, ties/techniques,
+written order, meters, repeat counts/endings and final bar), no unexplained
+mismatch, and selected difficult measures visually checked against source images.
+Differences are EXACT, EXPECTED_EXPORT_DEFAULT, KNOWN_UNSUPPORTED_MAPPING or
+UNEXPECTED_MISMATCH. Generated IDs are excluded. Rendering alone cannot pass QA.
+
+Una Mattina passes 45/628/692 measures/events/notes; Yuki no Hana passes 4/42/54
+as a sample. One Una slide target and three outgoing sample ties remain unknown
+and are omitted with exact provenance. Default metadata, playback settings and
+repeat counts are exporter assumptions, not recognized data. Source JSON and
+V1/V2 assets are unchanged. 25 adapter tests and 16 existing validator tests pass.
+See [mapping](GUITAR_PRO_MAPPING.md), [commands](../tools/guitar-pro/README.md)
+and [acceptance](../acceptance/V3_GUITAR_PRO.md). Optional standardized PDF is
+not required; re-imported SVG/PNG previews provide visual review evidence.
