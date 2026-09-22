@@ -111,5 +111,20 @@
       "status": "not_applicable",
       "removed_paths": []
     }
+  },
+  "cookie-bilibili-chrome-closed": {
+    "source_url": "https://www.bilibili.com/video/BV16BJL6cE6o",
+    "provider": "yt-dlp",
+    "authentication_mode": "browser_cookies",
+    "browser_source": "chrome",
+    "status": "failed",
+    "reason": "cookies_unavailable",
+    "acquisition_wall_seconds": 1.2543584000013652,
+    "download_seconds": null,
+    "cookie_temporary_cleanup": "completed",
+    "cleanup": {
+      "status": "not_applicable",
+      "removed_paths": []
+    }
   }
 }

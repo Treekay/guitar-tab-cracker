@@ -167,3 +167,11 @@ Delivery statuses are `READY_FOR_DELIVERY`, `REVIEW_RECOMMENDED`, and `REVIEW_RE
 See [workflow commands](../tools/pipeline/README.md), [backend](../tools/acquisition/README.md), and [measured acceptance](../acceptance/HARDENING_ACCEPTANCE.md).
 
 Browser-session acquisition is an opt-in local development/desktop capability: `--cookies-from-browser edge|chrome|firefox`, or `--auto-browser-cookies` with `GTC_BROWSER_COOKIE_SOURCES`. Automatic cookies are limited to authentication/session challenges, never arbitrary network errors. Existing accessible sessions do not authorize bypassing DRM, paywalls or private permissions. Raw cookies/headers are never persisted; safe attempt diagnostics and media validation remain mandatory. Remote web-server profile access is not an intended product interface. See `tools/acquisition/README.md` and `acceptance/BROWSER_COOKIE_ACQUISITION.md` from the repository root.
+
+## Local browser-extension acquisition MVP
+
+For an accessible video already playing in Chrome/Edge, the user can load `browser-extension/`, pair it with `python -m local_companion`, and send current-page media candidates to `127.0.0.1:8787`. The extension handles page/session discovery; the companion owns downloads, timing, run directories and existing media validation. The validated local path feeds the unchanged V2 → V3 → GP → V4 workflow. No score processing, cookie export, cloud account or browser automation is added.
+
+Supported initial media: complete HTTP video and unencrypted finite HLS with local sanitized-manifest remux. DASH MPD, DRM, live/advanced HLS and resources requiring replay of browser credentials remain unsupported. Signed candidate URLs are transient; persisted query values are redacted. A shared installation token plus extension ID protects localhost, with foreign Origin/Host rejection. A real Chromium HTML5 fixture handoff passed; Bilibili browser-session acceptance remains pending until the user sends its actual playing-page candidates. This is not a completed-song conversion.
+
+See [extension setup](../browser-extension/README.md), [companion setup](../local-companion/README.md), and [acceptance](../acceptance/BROWSER_EXTENSION_ACQUISITION.md).

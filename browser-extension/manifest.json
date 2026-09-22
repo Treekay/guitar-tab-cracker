@@ -1,0 +1,30 @@
+{
+  "manifest_version": 3,
+  "name": "Guitar Tab Cracker",
+  "version": "0.1.0",
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAqVSoVEPAsiTW2zHqh6xs6n16hPHYTs540JLWLGPkYlozh5G4Wp/uhCrqPWzGqMpJt2H5WACo45bfklLGapDoBXUTIue8lRxiN/YWAO2wseeit/O25B0757JNp5LS3eIrgHJcK0mXp5yHSK65hHdn9L4vNHSufL0Vs3AGoEFKn9iTdMSKgOYARxjp9sERFjb7DpiDw1WU6deiXp32ZLZbIjkRdwccSL7sGpknYjTDyV5+bY7IbstsJLODvxSeAK/EKnef0VP/wOnFeA0wAXbFwel8CLJz/on7nrK77oJ9Co028+chtewdNTMqhVKOq4zTd2byvAUyX5F3AHjG6TKSrQIDAQAB",
+  "description": "Send an accessible video from the current tab to your local Guitar Tab Cracker companion.",
+  "permissions": [
+    "activeTab",
+    "scripting",
+    "storage",
+    "webRequest"
+  ],
+  "host_permissions": [
+    "http://127.0.0.1:8787/*"
+  ],
+  "optional_host_permissions": [
+    "https://*/*",
+    "http://*/*"
+  ],
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'none'; connect-src http://127.0.0.1:8787"
+  }
+}

@@ -1,0 +1,245 @@
+{
+  "status": "IMPLEMENTED_SECONDARY_VALIDATED_PRIMARY_PENDING",
+  "extension_id": "npfhoaohhbggabdgcigfgncilfgpkifo",
+  "chromium_manifest_load": true,
+  "html5_integration": {
+    "extension_id": "npfhoaohhbggabdgcigfgncilfgpkifo",
+    "manifest_version": 3,
+    "health": "ok",
+    "candidate_count": 1,
+    "run_id": "extension-fcfb3ff0fc11462c85e257d62e62ddef",
+    "status": "success",
+    "scope": "Controlled HTML5 browser fixture; exact content.js evaluated; actual extension transport; toolbar permission UX not automated"
+  },
+  "bilibili": {
+    "url": "https://www.bilibili.com/video/BV16BJL6cE6o",
+    "status": "pending_user_extension_handoff",
+    "note": "No browser-session media payload has been received from the user. Anonymous/cookie tests are not extension acceptance."
+  },
+  "tests": {
+    "companion": 12,
+    "extension": 5,
+    "existing_acquisition": 25,
+    "timing_report": 5
+  },
+  "runs": {
+    "extension-195474574f574f3086e9dc76f9e57267": {
+      "source": {
+        "provider": "browser-extension",
+        "source_type": "browser_session",
+        "authentication_mode": "browser_authorized_url",
+        "page_url": "https://example.org/gtc-html5-fixture",
+        "source_url": "https://example.org/gtc-html5-fixture",
+        "page_title": "HTML5 public-media acquisition fixture",
+        "status": "success",
+        "attempts": [
+          {
+            "type": "direct",
+            "url": "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4",
+            "source": "video.currentSrc",
+            "status": "success",
+            "wall_seconds": 0.9252684000093723
+          }
+        ],
+        "local_path": "F:\\code\\guitar-tab-cracker\\runs\\extension-195474574f574f3086e9dc76f9e57267\\working\\acquisition\\candidate_00\\video.download",
+        "remote_download_files": [
+          "F:\\code\\guitar-tab-cracker\\runs\\extension-195474574f574f3086e9dc76f9e57267\\working\\acquisition\\candidate_00\\video.download"
+        ],
+        "cleanup": {
+          "status": "removed",
+          "removed_paths": [
+            "F:\\code\\guitar-tab-cracker\\runs\\extension-195474574f574f3086e9dc76f9e57267\\working\\acquisition\\candidate_00\\video.download"
+          ],
+          "reason": "abandoned/test run"
+        },
+        "sha256": "0cd83d944a6ca7822b4a8306cecc60a36e859b041f6702c6a1ad9ead78924451",
+        "duration": 5.055,
+        "duration_seconds": 5.055,
+        "width": 960,
+        "height": 540,
+        "frame_rate": "30000/1001",
+        "size_bytes": 1128375,
+        "media_validation": "ffprobe video/duration/dimensions + ffmpeg first frame decode; local protocols only",
+        "selected_candidate": {
+          "type": "direct",
+          "url": "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4",
+          "source": "video.currentSrc",
+          "status": "success"
+        },
+        "download_seconds": 0.510811999993166,
+        "acquisition_wall_seconds": 0.940703600004781,
+        "pipeline_handoff": {
+          "ready": true,
+          "local_video_path": "F:\\code\\guitar-tab-cracker\\runs\\extension-195474574f574f3086e9dc76f9e57267\\working\\acquisition\\candidate_00\\video.download",
+          "conversion_started": false
+        }
+      },
+      "timing": {
+        "schema_version": 1,
+        "started_at": "2026-09-22T11:03:59.747994+00:00",
+        "finished_at": "2026-09-22T11:04:00.761798+00:00",
+        "status": "finished",
+        "scope": "Browser extension acquisition only; downstream conversion not started",
+        "clock": "time.monotonic_ns; same host and boot; not CPU time",
+        "total_wall_seconds": 1.013573,
+        "phases": {
+          "acquisition": {
+            "wall_seconds": 0.933016,
+            "download_seconds": null
+          },
+          "v2": {
+            "wall_seconds": null,
+            "video_inventory_seconds": null,
+            "frame_survey_seconds": null,
+            "adaptive_frame_collection_seconds": null,
+            "coverage_recovery_seconds": null,
+            "measure_reconciliation_seconds": null,
+            "crop_export_seconds": null,
+            "final_qa_seconds": null
+          },
+          "v3": {
+            "wall_seconds": null,
+            "transcription_seconds": null,
+            "canonical_assembly_seconds": null,
+            "deterministic_validation_seconds": null
+          },
+          "guitar_pro": {
+            "wall_seconds": null,
+            "gp_adapter_seconds": null,
+            "gp_export_seconds": null,
+            "gp_roundtrip_validation_seconds": null,
+            "gp_render_seconds": null
+          },
+          "v4": {
+            "wall_seconds": null,
+            "source_feature_sweep_seconds": null,
+            "targeted_review_seconds": null,
+            "auto_correction_seconds": null,
+            "final_verification_seconds": null
+          }
+        },
+        "active_spans": [],
+        "reused_stages": [],
+        "spans": [
+          {
+            "key": "acquisition",
+            "started_at": "2026-09-22T11:03:59.820142+00:00",
+            "finished_at": "2026-09-22T11:04:00.753145+00:00",
+            "seconds": 0.933016,
+            "outcome": "completed"
+          }
+        ],
+        "note": "Total includes orchestration/agent/wait time; phase spans may be revisited. Unexecuted substeps are null; totals are not sums of nested spans."
+      }
+    },
+    "extension-fcfb3ff0fc11462c85e257d62e62ddef": {
+      "source": {
+        "provider": "browser-extension",
+        "source_type": "browser_session",
+        "authentication_mode": "browser_authorized_url",
+        "page_url": "https://example.org/gtc-html5-fixture",
+        "source_url": "https://example.org/gtc-html5-fixture",
+        "page_title": "HTML5 public-media fixture",
+        "status": "success",
+        "attempts": [
+          {
+            "type": "direct",
+            "url": "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4",
+            "source": "video.currentSrc",
+            "status": "success",
+            "wall_seconds": 0.8394263999944087
+          }
+        ],
+        "local_path": "F:\\code\\guitar-tab-cracker\\runs\\extension-fcfb3ff0fc11462c85e257d62e62ddef\\working\\acquisition\\candidate_00\\video.download",
+        "remote_download_files": [
+          "F:\\code\\guitar-tab-cracker\\runs\\extension-fcfb3ff0fc11462c85e257d62e62ddef\\working\\acquisition\\candidate_00\\video.download"
+        ],
+        "cleanup": {
+          "status": "removed",
+          "removed_paths": [
+            "F:\\code\\guitar-tab-cracker\\runs\\extension-fcfb3ff0fc11462c85e257d62e62ddef\\working\\acquisition\\candidate_00\\video.download"
+          ],
+          "reason": "abandoned/test run"
+        },
+        "sha256": "0cd83d944a6ca7822b4a8306cecc60a36e859b041f6702c6a1ad9ead78924451",
+        "duration": 5.055,
+        "duration_seconds": 5.055,
+        "width": 960,
+        "height": 540,
+        "frame_rate": "30000/1001",
+        "size_bytes": 1128375,
+        "media_validation": "ffprobe video/duration/dimensions + ffmpeg first frame decode; local protocols only",
+        "selected_candidate": {
+          "type": "direct",
+          "url": "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4",
+          "source": "video.currentSrc",
+          "status": "success"
+        },
+        "download_seconds": 0.5347178999945754,
+        "acquisition_wall_seconds": 0.8548684999987017,
+        "pipeline_handoff": {
+          "ready": true,
+          "local_video_path": "F:\\code\\guitar-tab-cracker\\runs\\extension-fcfb3ff0fc11462c85e257d62e62ddef\\working\\acquisition\\candidate_00\\video.download",
+          "conversion_started": false
+        }
+      },
+      "timing": {
+        "schema_version": 1,
+        "started_at": "2026-09-22T11:10:43.519945+00:00",
+        "finished_at": "2026-09-22T11:10:44.437080+00:00",
+        "status": "finished",
+        "scope": "Browser extension acquisition only; downstream conversion not started",
+        "clock": "time.monotonic_ns; same host and boot; not CPU time",
+        "total_wall_seconds": 0.917121,
+        "phases": {
+          "acquisition": {
+            "wall_seconds": 0.847024,
+            "download_seconds": null
+          },
+          "v2": {
+            "wall_seconds": null,
+            "video_inventory_seconds": null,
+            "frame_survey_seconds": null,
+            "adaptive_frame_collection_seconds": null,
+            "coverage_recovery_seconds": null,
+            "measure_reconciliation_seconds": null,
+            "crop_export_seconds": null,
+            "final_qa_seconds": null
+          },
+          "v3": {
+            "wall_seconds": null,
+            "transcription_seconds": null,
+            "canonical_assembly_seconds": null,
+            "deterministic_validation_seconds": null
+          },
+          "guitar_pro": {
+            "wall_seconds": null,
+            "gp_adapter_seconds": null,
+            "gp_export_seconds": null,
+            "gp_roundtrip_validation_seconds": null,
+            "gp_render_seconds": null
+          },
+          "v4": {
+            "wall_seconds": null,
+            "source_feature_sweep_seconds": null,
+            "targeted_review_seconds": null,
+            "auto_correction_seconds": null,
+            "final_verification_seconds": null
+          }
+        },
+        "active_spans": [],
+        "reused_stages": [],
+        "spans": [
+          {
+            "key": "acquisition",
+            "started_at": "2026-09-22T11:10:43.579866+00:00",
+            "finished_at": "2026-09-22T11:10:44.426878+00:00",
+            "seconds": 0.8470238,
+            "outcome": "completed"
+          }
+        ],
+        "note": "Total includes orchestration/agent/wait time; phase spans may be revisited. Unexecuted substeps are null; totals are not sums of nested spans."
+      }
+    }
+  }
+}

@@ -25,7 +25,7 @@ URL: https://www.bilibili.com/video/BV16BJL6cE6o
 
 Original anonymous attempt: metadata read timed out. This pass repeated the anonymous test; it returned unsupported_url during metadata extraction. The stage-instrumented follow-up confirms the failure precedes format selection. Neither result is proof that cookies would fix the site. Auto mode therefore does not retry browsers for these unrelated failure classifications; explicit mode was used for the requested B comparison.
 
-Edge was a preliminary default test before the user identified Chrome; it returned cookies_unavailable and did not establish a logged-in session. Chrome is the user-confirmed browser; its cookie database was locked or inaccessible. The user has been asked to save work and fully exit Chrome before a single retry. No browser was closed automatically and no decryption/access bypass was attempted.
+Edge was a preliminary default test before the user identified Chrome; it returned cookies_unavailable and did not establish a logged-in session. Chrome is the user-confirmed browser; its cookie database was locked or inaccessible. The user confirmed fully exiting Chrome, and the single retry is recorded below. No browser was closed automatically and no decryption/access bypass was attempted.
 
 For the Bilibili session test, downloaded size/duration/resolution/hash are unavailable; no media was produced and V2 acceptance is **not reached**. Parent-owned temporary cookie material was cleaned; no downloaded media requires cleanup. This is honest failure evidence, not a successful authenticated-download claim.
 
@@ -46,3 +46,7 @@ Local original Yuki no Hana also validated with auto mode enabled: authenticatio
 Chrome being logged in does not guarantee yt-dlp can read its cookie database. Close Chrome yourself and retry, or provide a local video. Native encryption/OS restrictions may still prevent access; no bypass is implemented. Browser-session acquisition is for local desktop/development use, not arbitrary remote-server access to user browser profiles.
 
 [Measured safe snapshot](BROWSER_COOKIE_ACQUISITION.json). Raw media and run artifacts remain ignored/private.
+
+## Retry after Chrome exit
+
+The user confirmed Chrome was closed. Native Chrome-session acquisition was retried in `runs/cookie-bilibili-chrome-closed`. Result: **cookies_unavailable**, rather than the previous browser_profile_locked. Acquisition wall time: 1.254358 seconds. This classification means site cookies could not be read/decrypted or no usable site cookies were available; it does not establish the exact underlying cause. No authenticated metadata or video was obtained, V2 was not reached, and temporary cookie material was cleaned. Further repeated attempts or encryption bypass were not performed. A local video remains the available continuation path.

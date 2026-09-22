@@ -15,3 +15,4 @@ benchmark/result/inspection/
 **/cookies*.json
 **/Cookies
 **/cookies.sqlite*
+local-companion/.local/
