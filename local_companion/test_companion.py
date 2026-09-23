@@ -70,7 +70,7 @@ class APITests(unittest.TestCase):
         self.assertEqual(self.req()[0],200)
         for h in [{'X-GTC-Token':''},{'X-GTC-Extension-ID':'b'*32},{'Origin':'https://evil.example'},{'Host':'evil.example'},{'Origin':''}]:self.assertEqual(self.req(headers=h)[0],403)
     def test_no_arbitrary_command_or_path_endpoints(self):
-        self.assertEqual(self.req('/convert','POST',{'command':'calc'})[0],404)
+        self.assertEqual(self.req('/convert','POST',{'command':'calc'})[0],400)
         self.assertEqual(self.req('/runs/../../secret/status')[0],404)
         self.assertEqual(self.req('/acquire','POST',{'command':'calc'})[0],400)
     def test_preflight_does_not_disclose_authentication(self):

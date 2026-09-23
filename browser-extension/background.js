@@ -51,7 +51,7 @@ chrome.runtime.onMessage.addListener((message, sender, respond) => {
       const page = await discover();
       if (page.protected) throw new Error('protected_or_drm');
       if (!page.media_candidates.length) throw new Error(page.blob_detected ? 'blob_without_backing_media' : 'no_media_candidate');
-      const result = await api('/acquire', page);
+      const result = await api('/convert', page);
       await chrome.storage.local.set({lastRun: result.run_id});
       return result;
     }

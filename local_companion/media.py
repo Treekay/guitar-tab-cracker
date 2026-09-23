@@ -23,8 +23,8 @@ def ordered(candidates):
     kind={'direct':0,'hls':1,'unknown':2,'dash':3}
     return sorted(candidates,key=lambda c:(kind[c['type']],priority[c['source']]))[:5]
 
-def acquire(data,run,ffprobe,ffmpeg):
-    run=Path(run).resolve();timer=Timer(run);timer.begin('Browser extension acquisition only; downstream conversion not started')
+def acquire(data,run,ffprobe,ffmpeg,*,conversion=False):
+    run=Path(run).resolve();timer=Timer(run);timer.begin('One-click acquisition and complete conversion' if conversion else 'Browser extension acquisition only; downstream conversion not started')
     record={'provider':'browser-extension','source_type':'browser_session','authentication_mode':'browser_authorized_url',
             'page_url':redacted(data['page_url']),'source_url':redacted(data['page_url']),'page_title':data['page_title'],
             'status':'failed','attempts':[],'local_path':None,'remote_download_files':[],
@@ -89,5 +89,5 @@ def acquire(data,run,ffprobe,ffmpeg):
             record['cleanup']={'status':'pending','removed_paths':[]}
             record['pipeline_handoff']={'ready':True,'local_video_path':record['local_path'],'conversion_started':False}
         atomic(run/'result/source/source.json',record)
-        timer.finish()
+        if not conversion or record['status']!='success':timer.finish()
     return record

@@ -2,10 +2,11 @@
 <html lang="zh-CN"><head><meta charset="utf-8"><title>Guitar Tab Cracker</title><link rel="stylesheet" href="popup.css"></head>
 <body><h1>Guitar Tab Cracker</h1><p class="label">当前页面</p><p id="title">正在读取…</p>
 <p id="status" role="status">检测媒体中…</p>
-<button id="send" disabled>发送视频到 Guitar Tab Cracker</button>
+<button id="send" disabled>转换为 Guitar Pro</button>
 <div class="row"><button id="inspect">检查媒体候选</button><button id="observe">观察播放请求</button></div>
 <p class="hint">若只发现 blob，点击观察后继续播放，再检查候选。观察仅针对当前标签页，持续 3 分钟。</p>
 <ul id="candidates" hidden></ul><pre id="result"></pre>
+<div id="outputs" hidden></div>
 <details id="setup"><summary>本地服务配对</summary><p>从本地 pairing.html 复制配对码，粘贴到这里。配对码只保存在此扩展中。</p>
 <label for="token">配对码</label><input id="token" type="password" autocomplete="off"><button id="save">保存并检查连接</button></details>
 <script type="module" src="popup.js"></script></body></html>

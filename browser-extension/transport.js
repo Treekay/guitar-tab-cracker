@@ -1,4 +1,13 @@
 const BASE = 'http://127.0.0.1:8787';
+export async function outputFile(runId, name) {
+  if (!/^extension-[a-f0-9]{32}$/.test(runId) || !['score.gp','final_report.md','verification_report.md','full_score.pdf','timing.json'].includes(name)) throw new Error('invalid_request');
+  const {token} = await chrome.storage.local.get('token');
+  if (!token) throw new Error('local_authorization_failed');
+  const response = await fetch(`${BASE}/runs/${runId}/files/${name}`, {credentials:'omit',cache:'no-store',
+    headers:{'X-GTC-Token':token,'X-GTC-Extension-ID':chrome.runtime.id},signal:AbortSignal.timeout(30000)});
+  if (!response.ok) throw new Error(response.status===403?'local_authorization_failed':'outputs_not_ready');
+  return response.blob();
+}
 export async function api(path, payload) {
   const {token} = await chrome.storage.local.get('token');
   if (!token) throw new Error('local_authorization_failed');

@@ -37,5 +37,5 @@ test('only own popup can initiate handoff and payload is freshly discovered',asy
  assert.equal(listener({action:'send'},{...sender,tab:{id:1}},()=>{}),false);
  assert.equal(listener({action:'send'},{...sender,url:'https://evil.example'},()=>{}),false);
  const result=await new Promise(resolve=>listener({action:'send',body:{url:'https://evil.example'}},sender,resolve));
- assert.equal(result.ok,true);assert.equal(sent.path,'/acquire');assert.equal(sent.body.page_url,page.page_url);
+ assert.equal(result.ok,true);assert.equal(sent.path,'/convert');assert.equal(sent.body.page_url,page.page_url);
 });

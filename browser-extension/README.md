@@ -6,13 +6,20 @@
 3. Open `local-companion/.local/pairing.html` locally. Copy its installation token
    into **本地服务配对** in the extension popup and check the connection.
 4. Open the authorized video normally and confirm it plays. Click the extension,
-   inspect candidates if useful, then **发送视频到 Guitar Tab Cracker**.
+   inspect candidates if useful, then **转换为 Guitar Pro**.
 5. If only a blob player is found, click **观察播放请求**, grant optional host access,
    replay/seek the video, then reopen the popup and inspect/send again. Observation
    lasts three minutes for that tab; navigation/closing the tab clears it.
-6. Wait for the validated local path. The popup can be closed while the companion
-   works; reopening polls the last run. Pass this path to the existing score
-   conversion workflow. Acquisition does not automatically claim a GP exists.
+6. Wait while the popup shows the actual pipeline stage and elapsed time. The
+   companion automatically runs the existing Codex visual workflow after acquisition.
+   Closing the popup does not stop conversion; reopening polls the last run.
+7. After completion, download the GP and report from the popup. Review-required
+   results still expose the GP and verification report. Failed/unverified outputs
+   are not offered as completed files. No separate conversion chat is needed.
+
+One-time setup additionally requires an authenticated Codex CLI (`codex login`).
+See the companion instructions to select the exact CLI installation. After updating
+this unpacked extension, click Reload on the browser's extensions page.
 
 Manifest V3; Chrome and Edge. The stable extension ID is in `extension-id.txt`.
 The public manifest key stabilizes this ID; it is not a signing key or secret.
