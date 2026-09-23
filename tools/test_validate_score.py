@@ -28,6 +28,17 @@ class ValidatorTests(unittest.TestCase):
     def check(self):return validate(self.score,self.base,self.manifest)
     def event(self):return self.score['measures'][0]['events'][0]
     def test_valid(self):self.assertTrue(self.check()['valid']);self.assertFalse(self.check()['warnings'])
+    def test_event_strokes(self):
+        self.event()['notes'].append(dict(self.event()['notes'][0],string=6))
+        self.event().update(brush={'type':'arpeggio','direction':'up'},pick_stroke='down')
+        self.assertTrue(self.check()['valid'])
+        for value in [{'type':'unknown','direction':'up'},{'type':'strum','direction':'sideways'},{'type':'arpeggio'}]:
+            self.event()['brush']=value;self.assertFalse(self.check()['valid'])
+        self.event()['brush']={'type':'strum','direction':'down'}
+        self.event()['notes'].pop();self.assertFalse(self.check()['valid'])
+        self.event().update(brush=None,pick_stroke='up',notes=[],rest=True)
+        self.assertFalse(self.check()['valid'])
+        self.event()['pick_stroke']=None;self.assertTrue(self.check()['valid'])
     def test_dot_tuplet_exact(self):
         self.event().update(duration=8,dots=2,tuplet={'numerator':3,'denominator':2})
         self.assertEqual(duration(self.event()),Fraction(7,48))

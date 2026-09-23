@@ -25,6 +25,37 @@ function roundtrip(c) {
 }
 const beats=r=>r.imported.tracks[0].staves[0].bars[0].voices[0].beats;
 
+for (const [type,direction,target] of [
+    ['arpeggio','up','ArpeggioDown'],['arpeggio','down','ArpeggioUp'],
+    ['strum','up','BrushDown'],['strum','down','BrushUp']]) {
+    test(`${type} ${direction} arrow survives GP with correct target convention`,()=>{
+        const c=fixture([[event([note(1,0),note(3,2),note(6,0)],4,{brush:{type,direction}})]]);
+        const r=roundtrip(c),b=beats(r)[0];
+        assert.equal(b.brushType,a.model.BrushType[target]);
+        assert.equal(b.brushDuration,type==='arpeggio'?240:60);
+        assert.ok(r.mapping.technical_defaults.some(x=>x.field==='events.1/1.brush_duration_ticks'));
+        b.brushType=a.model.BrushType.None;
+        assert.equal(compare(c,r.imported,r.mapping).valid,false,'Missing brush must fail comparison');
+        b.brushType=a.model.BrushType[target.endsWith('Down')?target.replace('Down','Up'):target.replace('Up','Down')];
+        assert.equal(compare(c,r.imported,r.mapping).valid,false,'Reversed direction must fail comparison');
+    });
+}
+for (const direction of ['up','down']) test(`pick stroke ${direction} coexists with arpeggio`,()=>{
+    const c=fixture([[event([note(1,0),note(6,0)],4,{brush:{type:'arpeggio',direction:'up'},pick_stroke:direction})]]);
+    const r=roundtrip(c);assert.equal(beats(r)[0].pickStroke,direction==='up'?a.model.PickStroke.Up:a.model.PickStroke.Down);
+    beats(r)[0].pickStroke=a.model.PickStroke.None;assert.equal(compare(c,r.imported,r.mapping).valid,false);
+});
+test('brush playback default respects short dotted tuplet without changing rhythm',()=>{
+    const r=roundtrip(fixture([[event([note(1),note(6)],64,{dots:1,tuplet:{numerator:3,denominator:2},brush:{type:'arpeggio',direction:'up'}})]]));
+    assert.equal(beats(r)[0].brushDuration,30);
+});
+test('reject malformed strokes and strokes on rests',()=>{
+    for(const extra of [{brush:{type:'arpeggio',direction:'sideways'}},{brush:{type:'unknown',direction:'up'}},{pick_stroke:'sideways'}])
+        assert.throws(()=>adapt(fixture([[event([note(1),note(6)],4,extra)]])));
+    assert.throws(()=>adapt(fixture([[event([],4,{pick_stroke:'down'})]])));
+    assert.throws(()=>adapt(fixture([[event([note()],4,{brush:{type:'strum',direction:'up'}})]])));
+});
+
 test('root source uncertainty survives export provenance without invented notes',()=>{
     const c=fixture();c.unresolved=[{measure:1,event:1,field:'grace_slide',
         issue:'Small unmetered onset cannot be encoded in schema v1',candidates:[],confidence:'medium'}];

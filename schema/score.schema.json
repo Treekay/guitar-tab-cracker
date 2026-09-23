@@ -434,6 +434,44 @@
               "type": "null"
             }
           ]
+        },
+        "brush": {
+          "description": "Optional written chord stroke. Direction is the arrow on top-string-first TAB: up toward string 1, down toward string 6. Omitted/null means no encoded mark.",
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "enum": [
+                    "arpeggio",
+                    "strum"
+                  ]
+                },
+                "direction": {
+                  "enum": [
+                    "up",
+                    "down"
+                  ]
+                }
+              },
+              "required": [
+                "type",
+                "direction"
+              ],
+              "additionalProperties": false
+            }
+          ]
+        },
+        "pick_stroke": {
+          "description": "Independent pick-direction symbol: down is squared staple, up is V. May coexist with brush. Omitted/null means no encoded symbol.",
+          "enum": [
+            "up",
+            "down",
+            null
+          ]
         }
       },
       "required": [

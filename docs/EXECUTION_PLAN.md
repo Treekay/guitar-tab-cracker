@@ -142,6 +142,10 @@ not required; re-imported SVG/PNG previews provide visual review evidence.
 
 ## V4 verification layer
 
+Completed stroke-support correction: optional canonical brush type/direction
+and pick stroke; native GP mapping; independent semantic comparison; both-direction
+fixtures; source-backed Silver Lining re-export. See [acceptance](../acceptance/EVENT_STROKES.md).
+
 Verification now separates source/reference disagreement from transcription,
 assembly, adapter and target-rendering faults. Keep full deterministic assembly,
 validator and GP round-trip checks; focus independent visual effort on source

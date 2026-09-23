@@ -61,6 +61,10 @@ def validate(score, base, manifest, selected=None):
             errors.append({'measure':seq,'issue':'Event indices are not contiguous from 1'})
         voices={}
         for e in m['events']:
+            if e.get('brush') is not None and (e['rest'] or len(e['notes']) < 2):
+                errors.append({'measure':seq,'event':e['index'],'issue':'Brush requires a chord with at least two notes'})
+            if e.get('pick_stroke') is not None and e['rest']:
+                errors.append({'measure':seq,'event':e['index'],'issue':'Pick stroke cannot be applied to a rest'})
             strings=[n['string'] for n in e['notes']]
             if len(strings) != len(set(strings)):
                 errors.append({'measure':seq,'event':e['index'],'issue':'Duplicate string in simultaneous event'})

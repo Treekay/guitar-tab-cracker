@@ -1,3 +1,18 @@
+# Chord strokes (backward-compatible v1 extension)
+
+Events may carry `brush: {"type": "arpeggio" | "strum", "direction": "up" | "down"}`
+and independently `pick_stroke: "up" | "down"`. Omitted or null means no encoded
+mark, preserving old v1 files. Brush requires at least two simultaneous notes;
+neither mark is valid on a rest. Both can coexist on the same chord.
+
+Brush direction is the **visible arrow on top-string-first TAB**: up points
+toward string 1 (low strings to high strings), down toward string 6. Arpeggio
+uses a wavy arrow; strum a straight arrow. Pick direction is the conventional
+hand stroke: down is the squared staple symbol, up the V symbol. Do not conflate
+these conventions or infer one mark from the other. Record visible marks on
+the event, not merely in unresolved notes. No per-note ordering or timing is
+required. Unclear direction remains an unresolved source item.
+
 # Canonical written score, schema version 1
 
 The schema is exporter independent: [score.schema.json](../schema/score.schema.json).

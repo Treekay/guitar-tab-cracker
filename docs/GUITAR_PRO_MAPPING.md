@@ -1,3 +1,25 @@
+# Event stroke mapping
+
+Optional canonical `brush` retains arpeggio/strum type and the visible TAB arrow
+direction. In pinned alphaTab 1.8.4, **up arrow maps to ArpeggioDown/BrushDown**;
+down arrow maps to ArpeggioUp/BrushUp. The enum names follow hand stroke rather
+than screen arrow direction. Verified against TabBrushGlyph and a re-imported
+four-direction rendering fixture. `pick_stroke` independently maps up/down to
+PickStroke.Up/Down (V/staple), including coexistence with an arpeggio.
+
+Gp7Exporter writes native Arpeggio, Brush and PickStroke properties; no archive
+patching or image substitution. Round-trip comparison checks type, direction,
+pick symbol and playback spread, detecting missing or reversed effects.
+
+Canonical stores no guessed timing. For playback only, the adapter records a
+technical spread default: 240 MIDI ticks for arpeggios, 60 for strums, capped at
+half the event duration (minimum 1; 960 ticks/quarter). This is an exporter choice,
+not a recognized source value, and does not change written durations or notes.
+
+References: [BrushType](https://alphatab.net/docs/reference/types/model/brushtype/),
+[PickStroke](https://alphatab.net/docs/reference/types/model/pickstroke/),
+[Beat](https://docs.alphatab.net/docs/reference/types/model/beat/).
+
 # Canonical → alphaTab mapping
 
 Use a separate Node ESM adapter with pinned `@coderline/alphatab` 1.8.4.

@@ -30,6 +30,8 @@ def risks(score):
         if b['ending_numbers']: features.add('alternate_ending')
         if b['end'] in ('final','double'): features.add('bar_boundary')
         for e in m['events']:
+            if e.get('brush'): features.add(e['brush']['type'])
+            if e.get('pick_stroke'): features.add('pick_stroke')
             if e['dots']: features.add('dotted_rhythm')
             if e['tuplet']: features.add('tuplet')
             if len(e['notes']) > 1: features.add('chord')

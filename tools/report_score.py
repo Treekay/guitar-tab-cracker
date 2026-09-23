@@ -54,6 +54,8 @@ def report(root, selected):
             marks=[n['display'] for n in e['notes'] if n['display']!='fret']
             marks += [t for n in e['notes'] for t in n['techniques']]
             if e['tuplet']:marks.append('tuplet '+str(e['tuplet']))
+            if e.get('brush'):marks.append(e['brush']['type']+' arrow '+e['brush']['direction'])
+            if e.get('pick_stroke'):marks.append('pick stroke '+e['pick_stroke'])
             lines.append(f"| {e['index']} | {e['duration']}{'.'*e['dots']} | {notes} | {', '.join(marks)} |")
         relations=[r for r in s['relations'] if r['from']['measure']==seq or (r['to'] and r['to']['measure']==seq)]
         if relations:lines+=['','Relations:','', '```json',json.dumps(relations,indent=2),'```']

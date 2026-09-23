@@ -28,7 +28,10 @@ export function canonicalSemantics(c) {
                         let_ring:has('let_ring')||c.annotations.some(a=>a.type==='let_ring'&&(a.scope==='score'?mi+1>=a.measure:mi+1===a.measure)),
                         vibrato:has('vibrato')?'Slight':'None',bend:amount==null?[]:(bendType==='bend'?[[0,0],[60,amount*2]]:[[0,amount*2],[60,0]])};
                 });
-                return {duration:e.duration,dots:e.dots,tuplet:e.tuplet,rest:e.rest,notes:sortNotes(notes)};
+                const ticks=3840/e.duration*(2-2**(-e.dots))*(e.tuplet?e.tuplet.denominator/e.tuplet.numerator:1);
+                return {duration:e.duration,dots:e.dots,tuplet:e.tuplet,rest:e.rest,notes:sortNotes(notes),
+                    brush:e.brush??null,pick_stroke:e.pick_stroke??null,
+                    brush_duration_ticks:e.brush?Math.max(1,Math.min(e.brush.type==='arpeggio'?240:60,Math.floor(ticks/2))):0};
             })}));
         return {signature:{...signature},tempo,repeat_start:m.barline.repeat_start,repeat_end:m.barline.repeat_end,
             repeat_count:m.barline.repeat_end?(m.barline.repeat_count??2):0,endings:[...m.barline.ending_numbers].sort((a,b)=>a-b),
@@ -73,7 +76,15 @@ export function importedSemantics(score) {
                         accent:n.accentuated===M.AccentuationType.Normal,palm_mute:n.isPalmMute,let_ring:n.isLetRing,
                         vibrato:M.VibratoType[n.vibrato],bend:n.bendPoints?.map(p=>[p.offset,p.value])??[]};
                 });
-                return {duration:b.duration,dots:b.dots,tuplet:b.hasTuplet?{numerator:b.tupletNumerator,denominator:b.tupletDenominator}:null,rest:b.isRest,notes:sortNotes(notes)};
+                const brushes={
+                    [M.BrushType.ArpeggioDown]:{type:'arpeggio',direction:'up'},
+                    [M.BrushType.ArpeggioUp]:{type:'arpeggio',direction:'down'},
+                    [M.BrushType.BrushDown]:{type:'strum',direction:'up'},
+                    [M.BrushType.BrushUp]:{type:'strum',direction:'down'}};
+                return {duration:b.duration,dots:b.dots,tuplet:b.hasTuplet?{numerator:b.tupletNumerator,denominator:b.tupletDenominator}:null,rest:b.isRest,notes:sortNotes(notes),
+                    brush:b.brushType===M.BrushType.None?null:(brushes[b.brushType]??{unknown:b.brushType}),
+                    pick_stroke:b.pickStroke===M.PickStroke.None?null:b.pickStroke===M.PickStroke.Up?'up':b.pickStroke===M.PickStroke.Down?'down':{unknown:b.pickStroke},
+                    brush_duration_ticks:b.brushDuration};
             })}));
         const endings=[];for(let bit=0;bit<32;bit++)if((m.alternateEndings>>>bit)&1)endings.push(bit+1);
         return {signature:{numerator:m.timeSignatureNumerator,denominator:m.timeSignatureDenominator},tempo,

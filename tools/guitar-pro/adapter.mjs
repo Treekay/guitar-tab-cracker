@@ -86,6 +86,24 @@ export function adapt(canonical) {
             const beat=new M.Beat();voices[ce.voice-1].addBeat(beat);beat.duration=durations[ce.duration];beat.dots=ce.dots;
             if(ce.tuplet){beat.tupletNumerator=ce.tuplet.numerator;beat.tupletDenominator=ce.tuplet.denominator;}
             requireValue(ce.rest ? ce.notes.length===0 : ce.notes.length>0,'Invalid rest/notes combination');
+            if (ce.brush != null) {
+                const {type,direction}=ce.brush;
+                requireValue(!ce.rest && ce.notes.length>=2,'Brush requires a chord');
+                requireValue(['arpeggio','strum'].includes(type)&&['up','down'].includes(direction),'Invalid brush type/direction');
+                // Canonical direction is the arrow on top-string-first TAB.
+                // alphaTab Down renders an UP arrow (low strings to high strings).
+                beat.brushType=type==='arpeggio'
+                    ? (direction==='up'?M.BrushType.ArpeggioDown:M.BrushType.ArpeggioUp)
+                    : (direction==='up'?M.BrushType.BrushDown:M.BrushType.BrushUp);
+                const ticks=3840/ce.duration*(2-2**(-ce.dots))*(ce.tuplet?ce.tuplet.denominator/ce.tuplet.numerator:1);
+                beat.brushDuration=Math.max(1,Math.min(type==='arpeggio'?240:60,Math.floor(ticks/2)));
+                mapping.technical_defaults.push({field:`events.${mi+1}/${ce.index}.brush_duration_ticks`,canonical:null,
+                    export_value:beat.brushDuration,reason:'Playback-only spread default (960 ticks/quarter): arpeggio 240, strum 60, capped at half the written event; source specifies type/direction, not timing'});
+            }
+            if (ce.pick_stroke != null) {
+                requireValue(!ce.rest&&['up','down'].includes(ce.pick_stroke),'Invalid pick stroke');
+                beat.pickStroke=ce.pick_stroke==='up'?M.PickStroke.Up:M.PickStroke.Down;
+            }
             beatMap.set(`${mi+1}/${ce.index}`,beat);
             const strings=new Set();
             for(const cn of ce.notes) {
