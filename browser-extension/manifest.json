@@ -18,7 +18,19 @@
     "http://*/*"
   ],
   "action": {
-    "default_popup": "popup.html"
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/guitar-16.png",
+      "32": "icons/guitar-32.png",
+      "48": "icons/guitar-48.png",
+      "128": "icons/guitar-128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/guitar-16.png",
+    "32": "icons/guitar-32.png",
+    "48": "icons/guitar-48.png",
+    "128": "icons/guitar-128.png"
   },
   "background": {
     "service_worker": "background.js",

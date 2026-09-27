@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 64 64">
+  <title>Guitar Tab Cracker</title>
+  <g transform="rotate(40 32 32)" fill="#126b60">
+    <path d="M28 5Q32 3 36 5L35 16H29Z"/>
+    <path d="M29 14H35V36H29Z"/>
+    <path d="M26 30C20 28 16 33 19 39C20 42 16 43 15 48C12 57 21 62 32 62S52 57 49 48C48 43 44 42 45 39C48 33 44 28 38 30C35 32 29 32 26 30Z"/>
+    <path d="M26 7H29M35 7H38M26 12H29M35 12H38" fill="none" stroke="#126b60" stroke-width="3" stroke-linecap="round"/>
+    <circle cx="32" cy="42" r="5" fill="#fff"/>
+    <circle cx="32" cy="42" r="3" fill="#126b60"/>
+    <path d="M30.5 17V52M33.5 17V52" fill="none" stroke="#fff" stroke-width="1"/>
+    <path d="M27 53H37" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
+  </g>
+</svg>
