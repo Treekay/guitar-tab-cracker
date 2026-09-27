@@ -5,16 +5,17 @@ import json
 from pathlib import Path
 import re
 import socket
+import shutil
 import threading
 import uuid
 import time
 from datetime import datetime,timezone
 from .agent_runner import CodexRunner
-from .conversion import stage,validate_completion,output_path,FILES,read,sha,owned
+from .conversion import stage,validate_completion,output_path,FILES,read,sha,owned,agent_failure
 from .config import ROOT,HOST,PORT,STATE,load
 from .security import MAX_BODY,authorize,payload
 from .media import acquire
-from pipeline.timing import atomic
+from pipeline.timing import atomic,Timer
 
 class Companion(ThreadingHTTPServer):
     daemon_threads=True
@@ -63,19 +64,33 @@ class Companion(ThreadingHTTPServer):
             self.cancellations[run_id].set();return True
     def resume_failed(self,run_id):
         """Explicit local recovery only; no HTTP caller may supply a video path."""
+        setup_issue=self.runner.readiness()
+        if setup_issue:raise ValueError(setup_issue)
         if not re.fullmatch(r'extension-[a-f0-9]{32}',run_id):raise ValueError('invalid_run_id')
         run=self.runs/run_id
         status=read(owned(run,'working/job_status.json'))
         result=read(owned(run,'result/source/source.json'))
         video=Path(result['local_path']).resolve()
-        if (status['status']!='failed' or status.get('failure_stage')!='v2_reconstruction'
+        if (status['status']!='failed' or status.get('failure_stage') not in ('v2_reconstruction','finalizing')
                 or result['status']!='success' or not video.is_relative_to((run/'working/acquisition').resolve())
                 or sha(video)!=result.get('sha256')):
             raise ValueError('run_not_resumable')
         with self.lock:
             if any(x['status']=='running' for x in self.jobs.values()):raise ValueError('busy')
+            archive=run/'working/recovery'/uuid.uuid4().hex
+            for relative in ('working/job_status.json','working/timing_state.json','working/agent_failure.json',
+                    'working/logs/agent.stdout.log','working/logs/agent.stderr.log',
+                    'result/timing.json','result/final_report.json','result/final_report.md',
+                    'result/v3/verification/verification.json','result/v3/verification/verification_report.md'):
+                source=run/relative
+                if source.is_file():
+                    source=owned(run,relative);dest=archive/relative
+                    dest.parent.mkdir(parents=True,exist_ok=True);shutil.copy2(source,dest)
+            if (run/'working/timing_state.json').is_file():Timer(run).resume_failed()
+            failure_file=run/'working/agent_failure.json'
+            if failure_file.is_file():owned(run,'working/agent_failure.json').unlink()
             history=status.setdefault('attempts',[])
-            history.append({k:status.get(k) for k in ('agent_exit_code','reason','end_time')})
+            history.append({**{k:status.get(k) for k in ('agent_exit_code','reason','end_time')},'archive':str(archive.relative_to(run))})
             for key in ('end_time','reason','failure_stage','agent_exit_code'):status.pop(key,None)
             status.update(status='running',stage='v2_reconstruction',message='Retrying with retained validated video')
             self.jobs[run_id]=status;self.cancellations[run_id]=threading.Event()
@@ -101,6 +116,10 @@ class Companion(ThreadingHTTPServer):
             outcome=self.runner.run_conversion(run,result['local_path'],self.cancellations[run_id],progress)
             self.update(run_id,agent_exit_code=outcome.exit_code)
             if outcome.reason or outcome.exit_code:raise ValueError(outcome.reason or 'agent_exit_failed')
+            failure=agent_failure(run)
+            if failure:
+                self.update(run_id,stage=failure['stage'])
+                raise ValueError(failure['reason'])
             self.update(run_id,stage='finalizing',message='Checking current files and re-importing Guitar Pro')
             outputs=validate_completion(run)
             self.update(run_id,status='completed',stage='completed',message='Conversion complete',result=outputs)

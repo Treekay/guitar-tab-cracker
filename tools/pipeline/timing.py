@@ -50,6 +50,18 @@ class Timer:
         if s['host']!=platform.node() or time.monotonic_ns()<s['start_ns'] or abs(time.time()-time.monotonic()-s['boot_estimate'])>60:
             raise ValueError('Host/boot/clock continuity lost; do not fabricate elapsed time. Start a fresh run.')
         return s
+    def resume_failed(self):
+        """Explicit repair continuation; preserve earlier spans and end timestamps."""
+        with self.locked():
+            s=json.loads(self.state.read_text(encoding='utf8'))
+            if not s['finished_at']:return self.load()
+            if s['active']:raise ValueError('Cannot resume with open spans')
+            if s['host']!=platform.node() or time.monotonic_ns()<s['start_ns'] or abs(time.time()-time.monotonic()-s['boot_estimate'])>60:
+                raise ValueError('Host/boot/clock continuity lost; start a fresh run')
+            s.setdefault('repair_continuations',[]).append({'previous_finished_at':s['finished_at'],
+                'previous_finish_ns':s.get('finish_ns'),'resumed_at':utc()})
+            s['finished_at']=None;s.pop('finish_ns',None)
+            self.save(s)
     def save(self,s):
         now=s.get('finish_ns',time.monotonic_ns());phases={}
         for phase in PHASES:

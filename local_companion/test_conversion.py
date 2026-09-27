@@ -6,7 +6,7 @@ import unittest
 from unittest.mock import patch
 from .test_companion import APITests,body
 from .agent_runner import AgentRunResult,CodexRunner
-from .conversion import output_path,stage,validate_completion,sha
+from .conversion import output_path,stage,validate_completion,sha,agent_failure
 from pipeline.timing import Timer
 
 
@@ -57,6 +57,7 @@ class ConversionTests(APITests):
             _,job=self.req('/convert','POST',body());self.server.executor.shutdown(wait=True)
             _,status=self.req(job['status_url']);self.assertEqual(status['status'],'failed')
             self.assertEqual(status['failure_stage'],'finalizing')
+            self.assertEqual(status['reason'],'missing_score_gp')
             self.assertEqual(self.req(f'/runs/{job["run_id"]}/files/score.gp')[0],409)
     def test_runtime_setup_fails_before_download(self):
         self.server.runner.readiness=lambda:'agent_not_authenticated'
@@ -75,6 +76,29 @@ class ConversionTests(APITests):
             self.assertEqual(self.req(job['status_url'])[1]['reason'],'conversion_cancelled')
 
 class GateTests(unittest.TestCase):
+    def test_dependency_failure_is_checked_before_cli(self):
+        def importing(name):
+            if name.startswith('reportlab'):raise ModuleNotFoundError(name)
+        with patch('local_companion.agent_runner.subprocess.run') as cli,patch('local_companion.agent_runner.importlib.import_module',side_effect=importing):
+            self.assertEqual(CodexRunner('codex').readiness(),'dependency_reportlab_missing')
+            cli.assert_not_called()
+    def test_reported_runtime_failure_only_accepts_known_values(self):
+        with tempfile.TemporaryDirectory() as d:
+            p=Path(d)/'working/agent_failure.json';p.parent.mkdir()
+            p.write_text(json.dumps({'stage':'v2_reconstruction','reason':'dependency_reportlab_missing'}))
+            self.assertEqual(agent_failure(d)['reason'],'dependency_reportlab_missing')
+            p.write_text(json.dumps({'stage':'completed','reason':'arbitrary text'}))
+            self.assertIsNone(agent_failure(d))
+    def test_finished_timer_repair_preserves_failed_spans(self):
+        with tempfile.TemporaryDirectory() as d:
+            t=Timer(d);t.begin();t.start('v2');t.stop('v2','failed');t.finish()
+            before=json.loads(t.state.read_text(encoding='utf8'))
+            t.resume_failed();after=t.load()
+            self.assertEqual(before['spans'],after['spans'])
+            self.assertEqual(before['start_ns'],after['start_ns'])
+            self.assertEqual(after['repair_continuations'][0]['previous_finished_at'],before['finished_at'])
+            self.assertEqual(stage(d),'v2_reconstruction')
+            t.start('v2');t.stop('v2');t.finish()
     def test_npm_shim_uses_node_without_command_shell(self):
         with tempfile.TemporaryDirectory() as d:
             root=Path(d);entry=root/'node_modules/@openai/codex/bin/codex.js'

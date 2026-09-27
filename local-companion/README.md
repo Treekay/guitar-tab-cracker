@@ -3,6 +3,8 @@
 Start from the repository root with Python 3.11+:
 
 ```powershell
+F:/anaconda/python.exe -m pip install -r local-companion/requirements.txt
+npm ci
 python -m local_companion
 # This workstation, where default python can be 3.9:
 F:/anaconda/python.exe -m local_companion
@@ -29,16 +31,20 @@ The explicit `--codex-path` is saved in the ignored local installation config an
 reused on subsequent starts. Login success alone does not establish model
 compatibility: `agent_upgrade_required` means the selected CLI must be upgraded
 or replaced with an installed version that supports the configured model.
-For an explicitly inspected failure at V2 startup, `--resume-run extension-<id>`
+For an explicitly inspected failure at V2 startup or final validation, `--resume-run extension-<id>`
 retries that run's retained video only after checking its recorded SHA-256.
-It retains the failed attempt in job status; elapsed time includes recovery.
+It archives prior logs/reports/timing under `working/recovery/`, retains the failed
+attempt in job status, and explicitly reopens a finished timer only on the same
+host/boot. Prior spans remain intact; elapsed time includes recovery.
 This is a repair retry, not a clean one-click acceptance run.
 
 Start companion → open/play video → click **转换为 Guitar Pro** → wait → download
 GP/report in the popup. One click creates one run and automatically executes
 the existing skill's V2/V3/GP/V4 workflow. No manual Codex prompt is needed.
 
-No server dependency installation is needed. ffmpeg and ffprobe default to this
+The HTTP server itself uses Python's standard library. Conversion requires the
+Python packages above; missing imports fail preflight before downloading video.
+ffmpeg and ffprobe default to this
 repository's existing temporary runtime; otherwise pass `--ffmpeg PATH --ffprobe PATH`.
 `start.ps1` is a foreground shortcut; close its terminal/Ctrl+C to stop. Do not
 interrupt an active acquisition if you need its result.

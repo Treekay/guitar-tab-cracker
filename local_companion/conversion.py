@@ -10,6 +10,15 @@ FILES={'score.gp':'result/v3/export/score.gp','final_report.md':'result/final_re
        'verification_report.md':'result/v3/verification/verification_report.md','full_score.pdf':'result/full_score.pdf'}
 STAGES={'acquisition':'acquisition','v2':'v2_reconstruction','v3':'v3_transcription',
         'guitar_pro':'gp_export','v4':'v4_verification'}
+
+def agent_failure(run):
+    """Only allowlisted diagnostics; agent messages can never grant success."""
+    path=Path(run)/'working/agent_failure.json'
+    if not path.is_file():return None
+    data=read(path)
+    if data.get('stage') not in STAGES.values():return None
+    reasons={'dependency_reportlab_missing','pipeline_runtime_failed'}
+    return {'stage':data['stage'],'reason':data['reason'] if data.get('reason') in reasons else 'pipeline_runtime_failed'}
 def read(path):return json.loads(Path(path).read_text(encoding='utf-8'))
 def sha(path):return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 def owned(run,relative):
@@ -26,6 +35,9 @@ def stage(run,fallback='v2_reconstruction'):
         for key,value in STAGES.items():
             if key in active:return value
         spans=s.get('spans',[])
+        repairs=s.get('repair_continuations',[])
+        if repairs:
+            spans=[x for x in spans if x.get('started_at','')>=repairs[-1]['resumed_at']]
         if s.get('finished_at') or any(x['key']=='v4' for x in spans):return 'finalizing'
         parents=[x['key'] for x in spans if x['key'] in STAGES]
         if parents:return STAGES[parents[-1]] if parents[-1]!='acquisition' else fallback
@@ -35,6 +47,7 @@ def stage(run,fallback='v2_reconstruction'):
 def validate_completion(run):
     run=Path(run).resolve();base=run/'result/v3'
     for name in ['score.gp','final_report.json','final_report.md','timing.json']:
+        if not (run/FILES[name]).exists():raise ValueError('missing_'+name.replace('.','_'))
         if output_path(run,name).stat().st_size==0:raise ValueError('empty_required_output')
     report=read(output_path(run,'final_report.json'));timing=read(output_path(run,'timing.json'))
     statuses={'READY_FOR_DELIVERY','REVIEW_RECOMMENDED','REVIEW_REQUIRED'}
